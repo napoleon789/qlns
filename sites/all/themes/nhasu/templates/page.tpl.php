@@ -138,9 +138,23 @@
       <?php print render($page['featured']); ?>
     </div></div> <!-- /.section, /#featured -->
   <?php endif; ?>
-
+<?php global $base_url;?>
 
   <div id="main-wrapper" class="clearfix"><div id="page-wrapper"><div id="main" class="clearfix">
+
+              <?php if (is_numeric(arg(1)) && arg(2) == 'info'):?>
+                  <ul class="menu_student">
+                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/info">Thông tin cơ bản</a> </li>
+                      <li class="item menu2"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/kpi">KPI</a> </li>
+                  </ul>
+              <?php endif; ?>
+
+              <?php if (is_numeric(arg(1)) && arg(2) == 'kpi'):?>
+                  <ul class="menu_student">
+                      <li class="item menu1"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/info">Thông tin cơ bản</a> </li>
+                      <li class="item menu2 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/kpi">KPI</a> </li>
+                  </ul>
+              <?php endif; ?>
 
     <?php if ($page['sidebar_first']): ?>
       <div id="sidebar-first" class="column sidebar"><div class="section">

@@ -11,31 +11,58 @@ function nhansu_init() {
 
 function nhansu_menu() {
     $items['nhanvien/%/info'] = array(
-        'title' => '',
+        'title' => 'Thông tin',
         'page callback' => 'nhansu_info',
         'page arguments' => array(1),
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
     );
     $items['nhanvien/%/kpi'] = array(
-        'title' => '',
+        'title' => 'KPI',
         'page callback' => 'nhansu_info',
         'page arguments' => array(1),
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
+        'weight' => 1,
+    );
+    $items['quanly/nhanvien'] = array(
+        'title' => 'Nhân Viên',
+        'page callback' => 'nhansu_list_student',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 1,
+    );
+    $items['quanly/test'] = array(
+        'title' => 'Nhân Viên',
+        'page callback' => 'nhansu_list_uid',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 1,
     );
     return $items;
 }
-
+function nhansu_list_student() {
+    global $base_url;
+    $output = views_embed_view('nhanvien','default');
+    return $output;
+}
 function nhansu_info($id='') {
     module_load_include('inc', 'node', 'node.pages');
     $node = node_load($id);
     $form = node_page_edit($node);
     // $form = '<div class="clear-form goldprice-sxht">' . $form . '</div>';
+    if(arg(2) =='info'){
+        drupal_set_title(t('Sơ yếu lý lịch'));
+    }
+    if(arg(2) == 'kpi') {
+        drupal_set_title(t('Chỉ tiêu KPI'));
+    }
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
   if($form_id == 'article_node_form') {
+      $form['fgm_node_article_form_group_chiteu']['#access'] = false;
     $form['fgm_node_article_form_group_qhgd_banthan']['#prefix'] = '<h1>30) Quan hệ gia đình</h1><div id="fgm_node_article_form_group_qhgd_banthan-add-more-wrapper"><h3> a) Về bản thân: Cha, Mẹ, Vợ (hoặc chồng), các con, anh chị em ruột</h3>';
     $form['fgm_node_article_form_group_benvo']['#prefix'] = '<div id="fgm_node_article_form_group_benvo-add-more-wrapper"><h3> b) Về bên vợ (hoặc chồng): Cha, Mẹ, anh chị em ruột</h3>';
       $form['field_xa']['#prefix'] = '<h3>4) Nơi sinh: </h3>';
@@ -50,6 +77,45 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }
       }
+      if(arg(2) == 'kpi') {
+          if(!isset($form_state['build_info']['files'])){
+              $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+          }
+          $form['fgm_node_article_form_group_chiteu']['#access'] = true;
+      }
+    }
+
+}
+
+function nhansu_form_node_form_alter(&$form, &$form_state) {
+    if(arg(2) == 'kpi') {
+        field_group_hide_field_groups($form, array('group_soyeu'));
+    }
+}
+
+function nhansu_list_uid() {
+    global $user;
+    $query = db_query("SELECT uid FROM {users}");
+    foreach ($query as $row) {
+      $uid = $row -> uid;
+       $rows[] = $uid;
+
+    }
+    dpm($rows);
+    return "123";
+    $gd = $user ->roles[4];
+    $pgd = $user -> roles[5];
+    $tp = $user ->roles[6];
+    $nv = $user -> roles[7];
+    if(isset($gd) || isset($pgd)) {
+        $query = db_query("SELECT uid FROM {users}");
+        foreach ($query as $row) {
+            $uid = $row -> uid;
+            $rows[] = $uid;
+
+        }
+    }
+    if(isset($tp)) {
 
     }
 

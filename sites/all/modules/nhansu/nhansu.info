@@ -1,0 +1,5 @@
+name = "nhansu"
+description = "Nhan Sự"
+core = "7.x"
+package = "DPLDEV"
+version = "7.x"

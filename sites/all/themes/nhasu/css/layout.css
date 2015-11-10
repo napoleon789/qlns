@@ -300,3 +300,10 @@ body {
 .page-nhanvien .block-system .form-actions input {
   margin-right: 15px;
 }
+/* line 156, sass/_nhanvien.scss */
+.page-nhanvien .block-system h4 {
+  font-weight: normal;
+  font-size: 12px;
+  font-style: italic;
+  margin: 0;
+}

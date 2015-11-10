@@ -1,0 +1,109 @@
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url('../fonts/RobotoCondensedRegular_0.eot');
+  src: url('../fonts/RobotoCondensedRegular_0.eot') format('embedded-opentype'),
+  url('../fonts/RobotoCondensedRegular_0.woff2') format('woff2'),
+  url('../fonts/RobotoCondensedRegular_0.woff') format('woff'),
+  url('../fonts/RobotoCondensedRegular_0.ttf') format('truetype'),
+  url('../fonts/RobotoCondensedRegular_0.svg#RobotoCondensedRegular_0') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url('../fonts/RobotoCondensedBold_0.eot');
+  src: url('../fonts/RobotoCondensedBold_0.eot') format('embedded-opentype'),
+  url('../fonts/RobotoCondensedBold_0.woff2') format('woff2'),
+  url('../fonts/RobotoCondensedBold_0.woff') format('woff'),
+  url('../fonts/RobotoCondensedBold_0.ttf') format('truetype'),
+  url('../fonts/RobotoCondensedBold_0.svg#RobotoCondensedBold_0') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url('../fonts/RobotoCondensedBoldItalic_0.eot');
+  src: url('../fonts/RobotoCondensedBoldItalic_0.eot') format('embedded-opentype'),
+  url('../fonts/RobotoCondensedBoldItalic_0.woff2') format('woff2'),
+  url('../fonts/RobotoCondensedBoldItalic_0.woff') format('woff'),
+  url('../fonts/RobotoCondensedBoldItalic_0.ttf') format('truetype'),
+  url('../fonts/RobotoCondensedBoldItalic_0.svg#RobotoCondensedBoldItalic_0') format('svg');
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Roboto Condensed";
+  src: url('../fonts/RobotoCondensedItalic_0.eot');
+  src: url('../fonts/RobotoCondensedItalic_0.eot') format('embedded-opentype'),
+  url('../fonts/RobotoCondensedItalic_0.woff2') format('woff2'),
+  url('../fonts/RobotoCondensedItalic_0.woff') format('woff'),
+  url('../fonts/RobotoCondensedItalic_0.ttf') format('truetype'),
+  url('../fonts/RobotoCondensedItalic_0.svg#RobotoCondensedItalic_0') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
+input[type="text"], input[type="tel"], input[type="email"], input[type="password"], select{
+  background-color: #f4f3f3;
+  border: medium none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
+  height: 30px;
+  @include font();
+  font-size: 14px;
+  width: 100%;
+}
+textarea{
+  background-color: #f4f3f3;
+  border: medium none;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
+  @include font();
+  font-size: 14px;
+  width: 100%;
+}
+
+input[type="submit"]{
+  color: #2f2f2f;
+  font-size: 11px;
+  font-weight: bold;
+  @include font();
+  text-transform: uppercase;
+  padding: 5px 10px;
+  min-width: 104px;
+  background: #fcbc17;
+  @include border-radius(10px);
+  cursor: pointer;
+  border: none;
+  @include transition();
+  &:hover{
+    background: #2f2f2f;
+    color: #fff;
+  }
+}
+
+*{
+  @include box-sizing();
+}
+
+#content{
+  width: 1004px;
+  margin: auto;
+  background: #fff;
+  padding: 20px;
+
+}
+
+body{
+  @include font();
+  font-size: 15px;
+  color:#333;
+  background: url("../images/body.jpg") repeat;
+  margin: 0;
+  padding: 0;
+}
+
+.sticky-header{
+  display: none;
+}

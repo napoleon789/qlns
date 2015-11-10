@@ -160,3 +160,25 @@ body{
     }
   }
 }
+
+table{
+  border: 1px solid #ccc;
+  width: 100%;
+  tr.even, tr.odd{
+    background-color: transparent;
+  }
+  th,td{
+    padding: 5px 8px;
+    border-left: 1px solid #ccc;
+  }
+  th{
+    border-bottom-width: 1px;
+  }
+  tr{
+    th,td{
+      &:first-child{
+        border-left: none;
+      }
+    }
+  }
+}

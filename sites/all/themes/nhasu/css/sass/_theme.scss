@@ -87,6 +87,14 @@ input[type="submit"]{
   @include box-sizing();
 }
 
+a{
+  color: #333;
+  text-decoration: none;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
 #content{
   width: 1004px;
   margin: auto;
@@ -106,4 +114,49 @@ body{
 
 .sticky-header{
   display: none;
+}
+
+.menu_student{
+  margin: auto;
+  list-style: none;
+  width: 1004px;
+  background: #838484;
+  border-bottom: 3px solid #fcbc18;
+  padding: 0 20px;
+  li{
+    display: inline-block;
+    list-style: outside none none;
+    margin: 0 26px 0 0;
+    padding: 9px 0 11px;
+    position: relative;
+    @include transition();
+    &:hover, &.active{
+      &::after{
+        border-bottom: 12px solid #fcbc18;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        bottom: 0;
+        content: "";
+        display: block;
+        height: 0;
+        left: 50%;
+        margin-left: -3px;
+        position: absolute;
+        width: 0;
+      }
+      a{
+        color: #fcbc18;
+      }
+    }
+    a{
+      background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+      color: white;
+      float: none;
+      font-size: 18px;
+      &:hover{
+        text-decoration: none;
+        color: #fcbc18;
+      }
+    }
+  }
 }

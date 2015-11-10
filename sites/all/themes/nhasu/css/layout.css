@@ -81,6 +81,16 @@ input[type="submit"]:hover {
 }
 
 /* line 90, sass/_theme.scss */
+a {
+  color: #333;
+  text-decoration: none;
+}
+/* line 93, sass/_theme.scss */
+a:hover {
+  text-decoration: underline;
+}
+
+/* line 98, sass/_theme.scss */
 #content {
   width: 1004px;
   margin: auto;
@@ -88,7 +98,7 @@ input[type="submit"]:hover {
   padding: 20px;
 }
 
-/* line 98, sass/_theme.scss */
+/* line 106, sass/_theme.scss */
 body {
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
   font-size: 15px;
@@ -98,9 +108,59 @@ body {
   padding: 0;
 }
 
-/* line 107, sass/_theme.scss */
+/* line 115, sass/_theme.scss */
 .sticky-header {
   display: none;
+}
+
+/* line 119, sass/_theme.scss */
+.menu_student {
+  margin: auto;
+  list-style: none;
+  width: 1004px;
+  background: #838484;
+  border-bottom: 3px solid #fcbc18;
+  padding: 0 20px;
+}
+/* line 126, sass/_theme.scss */
+.menu_student li {
+  display: inline-block;
+  list-style: outside none none;
+  margin: 0 26px 0 0;
+  padding: 9px 0 11px;
+  position: relative;
+  -webkit-transition: all ease 0.5s;
+  transition: all ease 0.5s;
+}
+/* line 134, sass/_theme.scss */
+.menu_student li:hover::after, .menu_student li.active::after {
+  border-bottom: 12px solid #fcbc18;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 0;
+  left: 50%;
+  margin-left: -3px;
+  position: absolute;
+  width: 0;
+}
+/* line 147, sass/_theme.scss */
+.menu_student li:hover a, .menu_student li.active a {
+  color: #fcbc18;
+}
+/* line 151, sass/_theme.scss */
+.menu_student li a {
+  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+  color: white;
+  float: none;
+  font-size: 18px;
+}
+/* line 156, sass/_theme.scss */
+.menu_student li a:hover {
+  text-decoration: none;
+  color: #fcbc18;
 }
 
 /* line 1, sass/_header.scss */
@@ -114,6 +174,49 @@ body {
 #header #page-wrapper {
   width: 1004px;
   margin: auto;
+}
+/* line 9, sass/_header.scss */
+#header #logo {
+  float: left;
+}
+/* line 12, sass/_header.scss */
+#header #name-and-slogan {
+  display: none;
+}
+/* line 15, sass/_header.scss */
+#header .region-header {
+  float: right;
+  margin-top: 20px;
+}
+/* line 18, sass/_header.scss */
+#header .region-header h2 {
+  display: none;
+}
+/* line 21, sass/_header.scss */
+#header .region-header ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 25, sass/_header.scss */
+#header .region-header ul li {
+  display: inline-block;
+  margin-left: 30px;
+}
+/* line 28, sass/_header.scss */
+#header .region-header ul li a {
+  border-bottom: 1px solid #fcbc18;
+  color: #222;
+  font-size: 18px;
+  padding: 0 0 2px;
+  text-transform: uppercase;
+  text-decoration: none;
+  margin: 0;
+}
+/* line 36, sass/_header.scss */
+#header .region-header ul li a:hover, #header .region-header ul li a.active {
+  border-bottom-width: 3px;
+  padding-bottom: 0;
 }
 
 /* line 1, sass/_footer.scss */

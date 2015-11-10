@@ -1,0 +1,9 @@
+#header{
+  background: #fff;
+  @include box-shadow(0 1px 1px rgba(122, 113, 133, 0.75));
+  margin-bottom: 18px;
+  #page-wrapper{
+    width: 1004px;
+    margin: auto;
+  }
+}

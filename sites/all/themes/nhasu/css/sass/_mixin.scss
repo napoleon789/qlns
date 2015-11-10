@@ -1,0 +1,23 @@
+@mixin border-radius($value:5px){
+  -webkit-border-radius: $value;
+  border-radius: $value;
+}
+
+@mixin box-shadow($value){
+  -webkit-box-shadow: $value;
+  box-shadow: $value;
+}
+
+@mixin font(){
+  font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
+}
+
+@mixin box-sizing(){
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@mixin transition(){
+  -webkit-transition:all ease 0.5s;
+  transition:all ease 0.5s;
+}

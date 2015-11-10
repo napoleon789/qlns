@@ -1,7 +1,41 @@
 <?php
+
+/**
+ * Implement hook_init
+ */
+function nhansu_init() {
+    if(isset($_POST['ajax_html_ids'])) {
+        unset($_POST['ajax_html_ids']);
+    }
+}
+
+function nhansu_menu() {
+    $items['nhanvien/%/info'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_info',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['nhanvien/%/kpi'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_info',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $items;
+}
+
+function nhansu_info($id='') {
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
+    // $form = '<div class="clear-form goldprice-sxht">' . $form . '</div>';
+    return $form;
+}
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
   if($form_id == 'article_node_form') {
-    dpm($form);
     $form['fgm_node_article_form_group_qhgd_banthan']['#prefix'] = '<h1>30) Quan hệ gia đình</h1><div id="fgm_node_article_form_group_qhgd_banthan-add-more-wrapper"><h3> a) Về bản thân: Cha, Mẹ, Vợ (hoặc chồng), các con, anh chị em ruột</h3>';
     $form['fgm_node_article_form_group_benvo']['#prefix'] = '<div id="fgm_node_article_form_group_benvo-add-more-wrapper"><h3> b) Về bên vợ (hoặc chồng): Cha, Mẹ, anh chị em ruột</h3>';
       $form['field_xa']['#prefix'] = '<h3>4) Nơi sinh: </h3>';
@@ -10,8 +44,14 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
       $form['fgm_node_article_form_group_daotao']['#suffix'] ='</div><h4>Ghi chú: Hình thức đào tạo: Chính quy, tại chức, chuyên tu, bồi dưỡng ..../ Văn bằng: TSKH, TS, Ths, Cử nhân, Kỹ sư ............</h4>';
 
       $form['fgm_node_article_form_group_congtac']['#prefix'] ='<div id="fgm_node_article_form_group_congtac-add-more-wrapper"><h3> 28) Tóm tắt quá trình công tác</h3>';
-  
+
+      if(arg(2) == 'info') {
+          if(!isset($form_state['build_info']['files'])){
+              $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+          }
+      }
 
     }
+
 
 }

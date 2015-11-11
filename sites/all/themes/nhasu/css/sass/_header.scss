@@ -6,4 +6,39 @@
     width: 1004px;
     margin: auto;
   }
+  #logo{
+    float: left;
+  }
+  #name-and-slogan{
+    display: none;
+  }
+  .region-header{
+    float: right;
+    margin-top: 20px;
+    h2{
+      display: none;
+    }
+    ul{
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      li{
+        display: inline-block;
+        margin-left: 30px;
+        a{
+          border-bottom: 1px solid #fcbc18;
+          color: #222;
+          font-size: 18px;
+          padding: 0 0 2px;
+          text-transform: uppercase;
+          text-decoration: none;
+          margin: 0;
+          &:hover,&.active{
+            border-bottom-width: 3px;
+            padding-bottom: 0;
+          }
+        }
+      }
+    }
+  }
 }

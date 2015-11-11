@@ -159,6 +159,14 @@
       font-style: italic;
       margin: 0;
     }
+    #fgm_node_article_form_group_chiteu-add-more-wrapper{
+      position: relative;
+      .field-group-multiple-add-more-submit{
+        position: absolute;
+        left: 117px;
+        bottom: -43px;
+      }
+    }
   }
 }
 

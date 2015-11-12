@@ -47,9 +47,9 @@
 }
 
 input[type="text"], input[type="tel"], input[type="email"], input[type="password"], select{
-  background-color: #f4f3f3;
+  background-color: #f2f2f2;
   border: medium none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
+//  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
   height: 30px;
   @include font();
   font-size: 14px;
@@ -57,9 +57,9 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="password
   padding-left: 5px;
 }
 textarea{
-  background-color: #f4f3f3;
+  background-color: #f2f2f2;
   border: medium none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
+//  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
   @include font();
   font-size: 14px;
   width: 100%;
@@ -85,6 +85,10 @@ input[type="submit"]{
   }
 }
 
+.clrb{
+  clear: left;
+}
+
 *{
   @include box-sizing();
 }
@@ -108,7 +112,7 @@ a{
 
 body{
   @include font();
-  font-size: 15px;
+  font-size: 14px;
   color:#333;
   background: url("../images/body.jpg") repeat;
   margin: 0;

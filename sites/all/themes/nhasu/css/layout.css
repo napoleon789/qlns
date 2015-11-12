@@ -32,9 +32,8 @@
 
 /* line 49, sass/_theme.scss */
 input[type="text"], input[type="tel"], input[type="email"], input[type="password"], select {
-  background-color: #f4f3f3;
+  background-color: #f2f2f2;
   border: medium none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
   height: 30px;
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -44,9 +43,8 @@ input[type="text"], input[type="tel"], input[type="email"], input[type="password
 
 /* line 59, sass/_theme.scss */
 textarea {
-  background-color: #f4f3f3;
+  background-color: #f2f2f2;
   border: medium none;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.28) inset;
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
   font-size: 14px;
   width: 100%;
@@ -77,22 +75,27 @@ input[type="submit"]:hover {
 }
 
 /* line 88, sass/_theme.scss */
+.clrb {
+  clear: left;
+}
+
+/* line 92, sass/_theme.scss */
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 92, sass/_theme.scss */
+/* line 96, sass/_theme.scss */
 a {
   color: #333;
   text-decoration: none;
 }
-/* line 95, sass/_theme.scss */
+/* line 99, sass/_theme.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 100, sass/_theme.scss */
+/* line 104, sass/_theme.scss */
 #content {
   width: 1004px;
   margin: auto;
@@ -101,22 +104,22 @@ a:hover {
   min-height: 420px;
 }
 
-/* line 109, sass/_theme.scss */
+/* line 113, sass/_theme.scss */
 body {
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
-  font-size: 15px;
+  font-size: 14px;
   color: #333;
   background: url("../images/body.jpg") repeat;
   margin: 0;
   padding: 0;
 }
 
-/* line 118, sass/_theme.scss */
+/* line 122, sass/_theme.scss */
 .sticky-header {
   display: none;
 }
 
-/* line 122, sass/_theme.scss */
+/* line 126, sass/_theme.scss */
 .menu_student {
   margin: auto;
   list-style: none;
@@ -125,7 +128,7 @@ body {
   border-bottom: 3px solid #fcbc18;
   padding: 0 20px;
 }
-/* line 129, sass/_theme.scss */
+/* line 133, sass/_theme.scss */
 .menu_student li {
   display: inline-block;
   list-style: outside none none;
@@ -135,7 +138,7 @@ body {
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
 }
-/* line 137, sass/_theme.scss */
+/* line 141, sass/_theme.scss */
 .menu_student li:hover::after, .menu_student li.active::after {
   border-bottom: 12px solid #fcbc18;
   border-left: 6px solid transparent;
@@ -149,42 +152,42 @@ body {
   position: absolute;
   width: 0;
 }
-/* line 150, sass/_theme.scss */
+/* line 154, sass/_theme.scss */
 .menu_student li:hover a, .menu_student li.active a {
   color: #fcbc18;
 }
-/* line 154, sass/_theme.scss */
+/* line 158, sass/_theme.scss */
 .menu_student li a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: white;
   float: none;
   font-size: 18px;
 }
-/* line 159, sass/_theme.scss */
+/* line 163, sass/_theme.scss */
 .menu_student li a:hover {
   text-decoration: none;
   color: #fcbc18;
 }
 
-/* line 167, sass/_theme.scss */
+/* line 171, sass/_theme.scss */
 table {
   border: 1px solid #ccc;
   width: 100%;
 }
-/* line 170, sass/_theme.scss */
+/* line 174, sass/_theme.scss */
 table tr.even, table tr.odd {
   background-color: transparent;
 }
-/* line 173, sass/_theme.scss */
+/* line 177, sass/_theme.scss */
 table th, table td {
   padding: 5px 8px;
   border-left: 1px solid #ccc;
 }
-/* line 177, sass/_theme.scss */
+/* line 181, sass/_theme.scss */
 table th {
   border-bottom-width: 1px;
 }
-/* line 182, sass/_theme.scss */
+/* line 186, sass/_theme.scss */
 table tr th:first-child, table tr td:first-child {
   border-left: none;
 }
@@ -313,7 +316,7 @@ table tr th:first-child, table tr td:first-child {
   float: left;
   width: 33.33%;
   padding: 0 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 /* line 48, sass/_nhanvien.scss */
 .page-nhanvien .block-system .field-type-text label, .page-nhanvien .block-system .field-type-text legend, .page-nhanvien .block-system .field-type-datestamp label, .page-nhanvien .block-system .field-type-datestamp legend, .page-nhanvien .block-system .field-type-text-with-summary label, .page-nhanvien .block-system .field-type-text-with-summary legend {
@@ -338,7 +341,7 @@ table tr th:first-child, table tr td:first-child {
   margin: 0;
 }
 /* line 67, sass/_nhanvien.scss */
-.page-nhanvien .block-system .form-item-title label, .page-nhanvien .block-system .field-name-field-tenkhac label, .page-nhanvien .block-system .field-name-field-ngaysinh label, .page-nhanvien .block-system .field-name-field-gioitinh label {
+.page-nhanvien .block-system .form-item-title label, .page-nhanvien .block-system .form-item-title legend, .page-nhanvien .block-system .field-name-field-tenkhac label, .page-nhanvien .block-system .field-name-field-tenkhac legend, .page-nhanvien .block-system .field-name-field-ngaysinh label, .page-nhanvien .block-system .field-name-field-ngaysinh legend, .page-nhanvien .block-system .field-name-field-gioitinh label, .page-nhanvien .block-system .field-name-field-gioitinh legend {
   float: left;
   width: 40%;
   background: #838484;
@@ -349,9 +352,9 @@ table tr th:first-child, table tr td:first-child {
   margin: 0;
 }
 /* line 77, sass/_nhanvien.scss */
-.page-nhanvien .block-system .form-item-title input, .page-nhanvien .block-system .form-item-title select, .page-nhanvien .block-system .field-name-field-tenkhac input, .page-nhanvien .block-system .field-name-field-tenkhac select, .page-nhanvien .block-system .field-name-field-ngaysinh input, .page-nhanvien .block-system .field-name-field-ngaysinh select, .page-nhanvien .block-system .field-name-field-gioitinh input, .page-nhanvien .block-system .field-name-field-gioitinh select {
+.page-nhanvien .block-system .form-item-title input, .page-nhanvien .block-system .form-item-title select, .page-nhanvien .block-system .form-item-title .fieldset-wrapper, .page-nhanvien .block-system .field-name-field-tenkhac input, .page-nhanvien .block-system .field-name-field-tenkhac select, .page-nhanvien .block-system .field-name-field-tenkhac .fieldset-wrapper, .page-nhanvien .block-system .field-name-field-ngaysinh input, .page-nhanvien .block-system .field-name-field-ngaysinh select, .page-nhanvien .block-system .field-name-field-ngaysinh .fieldset-wrapper, .page-nhanvien .block-system .field-name-field-gioitinh input, .page-nhanvien .block-system .field-name-field-gioitinh select, .page-nhanvien .block-system .field-name-field-gioitinh .fieldset-wrapper {
   float: left;
-  width: 60%;
+  width: 60% !important;
   -webkit-box-shadow: none;
   box-shadow: none;
   background-color: transparent;
@@ -362,96 +365,110 @@ table tr th:first-child, table tr td:first-child {
   border-top: 1px solid #ccc;
 }
 /* line 90, sass/_nhanvien.scss */
-.page-nhanvien .block-system h3 {
+.page-nhanvien .block-system .group_info {
   clear: left;
   font-size: 16px;
   border-bottom: 2px solid #fcbc17;
   padding-bottom: 2px;
-  margin: 10px 0;
+  margin: 0 0 20px;
+  padding-top: 30px;
+  text-transform: uppercase;
 }
 /* line 99, sass/_nhanvien.scss */
+.page-nhanvien .block-system h3 {
+  font-weight: normal;
+  font-size: 15px;
+  clear: left;
+}
+/* line 104, sass/_nhanvien.scss */
+.page-nhanvien .block-system .h3-float {
+  float: left;
+  padding-left: 10px;
+  width: 10%;
+  margin: 20px 0 0;
+}
+/* line 111, sass/_nhanvien.scss */
 .page-nhanvien .block-system .field-name-field-xa, .page-nhanvien .block-system .field-name-field-huyen, .page-nhanvien .block-system .field-name-field-tinh,
 .page-nhanvien .block-system .field-name-field-xa-que, .page-nhanvien .block-system .field-name-field-huyen-que, .page-nhanvien .block-system .field-name-field-tinh-que {
   float: left;
-  width: 33.33%;
-  margin-bottom: 10px;
+  width: 30%;
 }
-/* line 103, sass/_nhanvien.scss */
+/* line 115, sass/_nhanvien.scss */
 .page-nhanvien .block-system .field-name-field-xa div, .page-nhanvien .block-system .field-name-field-huyen div, .page-nhanvien .block-system .field-name-field-tinh div,
 .page-nhanvien .block-system .field-name-field-xa-que div, .page-nhanvien .block-system .field-name-field-huyen-que div, .page-nhanvien .block-system .field-name-field-tinh-que div {
   margin: 0;
 }
-/* line 108, sass/_nhanvien.scss */
+/* line 120, sass/_nhanvien.scss */
 .page-nhanvien .block-system .field-name-field-tham-gia {
   clear: left;
 }
-/* line 112, sass/_nhanvien.scss */
+/* line 124, sass/_nhanvien.scss */
 .page-nhanvien .block-system fieldset {
   padding: 0;
   margin: 0;
   border: none;
 }
-/* line 116, sass/_nhanvien.scss */
+/* line 128, sass/_nhanvien.scss */
 .page-nhanvien .block-system fieldset div {
   margin: 0 !important;
   padding: 0 !important;
   width: 100% !important;
 }
-/* line 120, sass/_nhanvien.scss */
+/* line 132, sass/_nhanvien.scss */
 .page-nhanvien .block-system fieldset div input {
   width: 100% !important;
 }
-/* line 124, sass/_nhanvien.scss */
+/* line 136, sass/_nhanvien.scss */
 .page-nhanvien .block-system fieldset label, .page-nhanvien .block-system fieldset .description {
   display: none;
 }
-/* line 129, sass/_nhanvien.scss */
+/* line 141, sass/_nhanvien.scss */
 .page-nhanvien .block-system table {
   border: 1px solid #ccc;
   width: 100%;
 }
-/* line 133, sass/_nhanvien.scss */
+/* line 145, sass/_nhanvien.scss */
 .page-nhanvien .block-system table fieldset legend {
   display: none;
 }
-/* line 137, sass/_nhanvien.scss */
+/* line 149, sass/_nhanvien.scss */
 .page-nhanvien .block-system table tr.even, .page-nhanvien .block-system table tr.odd {
   background-color: transparent;
 }
-/* line 140, sass/_nhanvien.scss */
+/* line 152, sass/_nhanvien.scss */
 .page-nhanvien .block-system table th, .page-nhanvien .block-system table td {
   padding: 5px 8px;
   border-left: 1px solid #ccc;
 }
-/* line 144, sass/_nhanvien.scss */
+/* line 156, sass/_nhanvien.scss */
 .page-nhanvien .block-system table th {
   border-bottom-width: 1px;
 }
-/* line 149, sass/_nhanvien.scss */
+/* line 161, sass/_nhanvien.scss */
 .page-nhanvien .block-system table tr th:first-child, .page-nhanvien .block-system table tr td:first-child {
   border-left: none;
 }
-/* line 156, sass/_nhanvien.scss */
+/* line 168, sass/_nhanvien.scss */
 .page-nhanvien .block-system h1 {
   font-size: 18px;
   clear: both;
 }
-/* line 161, sass/_nhanvien.scss */
+/* line 173, sass/_nhanvien.scss */
 .page-nhanvien .block-system .form-actions input {
   margin-right: 15px;
 }
-/* line 165, sass/_nhanvien.scss */
+/* line 177, sass/_nhanvien.scss */
 .page-nhanvien .block-system h4 {
   font-weight: normal;
   font-size: 12px;
   font-style: italic;
   margin: 0;
 }
-/* line 171, sass/_nhanvien.scss */
+/* line 183, sass/_nhanvien.scss */
 .page-nhanvien .block-system #fgm_node_article_form_group_chiteu-add-more-wrapper {
   position: relative;
 }
-/* line 173, sass/_nhanvien.scss */
+/* line 185, sass/_nhanvien.scss */
 .page-nhanvien .block-system #fgm_node_article_form_group_chiteu-add-more-wrapper .field-group-multiple-add-more-submit {
   position: absolute;
   left: 117px;

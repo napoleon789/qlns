@@ -190,6 +190,22 @@
     }
     #fgm_node_article_form_group_chiteu-add-more-wrapper{
       position: relative;
+      table{
+        tr{
+          td{
+            &:first-child{
+              select{
+                width: 220px;
+              }
+            }
+            &:nth-child(2){
+              select{
+                width: 300px;
+              }
+            }
+          }
+        }
+      }
       .field-group-multiple-add-more-submit{
         position: absolute;
         left: 117px;

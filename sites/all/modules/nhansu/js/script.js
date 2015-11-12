@@ -7,7 +7,7 @@ Drupal.behaviors.myModule = {
             $(this).find("td select").change(function() {
                 console.log(34556);
                 var nid = $(this).val();
-                var url = 'http://localhost/nhansu/'+'kpi/'+nid;
+                var url = 'http://localhost/nhansu'+'/kpi/'+nid;
                 console.log(url);
                 $.ajax({
                     url : url,

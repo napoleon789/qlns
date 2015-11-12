@@ -69,21 +69,30 @@ function nhansu_info($id='') {
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
   if($form_id == 'article_node_form') {
-    $form['fgm_node_article_form_group_qhgd_banthan']['#prefix'] = '<h1>30) Quan hệ gia đình</h1><div id="fgm_node_article_form_group_qhgd_banthan-add-more-wrapper"><h3> a) Về bản thân: Cha, Mẹ, Vợ (hoặc chồng), các con, anh chị em ruột</h3>';
-    $form['fgm_node_article_form_group_benvo']['#prefix'] = '<div id="fgm_node_article_form_group_benvo-add-more-wrapper"><h3> b) Về bên vợ (hoặc chồng): Cha, Mẹ, anh chị em ruột</h3>';
-      $form['field_xa']['#prefix'] = '<h3>4) Nơi sinh: </h3>';
-      $form['field_xa_que']['#prefix'] = '<h3>5) Quê quán: </h3>';
-      $form['fgm_node_article_form_group_daotao']['#prefix'] = '<div id="fgm_node_article_form_group_daotao-add-more-wrapper"><h3>  27) Đào tạo, bồi dưỡng về chuyên môn, nghiệp vụ, lý luận chính trị, ngoại ngữ, tin học</h3>';
+    $form['field_nghenghiep']['#prefix'] ='<div class="group_info">Thông tin về chuyên môn nghiệp vụ:</div>';
+    $form['title']['#prefix'] = '<div class="group_info">Thông tin cơ bản:</div>';
+    $form['field_lyluan_chinhtri']['#prefix'] = '<div class="group_info">Chính trị:</div>';
+    $form['field_ngoaingu']['#prefix'] = '<div class="group_info">Tin học/Ngoại ngữ:</div>';
+    $form['field_suckhoe']['#prefix'] = '<div class="group_info">Sức khỏe:</div>';
+
+
+    $form['fgm_node_article_form_group_qhgd_banthan']['#prefix'] = '<h1> Quan hệ gia đình</h1><div id="fgm_node_article_form_group_qhgd_banthan-add-more-wrapper"><h3> Về bản thân: Cha, Mẹ, Vợ (hoặc chồng), các con, anh chị em ruột</h3>';
+    $form['fgm_node_article_form_group_benvo']['#prefix'] = '<div id="fgm_node_article_form_group_benvo-add-more-wrapper"><h3> Về bên vợ (hoặc chồng): Cha, Mẹ, anh chị em ruột</h3>';
+      $form['field_xa']['#prefix'] = '<h3>Nơi sinh: </h3>';
+      $form['field_xa_que']['#prefix'] = '<h3> Quê quán: </h3>';
+      $form['fgm_node_article_form_group_daotao']['#prefix'] = '<div id="fgm_node_article_form_group_daotao-add-more-wrapper"><h3>  Đào tạo, bồi dưỡng về chuyên môn, nghiệp vụ, lý luận chính trị, ngoại ngữ, tin học</h3>';
       $form['fgm_node_article_form_group_daotao']['#suffix'] ='</div><h4>Ghi chú: Hình thức đào tạo: Chính quy, tại chức, chuyên tu, bồi dưỡng ..../ Văn bằng: TSKH, TS, Ths, Cử nhân, Kỹ sư ............</h4>';
 
-      $form['fgm_node_article_form_group_congtac']['#prefix'] ='<div id="fgm_node_article_form_group_congtac-add-more-wrapper"><h3> 28) Tóm tắt quá trình công tác</h3>';
+      $form['fgm_node_article_form_group_congtac']['#prefix'] ='<div id="fgm_node_article_form_group_congtac-add-more-wrapper"><h3>  Tóm tắt quá trình công tác</h3>';
 
       if(arg(2) == 'info') {
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }
+          $form['fgm_node_article_form_group_chiteu']['#access'] = false;
       }
       if(arg(2) == 'kpi') {
+
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }
@@ -91,7 +100,6 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
           $form['fgm_node_article_form_group_chiteu']['#access'] = true;
       }
     }
-
 }
 
 function nhansu_form_node_form_alter(&$form, &$form_state) {
@@ -103,15 +111,14 @@ function nhansu_form_node_form_alter(&$form, &$form_state) {
 function nhansu_list_uid() {
     global $user;
     $uid = $user -> uid;
-
     $query = db_query("SELECT uid FROM {users}");
     foreach ($query as $row) {
       $uid = $row -> uid;
        $rows[] = $uid;
     }
-
-    return "123";
-    $gd = $user ->roles[4];
+    if(isset($user-> roles[4])) {
+        $query = db_query("SELECT");
+    }
     $pgd = $user -> roles[5];
     $tp = $user ->roles[6];
     $nv = $user -> roles[7];

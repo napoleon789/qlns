@@ -13,6 +13,11 @@
       float: left;
       width: 220px;
       margin-right: 20px;
+      min-height: 125px;
+      text-align: center;
+      div.image-widget-data{
+        float: none;
+      }
       label{
         display: none;
       }
@@ -27,8 +32,12 @@
       .file, .file-size{
         display: none;
       }
-      .image-widget.form-managed-file{
+      .form-managed-file{
         text-align: center;
+
+      }
+      .description{
+        display: none;
       }
     }
     .field-type-text, .field-type-datestamp, .field-type-text-with-summary{
@@ -158,6 +167,14 @@
       font-size: 12px;
       font-style: italic;
       margin: 0;
+    }
+    #fgm_node_article_form_group_chiteu-add-more-wrapper{
+      position: relative;
+      .field-group-multiple-add-more-submit{
+        position: absolute;
+        left: 117px;
+        bottom: -43px;
+      }
     }
   }
 }

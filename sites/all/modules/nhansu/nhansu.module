@@ -47,6 +47,12 @@ function nhansu_menu() {
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
     );
+    $items['api/term/%'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_list_node_term',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
     return $items;
 }
 function nhansu_list_student() {
@@ -108,30 +114,22 @@ function nhansu_form_node_form_alter(&$form, &$form_state) {
     }
 }
 
-function nhansu_list_uid() {
-    global $user;
-    $uid = $user -> uid;
-    $query = db_query("SELECT uid FROM {users}");
-    foreach ($query as $row) {
-      $uid = $row -> uid;
-       $rows[] = $uid;
-    }
-    if(isset($user-> roles[4])) {
-        $query = db_query("SELECT");
-    }
-    $pgd = $user -> roles[5];
-    $tp = $user ->roles[6];
-    $nv = $user -> roles[7];
-    if(isset($gd) || isset($pgd)) {
-        $query = db_query("SELECT uid FROM {users}");
-        foreach ($query as $row) {
-            $uid = $row -> uid;
-            $rows[] = $uid;
-        }
-    }
-    if(isset($tp)) {
+function nhansu_list_node_term() {
+    $tid = arg(2);
+    $node = taxonomy_select_nodes($tid);
+    print json_encode($node);
+    exit;
 
+}
+function nhansu_list_nhom_chitieu() {
+    $name = 'nhom_chiteu';
+    $myvoc = taxonomy_vocabulary_machine_name_load($name);
+    $tree = taxonomy_get_tree($myvoc->vid);
+    foreach ($tree as $term) {
+        $row[$term->tid] = $term -> name;
     }
+    return $row;
+
 }
 
 function nhansu_get_phongban() {

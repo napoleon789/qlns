@@ -4,8 +4,7 @@ Drupal.behaviors.myModule = {
         $("#fgm-node-article-form-group-chiteu-values tr").each(function() {
             var id = $(this).attr("class");
             var i = id.charAt(10);
-            $(this).find("td select").change(function() {
-                console.log(34556);
+            $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und").change(function() {
                 var nid = $(this).val();
                 var url = 'http://localhost/nhansu'+'/kpi/'+nid;
                 console.log(url);
@@ -21,14 +20,42 @@ Drupal.behaviors.myModule = {
                     }
                 })
             });
+
+
+            $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-nhomct-und").change(function() {
+                var tid = $(this).val();
+                var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                $.ajax({
+                    url : url,
+                    type: "GET",
+                    success : function(output) {
+                        var data = JSON.parse(output);
+                        var nid = $("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und option");
+                        $(nid).each(function() {
+
+                            var node = $(this).attr("value");
+                            if(data.indexOf(node) <0) {
+                                $(this).hide();
+                            }
+                            else {
+                                 $(this).show();
+                            }
+                            if(node == '_none') {
+                                $(this).show();
+                            }
+                        })
+
+                    }
+                })
+            });
+
         });
     },
         detach: function (context, settings) {
             $("#fgm-node-article-form-group-chiteu-values tr").each(function() {
                 var id = $(this).attr("class");
                 var i = id.charAt(10);
-                $(this).find("td select").change(function() {
-                    console.log(34556);
+                $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und").change(function() {
                     var nid = $(this).val();
                     var url = 'http://localhost/nhansu/'+'kpi/'+nid;
                     console.log(url);
@@ -44,6 +71,37 @@ Drupal.behaviors.myModule = {
                         }
                     })
                 });
+
+
+
+
+                $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-nhomct-und").change(function() {
+                    var tid = $(this).val();
+                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                    $.ajax({
+                        url : url,
+                        type: "GET",
+                        success : function(output) {
+                            var data = JSON.parse(output);
+                            var nid = $("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und option");
+                            $(nid).each(function() {
+
+                                var node = $(this).attr("value");
+                                if(data.indexOf(node) <0) {
+                                    $(this).hide();
+                                }
+                                else {
+                                    $(this).show();
+                                }
+                                if(node == '_none') {
+                                    $(this).show();
+                                }
+                            })
+
+                        }
+                    })
+                });
+
             });
         }
         };

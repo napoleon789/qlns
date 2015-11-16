@@ -1,0 +1,4 @@
+name = Nhan su chart	
+description = "Show chart"
+package = Student
+core = 7.x

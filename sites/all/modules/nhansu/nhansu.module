@@ -53,12 +53,22 @@ function nhansu_menu() {
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
     );
+    $items['home'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_home',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 1,
+    );
     return $items;
 }
 function nhansu_list_student() {
     global $base_url;
     $output = views_embed_view('nhanvien','default');
     return $output;
+}
+function nhansu_home() {
+    return "";
 }
 function nhansu_info($id='') {
     module_load_include('inc', 'node', 'node.pages');
@@ -96,6 +106,7 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }
           $form['fgm_node_article_form_group_chiteu']['#access'] = false;
+          $form['field_phong_ban']['und']['#default_value'][0] = nhansu_list_phong_ban_default();
       }
       if(arg(2) == 'kpi') {
 
@@ -170,5 +181,29 @@ function nhansu_get_kpi() {
     );
     print json_encode($row);
    exit;
+}
+
+function nhansu_list_phong_ban() {
+    $name = 'phongban';
+    $myvoc = taxonomy_vocabulary_machine_name_load($name);
+    $tree = taxonomy_get_tree($myvoc->vid);
+    foreach ($tree as $term) {
+        $row[$term->tid] = $term -> name;
+    }
+    return $row;
+}
+
+function nhansu_list_phong_ban_default() {
+    $nid = arg(1);
+    $query = db_query("SELECT uid FROM {node} WHERE nid =:nid",array(":nid" => $nid));
+    foreach($query as $row) {
+        $uid = $row -> uid;
+    }
+    $query_tid = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid", array(":uid" =>$uid));
+    foreach( $query_tid as $row_tid) {
+        $tid = $row_tid-> field_phongban_tid;
+
+    }
+    return $tid;
 
 }

@@ -1,0 +1,111 @@
+<?php
+
+/**
+ * Implement hook_init
+ */
+function nhansu_chart_init() {
+    drupal_add_js('https://www.google.com/jsapi');
+   // drupal_add_js(drupal_get_path('module','duhoc_chart').'/misc/chart.js');
+}
+
+/**
+ * Implement hook_block_info
+ */
+
+function nhansu_chart_block_info() {
+    $blocks['chart_colum_home'] = array(
+        'info' => t('Chart KPI'),
+    );
+
+    return $blocks;
+}
+
+function nhansu_chart_block_view($delta = '') {
+    $block = array();
+    switch ($delta) {
+        case 'chart_colum_home':
+            $block['content'] = nhansu_chart_colum();
+            break;
+    }
+    return $block;
+}
+
+function nhansu_chart_colum() {
+    $js = '
+      google.load("visualization", "1", {packages:["corechart"]});
+google.setOnLoadCallback(drawChart);
+function drawChart() {
+
+  var data = google.visualization.arrayToDataTable([
+    ["KPI","Tối thiểu", "Mục tiêu", "Hoàn thành"],
+     '.nhansu_chart_data().'
+  ]);
+
+  var options = {
+    chartArea:{left:25,top:60,right:10,width:"84%"},
+     fontSize:10,
+     legend:{textStyle:{fontSize:10, fontName:"TimesNewRoman"}},
+    colors: ["#009ac3", "#F00012", "#1222C0"],
+    hAxis: {title: "", titleTextStyle: {color: "red"}}
+  };
+
+  var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
+  chart.draw(data, options);
+
+}
+  ';
+    global $user;
+    drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
+    $header = array('Month','Sales');
+    $form = drupal_get_form('nhansu_chart_form_select');
+    $output = '<div class="chart_sale"><h2>KPI</h2>';
+    //$output .= drupal_render($form);
+    $output .= '</div>';
+    $output .= '<div class="content_home"> <div id="chart_div" style="width:740px;height:500px;float:left"></div>';
+    $output  .= '<div class="content_mont" style ="width:200px;float:right;"><h2>Chi tiết</h2>'.'</div>';
+    $output .= '</div>';
+    $output .= '<div class="clearfix"></div>';
+
+
+    return $output;
+}
+
+function nhansu_chart_list_roles() {
+    $query = db_query("SELECT * FROM {role} WHERE rid > 3");
+    foreach($query as $rows) {
+        $res[$rows->rid] = $rows->name;
+    }
+    return $res;
+}
+
+function nhansu_chart_form_select() {
+    global $user;
+    $arr = array_merge(array('ALL'=>'-- cv --'),nhansu_chart_list_roles() );
+    $form = array();
+    $form['selected'] = array(
+        '#type' => 'select',
+        '#options' => $arr,
+        '#attributes' => array(
+            'class' =>array('select_area'),
+        ),
+    );
+    return $form;
+}
+
+function nhansu_chart_data() {
+    $node = node_load(7);
+    $ctieu = $node ->field_chiteu['und'];
+    $data = '';
+    foreach($ctieu as $k =>$result) {
+      $node_dl = node_load($result['value']);
+      $title = $node_dl -> title;
+      $tt = $node ->field_toithieu['und'][$k]['value'];
+      $mt = $node ->field_muctieu['und'][$k]['value'];
+      $ht = $node->field_hoan_thanh['und'][$k]['value'];
+      $ht = str_replace("%","",trim($ht));
+      $ht = $ht/100;
+      $ht = $mt*$ht;
+      $data .= '["' . $title.'", ' .$tt.' ,'. $mt. '  ,'.$ht . ' ],' ;
+    }
+return $data;
+}

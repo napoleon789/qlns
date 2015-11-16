@@ -6,7 +6,7 @@ Drupal.behaviors.myModule = {
             var i = id.charAt(10);
             $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und").change(function() {
                 var nid = $(this).val();
-                var url = 'http://localhost/nhansu'+'/kpi/'+nid;
+                var url = 'http://qlns.drupalvietnam.com'+'/kpi/'+nid;
                 console.log(url);
                 $.ajax({
                     url : url,
@@ -24,7 +24,7 @@ Drupal.behaviors.myModule = {
 
             $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-nhomct-und").change(function() {
                 var tid = $(this).val();
-                var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                var url = 'http://qlns.drupalvietnam.com'+'/api/term/'+tid;
                 $.ajax({
                     url : url,
                     type: "GET",
@@ -57,7 +57,7 @@ Drupal.behaviors.myModule = {
                 var i = id.charAt(10);
                 $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und").change(function() {
                     var nid = $(this).val();
-                    var url = 'http://localhost/nhansu/'+'kpi/'+nid;
+                    var url = 'http://qlns.drupalvietnam.com/'+'kpi/'+nid;
                     console.log(url);
                     $.ajax({
                         url : url,
@@ -77,7 +77,7 @@ Drupal.behaviors.myModule = {
 
                 $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-nhomct-und").change(function() {
                     var tid = $(this).val();
-                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                    var url = 'http://qlns.drupalvietnam.com'+'/api/term/'+tid;
                     $.ajax({
                         url : url,
                         type: "GET",

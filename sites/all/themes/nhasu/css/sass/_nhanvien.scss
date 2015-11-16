@@ -209,9 +209,19 @@
       .field-group-multiple-add-more-submit{
         position: absolute;
         left: 117px;
-        bottom: -43px;
+        bottom: -41px;
       }
     }
   }
 }
+
+.admin-menu.page-nhanvien{
+  div.vertical-tabs{
+    margin-top: 60px;
+  }
+  .block-system #fgm_node_article_form_group_chiteu-add-more-wrapper .field-group-multiple-add-more-submit{
+    left: 0;
+  }
+}
+
 

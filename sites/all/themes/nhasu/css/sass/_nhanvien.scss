@@ -212,6 +212,22 @@
         bottom: -41px;
       }
     }
+    .field-name-field-phong-ban{
+      margin-bottom: -60px;
+      &::after{
+        content: "";
+        display: table;
+        clear: both;
+      }
+      .form-item-field-phong-ban-und{
+        float: right;
+        width: 30%;
+        label{
+          font-size: 16px;
+          text-transform: uppercase;
+        }
+      }
+    }
   }
 }
 

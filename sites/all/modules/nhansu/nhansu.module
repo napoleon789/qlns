@@ -107,6 +107,7 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
           }
           $form['fgm_node_article_form_group_chiteu']['#access'] = false;
           $form['field_phong_ban']['und']['#default_value'][0] = nhansu_list_phong_ban_default();
+
       }
       if(arg(2) == 'kpi') {
 
@@ -202,8 +203,35 @@ function nhansu_list_phong_ban_default() {
     $query_tid = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid", array(":uid" =>$uid));
     foreach( $query_tid as $row_tid) {
         $tid = $row_tid-> field_phongban_tid;
-
     }
     return $tid;
+}
 
+function nhansu_nid_to_uid ($id) {
+    $query = db_query("SELECT uid FROM {node} WHERE nid =:nid",array(":nid" => $id));
+    foreach($query as $row) {
+        $uid = $row -> uid;
+    }
+    return $uid;
+}
+
+function nhansu_node_update($node) {
+    if($node -> type == 'article') {
+       if(arg(2) == 'info') {
+            $phong_ban = $node ->field_phong_ban['und'][0]['value'];
+            $uid = nhansu_nid_to_uid($node->nid);
+            $account = user_load($uid); // Loading account
+            $edit = array(
+                'field_phongban' => array(
+                    'und' => array(
+                        0 => array(
+                            'tid' => $phong_ban,
+                        ),
+                    ),
+                ),
+            );
+           user_save($account, $edit);
+       }
+       drupal_goto('nhanvien/'.$node->nid.'/info');
+    }
 }

@@ -5,7 +5,7 @@
  */
 function nhansu_chart_init() {
     drupal_add_js('https://www.google.com/jsapi');
-   // drupal_add_js(drupal_get_path('module','duhoc_chart').'/misc/chart.js');
+    drupal_add_js(drupal_get_path('module','nhansu_chart').'/misc/chart.js');
 }
 
 /**
@@ -20,6 +20,18 @@ function nhansu_chart_block_info() {
     return $blocks;
 }
 
+function nhansu_chart_menu() {
+    $items['nv/%/%'] = array(
+        'title' => 'Thông tin',
+        'page callback' => 'nhansu_get_data_kpi',
+        'page arguments' => array(1,2),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+ return $items;
+}
+
 function nhansu_chart_block_view($delta = '') {
     $block = array();
     switch ($delta) {
@@ -31,42 +43,35 @@ function nhansu_chart_block_view($delta = '') {
 }
 
 function nhansu_chart_colum() {
-    $js = '
-      google.load("visualization", "1", {packages:["corechart"]});
-google.setOnLoadCallback(drawChart);
-function drawChart() {
+    $js =  '
+        google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ["Đã giải ngân", "Chưa giải ngân"],
+          '.nhansu_chart_data().'
+        ]);
 
-  var data = google.visualization.arrayToDataTable([
-    ["KPI","Tối thiểu", "Mục tiêu", "Hoàn thành"],
-     '.nhansu_chart_data().'
-  ]);
+        var options = {
+          is3D: true,
+           chartArea:{left:180,top:60,right:10,width:"150%"},
+        };
 
-  var options = {
-    chartArea:{left:25,top:60,right:10,width:"84%"},
-     fontSize:10,
-     legend:{textStyle:{fontSize:10, fontName:"TimesNewRoman"}},
-    colors: ["#009ac3", "#F00012", "#1222C0"],
-    hAxis: {title: "", titleTextStyle: {color: "red"}}
-  };
-
-  var chart = new google.visualization.ColumnChart(document.getElementById("chart_div"));
-  chart.draw(data, options);
-
-}
-  ';
-    global $user;
+        var chart = new google.visualization.PieChart(document.getElementById("chart_div2"));
+        chart.draw(data, options);
+        }
+    ';
     drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
-    $header = array('Month','Sales');
-    $form = drupal_get_form('nhansu_chart_form_select');
-    $output = '<div class="chart_sale"><h2>KPI</h2>';
-    //$output .= drupal_render($form);
+    $header = array('KPI','Hoàn thành');
+   // $form1 = drupal_get_form('duhoc_chart_form_select');
+    $output = '<div class="chart_reve"><h2>Chỉ tiêu KPI</h2>';
+    //$output .= drupal_render($form1);
     $output .= '</div>';
-    $output .= '<div class="content_home"> <div id="chart_div" style="width:740px;height:500px;float:left"></div>';
-    $output  .= '<div class="content_mont" style ="width:200px;float:right;"><h2>Chi tiết</h2>'.'</div>';
+    $output .= '<div class="content_home1"> <div id="chart_div2" style="width:740px;height:360px;float:left"></div>';
+    $output  .= '<div class="content_revenue" style ="width:200px;float:right;"><h2>Chi tiết</h2>'.theme('table', array('header' => $header,   'rows' => nhansu_data_table() )).'</div>';
     $output .= '</div>';
-    $output .= '<div class="clearfix"></div>';
-
-
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= '<div id="chart_colum1"><h2 id="tieu_colum"></h2><div id="chart_colum"></div></div>';
     return $output;
 }
 
@@ -96,6 +101,7 @@ function nhansu_chart_data() {
     $node = node_load(7);
     $ctieu = $node ->field_chiteu['und'];
     $data = '';
+    $cht = 0;
     foreach($ctieu as $k =>$result) {
       $node_dl = node_load($result['value']);
       $title = $node_dl -> title;
@@ -103,9 +109,33 @@ function nhansu_chart_data() {
       $mt = $node ->field_muctieu['und'][$k]['value'];
       $ht = $node->field_hoan_thanh['und'][$k]['value'];
       $ht = str_replace("%","",trim($ht));
-      $ht = $ht/100;
-      $ht = $mt*$ht;
-      $data .= '["' . $title.'", ' .$tt.' ,'. $mt. '  ,'.$ht . ' ],' ;
-    }
+      $cht = $cht + $ht;
+    };
+    $cht_ok = 100 - $cht;
+
+    $data .= '[" ' . "Hoàn thành" . '", '. $cht . ' ],';
+    $data .= '[" ' . "Chưa hoàn thành" . '", '. $cht_ok . ' ],';
 return $data;
+}
+
+function nhansu_data_table() {
+    $nid = 7;
+    $uid = nhansu_nid_to_uid($nid);
+    $node = node_load(7);
+    $ctieu = $node ->field_chiteu['und'];
+    foreach($ctieu as $k =>$result) {
+        $node_dl = node_load($result['value']);
+        $title = $node_dl -> title;
+        $ht = $node->field_hoan_thanh['und'][$k]['value'];
+        $row['title'] = '<span class= "ckpi" rel ="'.$k.'" id = "kpi_'.$nid.'" alt = "'.$uid.'">' .$title.'</span>';
+        $row['ht'] = $ht;
+        $rows[] = $row;
+    };
+    return $rows;
+}
+
+function nhansu_get_data_kpi($nid,$item) {
+   $row = array("",20,30,50);
+   print json_encode($row);
+   exit;
 }

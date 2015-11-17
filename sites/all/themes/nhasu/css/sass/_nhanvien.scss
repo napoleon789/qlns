@@ -23,6 +23,15 @@
       }
       input[type="submit"]{
         margin-top: 8px;
+        &#edit-field-image-und-0-remove-button{
+          background: none;
+          color:#333;
+          font-size: 13px;
+          text-transform: capitalize;
+          &:hover{
+            color:#fcbc17;
+          }
+        }
       }
       div.image-preview{
         float: none;
@@ -213,7 +222,7 @@
       }
     }
     .field-name-field-phong-ban{
-      margin-bottom: -60px;
+      margin-bottom: -50px;
       &::after{
         content: "";
         display: table;
@@ -221,10 +230,21 @@
       }
       .form-item-field-phong-ban-und{
         float: right;
-        width: 30%;
+        width: 45%;
+        font-size: 0;
         label{
           font-size: 16px;
           text-transform: uppercase;
+          display: inline-block;
+          width: 25%;
+          vertical-align: middle;
+          position: relative;
+          top:6px;
+        }
+        select{
+          width: 75%;
+          font-size: 13px;
+          vertical-align: middle;
         }
       }
     }

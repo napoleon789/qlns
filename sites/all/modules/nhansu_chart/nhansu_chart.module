@@ -67,7 +67,7 @@ function nhansu_chart_colum() {
     $output = '<div class="chart_reve"><h2>Chỉ tiêu KPI</h2>';
     //$output .= drupal_render($form1);
     $output .= '</div>';
-    $output .= '<div class="content_home1"> <div id="chart_div2" style="width:740px;height:360px;float:left"></div>';
+    $output .= '<div class="content_home1"> <div id="chart_div2" style="width:740px;height:330px;float:left"></div>';
     $output  .= '<div class="content_revenue" style ="width:200px;float:right;"><h2>Chi tiết</h2>'.theme('table', array('header' => $header,   'rows' => nhansu_data_table() )).'</div>';
     $output .= '</div>';
     $output .= '<div id="clear" style="clear: both"></div>';
@@ -127,7 +127,7 @@ function nhansu_data_table() {
         $node_dl = node_load($result['value']);
         $title = $node_dl -> title;
         $ht = $node->field_hoan_thanh['und'][$k]['value'];
-        $row['title'] = '<span class= "ckpi" rel ="'.$k.'" id = "kpi_'.$nid.'" alt = "'.$uid.'">' .$title.'</span>';
+        $row['title'] = '<a href="#chart_div2"><span class= "ckpi" rel ="'.$k.'" id = "kpi_'.$nid.'" alt = "'.$uid.'">' .$title.'</span></a>';
         $row['ht'] = $ht;
         $rows[] = $row;
     };

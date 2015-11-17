@@ -135,7 +135,21 @@ function nhansu_data_table() {
 }
 
 function nhansu_get_data_kpi($nid,$item) {
-   $row = array("",20,30,50);
+    $node = node_load($nid);
+    $ctieu = $node ->field_chiteu['und'];
+    foreach($ctieu as $k =>$result) {
+        if($k == $item) {
+        $tt = $node ->field_toithieu['und'][$item]['value'];
+        $mt = $node ->field_muctieu['und'][$item]['value'];
+        $thuchien = $node->field_thuc_hien['und'][$item]['value'];
+
+        }
+    };
+   $tt = (float)$tt;
+   $mt = (float)$mt;
+   $thuchien = (float)$thuchien;
+   $row = array("",$tt,$mt,$thuchien);
+
    print json_encode($row);
    exit;
 }

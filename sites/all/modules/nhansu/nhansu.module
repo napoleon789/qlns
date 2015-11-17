@@ -215,6 +215,15 @@ function nhansu_nid_to_uid ($id) {
     return $uid;
 }
 
+function nhansu_uid_to_nid ($id) {
+    $query = db_query("SELECT nid FROM {node} WHERE uid =:uid",array(":uid" => $id));
+    foreach($query as $row) {
+        $nid = $row -> nid;
+    }
+    return $nid;
+}
+
+
 function nhansu_node_update($node) {
     if($node -> type == 'article') {
        if(arg(2) == 'info') {

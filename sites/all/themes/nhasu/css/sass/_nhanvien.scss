@@ -195,7 +195,15 @@
       font-weight: normal;
       font-size: 12px;
       font-style: italic;
-      margin: 0;
+      margin: 10px 0 0;
+    }
+    #edit-fgm-node-article-form-group-congtac-add-more{
+      margin-bottom: 20px;
+    }
+    #edit-actions{
+      border-top: 1px solid #ccc;
+      padding-top: 15px;
+      margin-top: 25px;
     }
     #fgm_node_article_form_group_chiteu-add-more-wrapper{
       position: relative;
@@ -261,3 +269,9 @@
 }
 
 
+
+.page-home{
+  #content{
+    min-height: 800px;
+  }
+}

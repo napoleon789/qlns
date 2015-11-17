@@ -1,0 +1,36 @@
+.content_revenue{
+  margin-top: -60px;
+  table{
+    thead{
+      tr{
+        background: #eef8f9;
+      }
+    }
+    td{
+      color:#009ac3;
+      a{
+        &:hover{
+          text-decoration: none;
+        }
+      }
+      span{
+        cursor: pointer;
+        @include transition();
+        color:#fdbd17;
+        &:hover{
+          color:#333;
+        }
+      }
+    }
+    tr.even{
+      background: #eef8f9;
+    }
+  }
+}
+
+#chart_colum .loadding{
+  text-align: center;
+  img{
+    max-width: 45px;
+  }
+}

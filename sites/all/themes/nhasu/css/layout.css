@@ -568,6 +568,15 @@ table tr th:first-child, table tr td:first-child {
   min-height: 800px;
 }
 
+/* line 288, sass/_nhanvien.scss */
+#chart_div2 {
+  overflow: hidden;
+}
+/* line 290, sass/_nhanvien.scss */
+#chart_div2 > div > div > div {
+  left: -50px !important;
+}
+
 /* line 1, sass/_home.scss */
 .content_revenue {
   margin-top: -60px;

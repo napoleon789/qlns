@@ -226,7 +226,7 @@
       .field-group-multiple-add-more-submit{
         position: absolute;
         left: 117px;
-        bottom: -41px;
+        bottom: -69px;
       }
     }
     .field-name-field-phong-ban{
@@ -256,6 +256,7 @@
         }
       }
     }
+
   }
 }
 
@@ -268,7 +269,15 @@
   }
 }
 
-
+.page-nhanvien-kpi{
+  .block-system{
+    #article-node-form{
+      .field-name-field-phong-ban{
+        margin-bottom: 0;
+      }
+    }
+  }
+}
 
 .page-home{
   #content{

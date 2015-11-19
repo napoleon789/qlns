@@ -107,10 +107,9 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
           }
           $form['fgm_node_article_form_group_chiteu']['#access'] = false;
           $form['field_phong_ban']['und']['#default_value'][0] = nhansu_list_phong_ban_default();
-
       }
       if(arg(2) == 'kpi') {
-
+          $form['field_ngaydang']['#access'] = FALSE;
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }

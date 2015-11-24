@@ -297,3 +297,17 @@
     }
   }
 }
+
+.print_ex{
+  margin-top:20px;
+  text-align: right;
+  a{
+    text-align: left;
+    text-indent: -9999px;
+    overflow: hidden;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background: url("../images/print-export-btn.png") no-repeat right 0;
+  }
+}

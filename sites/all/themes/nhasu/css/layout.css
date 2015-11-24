@@ -591,6 +591,22 @@ table tr th:first-child, table tr td:first-child {
   font-weight: bold;
 }
 
+/* line 301, sass/_nhanvien.scss */
+.print_ex {
+  margin-top: 20px;
+  text-align: right;
+}
+/* line 304, sass/_nhanvien.scss */
+.print_ex a {
+  text-align: left;
+  text-indent: -9999px;
+  overflow: hidden;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  background: url("../images/print-export-btn.png") no-repeat right 0;
+}
+
 /* line 5, sass/_home.scss */
 .content_revenue table thead tr {
   background: #eef8f9;

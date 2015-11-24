@@ -20,7 +20,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'nv/'+nid+'/'+item,
+                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);
@@ -73,7 +73,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'nv/'+nid+'/'+item,
+                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);
@@ -125,7 +125,7 @@ function nhansu_chart_data() {
                     jQuery.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: 'nv/'+nid+'/'+item,
+                        url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
                         success: function(output) {
                             jQuery("#chart_colum").css("height","400px");
                             jQuery("#chart_colum1 h2").text(title);

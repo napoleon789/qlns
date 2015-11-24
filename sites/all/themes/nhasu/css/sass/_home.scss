@@ -1,5 +1,5 @@
 .content_revenue{
-  margin-top: -60px;
+//  margin-top: -60px;
   table{
     thead{
       tr{
@@ -32,5 +32,33 @@
   text-align: center;
   img{
     max-width: 45px;
+  }
+}
+
+#nhansu-chart-form-select{
+  margin-bottom: 15px;
+  &::after{
+    content: "";
+    display: table;
+    clear: both;
+  }
+  .form-type-select{
+    float: left;
+    width: 50%;
+    label{
+      float: left;
+      width: 22%;
+      margin-top:4px;
+    }
+    select{
+      float: left;
+      width: 78%;
+    }
+  }
+  .form-item-selected-phong{
+    padding-right: 15px;
+  }
+  .form-item-selected{
+    padding-left: 15px;
   }
 }

@@ -114,6 +114,7 @@ function nhansu_chart_form_select() {
                 ),
             );
         $form['selected'] = array(
+            '#title' => t('Nhân viên'),
             '#type' => 'select',
             '#options' => $arr,
             '#attributes' => array(
@@ -124,6 +125,7 @@ function nhansu_chart_form_select() {
    if($role == 2) {
        $arr1 = array('ALL'=>'-- Tất cả --') + nhansu_kpi_get_all_node_in_phong();
        $form['selected'] = array(
+           '#title' => t('Nhân viên'),
            '#type' => 'select',
            '#options' => $arr1,
            '#attributes' => array(

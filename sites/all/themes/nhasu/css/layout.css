@@ -230,12 +230,14 @@ table tr th:first-child, table tr td:first-child {
   padding: 0;
 }
 /* line 26, sass/_header.scss */
-#header .region-header ul li {
+#header .region-header ul > li {
   display: inline-block;
   margin-left: 30px;
+  position: relative;
+  vertical-align: top;
 }
-/* line 29, sass/_header.scss */
-#header .region-header ul li a {
+/* line 31, sass/_header.scss */
+#header .region-header ul > li a {
   border-bottom: 1px solid #fcbc18;
   color: #222;
   font-size: 18px;
@@ -244,10 +246,26 @@ table tr th:first-child, table tr td:first-child {
   text-decoration: none;
   margin: 0;
 }
-/* line 37, sass/_header.scss */
-#header .region-header ul li a:hover, #header .region-header ul li a.active {
+/* line 39, sass/_header.scss */
+#header .region-header ul > li a:hover, #header .region-header ul > li a.active {
   border-bottom-width: 3px;
   padding-bottom: 0;
+}
+/* line 44, sass/_header.scss */
+#header .region-header ul > li ul {
+  position: absolute;
+  top: 100%;
+  width: 400px;
+  left: -200px;
+  margin-top: 8px;
+  text-align: center;
+}
+/* line 52, sass/_header.scss */
+#header .region-header ul > li ul li a {
+  text-transform: inherit;
+  border: none;
+  font-size: 16px;
+  color: #444;
 }
 
 /* line 1, sass/_footer.scss */
@@ -568,10 +586,6 @@ table tr th:first-child, table tr td:first-child {
   min-height: 800px;
 }
 
-/* line 1, sass/_home.scss */
-.content_revenue {
-  margin-top: -60px;
-}
 /* line 5, sass/_home.scss */
 .content_revenue table thead tr {
   background: #eef8f9;
@@ -607,4 +621,39 @@ table tr th:first-child, table tr td:first-child {
 /* line 33, sass/_home.scss */
 #chart_colum .loadding img {
   max-width: 45px;
+}
+
+/* line 38, sass/_home.scss */
+#nhansu-chart-form-select {
+  margin-bottom: 15px;
+}
+/* line 40, sass/_home.scss */
+#nhansu-chart-form-select::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+/* line 45, sass/_home.scss */
+#nhansu-chart-form-select .form-type-select {
+  float: left;
+  width: 50%;
+}
+/* line 48, sass/_home.scss */
+#nhansu-chart-form-select .form-type-select label {
+  float: left;
+  width: 22%;
+  margin-top: 4px;
+}
+/* line 53, sass/_home.scss */
+#nhansu-chart-form-select .form-type-select select {
+  float: left;
+  width: 78%;
+}
+/* line 58, sass/_home.scss */
+#nhansu-chart-form-select .form-item-selected-phong {
+  padding-right: 15px;
+}
+/* line 61, sass/_home.scss */
+#nhansu-chart-form-select .form-item-selected {
+  padding-left: 15px;
 }

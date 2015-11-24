@@ -16,7 +16,7 @@ Drupal.behaviors.nhansu_kpi = {
                         jQuery.ajax({
                             type: "POST",
                             dataType: "json",
-                            url: 'load/'+tid+'/'+nid,
+                            url: 'http://localhost/nhansu/load/'+tid+'/'+nid,
                             success: function(output) {
                                 var right = output.right;
                                 jQuery('.content_revenue').html(right);
@@ -79,7 +79,7 @@ Drupal.behaviors.nhansu_kpi = {
                         jQuery.ajax({
                             type: "POST",
                             dataType: "json",
-                            url: 'load/'+tid+'/'+nid,
+                            url: 'http://localhost/nhansu/load/'+tid+'/'+nid,
                             success: function(output) {
                                 var right = output.right;
                                 jQuery('.content_revenue').html(right);
@@ -112,7 +112,7 @@ Drupal.behaviors.nhansu_kpi = {
     },
         detach: function (context, settings) {
             $(".chart_reve").click(function() {
-                  console.log(12344);
+
             });
 
         }

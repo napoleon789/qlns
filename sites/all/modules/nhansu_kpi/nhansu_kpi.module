@@ -17,11 +17,29 @@ function nhansu_kpi_menu() {
 }
 
 function nhansu_kpi_kiemsoat() {
-    return "";
+  drupal_set_title("Kiểm soát KPI");
+  return "";
 }
 
 function nhansu_kpi_danhgia() {
-    return "";
+    drupal_set_title("Đánh giá KPI");
+    $form = drupal_get_form('nhansu_chart_form_select');
+    $output = '<div id ="danhgia_kpi">'.drupal_render($form).'</div>';
+    $header = array('KPI','Hoàn thành');
+    $data = nhansu_data_table();
+    $num = count($data);
+    $tong = 0;
+    foreach($data as $content) {
+
+       $giatri = $content['ht'];
+       $giatri = trim(str_replace("%","",$giatri));
+
+       $tong = $tong + $giatri;
+    }
+    $tong = $tong.'%';
+    $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
+    $output .= theme('table', array('header' => $header,   'rows' => $arr_pb ));
+    return $output;
 }
 
 function nhansu_chart_data_load() {

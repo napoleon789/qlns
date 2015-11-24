@@ -1,7 +1,7 @@
 (function ($) {
 Drupal.behaviors.nhansu_kpi = {
     attach: function (context, settings) {
-        jQuery("#edit-selected-phong").change(function() {
+        jQuery(".chart_reve #edit-selected-phong").change(function() {
             var tid = $(this).val();
             var nid = $("#edit-selected").val();
             jQuery('#chart_div2').html('<div class="loadding"><img src="sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
@@ -64,7 +64,7 @@ Drupal.behaviors.nhansu_kpi = {
         });
 
 
-        jQuery(".select_nhanvien ").change(function() {
+        jQuery(".chart_reve .select_nhanvien ").change(function() {
             var tid = $('#edit-selected-phong').val();
             var nid = $("#edit-selected").val();
             jQuery('#chart_div2').html('<div class="loadding"><img src="sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
@@ -108,6 +108,58 @@ Drupal.behaviors.nhansu_kpi = {
             });
         });
 
+
+        jQuery("#danhgia_kpi #edit-selected-phong").change(function() {
+            var tid = $(this).val();
+            var nid = $("#edit-selected").val();
+            jQuery('.noidung').html('<div class="loadding"><img src="http://localhost/nhansu/sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
+            jQuery.ajax({
+                type: "POST",
+                dataType: "json",
+                url: 'http://localhost/nhansu/danhgia_kpi/'+tid+'/'+nid,
+                success: function(output) {
+                    var right = output.right;
+                    console.log(right);
+                    jQuery('.noidung').html(right);
+                    var nid = output.nid;
+                    if(nid == null){
+                        $(".select_nhanvien option").hide();
+
+                    }
+                    else {
+                        $(".select_nhanvien option").show();
+                        $(".select_nhanvien option").each(function(){
+                            var giatri = $(this).attr("value");
+                            var num = nid.indexOf(giatri);
+                            if(num < 0) {
+                                if(giatri == 'ALL')
+                                    $(this).show();
+                                else
+                                    $(this).hide();
+                            }
+                        });
+                    }
+                }
+            });
+        });
+
+
+        jQuery("#danhgia_kpi .select_nhanvien").change(function() {
+            var tid = $(this).val();
+            var nid = $("#edit-selected").val();
+            jQuery('.noidung').html('<div class="loadding"><img src="http://localhost/nhansu/sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
+            jQuery.ajax({
+                type: "POST",
+                dataType: "json",
+                url: 'http://localhost/nhansu/danhgia_kpi/'+tid+'/'+nid,
+                success: function(output) {
+                    var right = output.right;
+                    console.log(right);
+                    jQuery('.noidung').html(right);
+
+                }
+            });
+        });
 
     },
         detach: function (context, settings) {

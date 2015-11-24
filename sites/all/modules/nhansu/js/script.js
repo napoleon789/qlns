@@ -1,7 +1,7 @@
 (function ($) {
 Drupal.behaviors.myModule = {
     attach: function (context, settings) {
-        $("#fgm-node-article-form-group-chiteu-values tr").each(function() {
+        $("#fgm-node-article-form-group-chiteu-values tbody tr").each(function() {
             var getUrl = window.location;
             var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
             var id = $(this).attr("class");

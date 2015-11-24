@@ -1,0 +1,236 @@
+<?php
+
+function nhansu_kpi_init() {
+    drupal_add_js(drupal_get_path('module','nhansu_kpi').'/js/kpi.js');
+}
+
+
+function nhansu_kpi_menu() {
+    $items['load/%/%'] = array(
+        'title' => 'Thông tin',
+        'page callback' => 'nhansu_chart_data_load',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    return $items;
+}
+
+function nhansu_kpi_kiemsoat() {
+    return "";
+}
+
+function nhansu_kpi_danhgia() {
+    return "";
+}
+
+function nhansu_chart_data_load() {
+    $tid = arg(1);
+    $nid = arg(2);
+    $dulieu = nhansu_data_table($tid,$nid);
+    $table = '<h2>Tiến độ giải ngân</h2>'.theme('table', array('header' => array("Month","Sales"),   'rows' => $dulieu));
+    $content = nhansu_chart_data($tid,$nid);
+    $list_node = nhansu_kpi_list_node_in_phong($tid);
+    print json_encode(array('status' => TRUE, 'data' => $content, 'right' =>$table,'nid' =>$list_node));
+    exit;
+}
+
+function nhansu_kpi_get_all($tid = null, $nid = null) {
+
+    if($tid == null) {
+        $role = nhansu_kpi_check_user();
+        if($role == 1) {
+            $query = db_query(" SELECT
+                       AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
+                       AVG(muctieu.field_muctieu_value) as muc_tieu,
+                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
+                       AVG(toithieu.field_toithieu_value) as toi_thieu,
+                       chitieu.field_chiteu_value as nid
+                       FROM field_data_field_hoan_thanh as dlieu
+                       INNER JOIN field_data_field_chiteu as chitieu
+                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
+                       INNER JOIN field_data_field_thuc_hien as thuchien
+                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
+                       INNER JOIN field_data_field_toithieu as toithieu
+                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
+                       INNER JOIN field_data_field_muctieu as muctieu
+                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta
+                       GROUP BY chitieu.field_chiteu_value
+                     ");
+        }
+        if($role == 2) {
+            global $user;
+            $all = nhansu_kpi_get_all_user($user->uid);
+            $all = implode(",", $all);
+            $query = db_query("SELECT
+                      AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
+                       AVG(muctieu.field_muctieu_value) as muc_tieu,
+                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
+                       AVG(toithieu.field_toithieu_value) as toi_thieu,
+                       chitieu.field_chiteu_value as nid
+                       FROM field_data_field_hoan_thanh as dlieu
+                       INNER JOIN field_data_field_chiteu as chitieu
+                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
+                       INNER JOIN field_data_field_thuc_hien as thuchien
+                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
+                       INNER JOIN field_data_field_toithieu as toithieu
+                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
+                       INNER JOIN field_data_field_muctieu as muctieu
+                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta AND dlieu.entity_id IN (".$all.")
+                       GROUP BY chitieu.field_chiteu_value
+                     ");
+        }
+        foreach($query as $result) {
+            $row['ht'] = $result -> ht;
+            $row['thuc_hien'] = $result ->thuc_hien;
+            $row['toi_thieu'] = $result ->toi_thieu;
+            $row['muc_tieu'] = $result ->muc_tieu;
+            $row['nid'] = $result -> nid;
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+    else {
+        $all = nhansu_kpi_get_all_user_tid($tid);
+        if($all == 1 ) {
+           return '';
+            exit;
+        }
+
+        else{
+            $all = implode(",", $all);
+            $list_user = ' AND dlieu.entity_id IN ('.$all.') ';
+        }
+
+        $query = db_query("SELECT
+                       AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
+                       AVG(muctieu.field_muctieu_value) as muc_tieu,
+                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
+                       AVG(toithieu.field_toithieu_value) as toi_thieu,
+                       chitieu.field_chiteu_value as nid
+                       FROM field_data_field_hoan_thanh as dlieu
+                       INNER JOIN field_data_field_chiteu as chitieu
+                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
+                       INNER JOIN field_data_field_thuc_hien as thuchien
+                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
+                       INNER JOIN field_data_field_toithieu as toithieu
+                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
+                       INNER JOIN field_data_field_muctieu as muctieu
+                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta ".$list_user."
+                       GROUP BY chitieu.field_chiteu_value
+                     ");
+
+    foreach($query as $result) {
+        $row['ht'] = $result -> ht;
+        $row['thuc_hien'] = $result ->thuc_hien;
+        $row['toi_thieu'] = $result ->toi_thieu;
+        $row['muc_tieu'] = $result ->muc_tieu;
+        $row['nid'] = $result -> nid;
+        $rows[] = $row;
+    }
+    return $rows;
+    }
+
+}
+
+function nhansu_kpi_check_user() {
+    global $user;
+    $role= $user->roles;
+    if(isset($role[3]) || isset($role[4]) || isset($role[5]))
+        return 1;
+    elseif(isset($role[6]))
+        return 2;
+    else
+        return 3;
+}
+
+function nhansu_kpi_get_phongban($uid) {
+    $query = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid", array(':uid' => $uid));
+    foreach($query as $data) {
+       $phong = $data ->field_phongban_tid;
+    }
+    return $phong;
+}
+
+function nhansu_kpi_uid_in_phong($tid) {
+    $query = db_query("SELECT entity_id FROM {field_data_field_phongban} WHERE field_phongban_tid =:tid", array(':tid' => $tid));
+    foreach($query as $data) {
+        $uid['uid'] = $data ->entity_id;
+        $rows[] = $uid;
+    }
+    return $rows;
+}
+
+function nhansu_kpi_list_node_in_phong($tid) {
+    $uid = nhansu_kpi_uid_in_phong($tid);
+    foreach($uid as $data) {
+        $nid[] = nhansu_uid_to_nid($data['uid']);
+
+    }
+    return $nid;
+}
+
+function nhansu_kpi_get_all_user($uid) {
+    $phong = nhansu_kpi_get_phongban($uid);
+    $query = db_query("SELECT entity_id FROM {field_data_field_phongban} WHERE field_phongban_tid =:term", array(':term' => $phong));
+    foreach($query as $data) {
+        $row = $data -> entity_id ;
+        $rows[] = nhansu_uid_to_nid($row);
+    }
+    return $rows;
+}
+function nhansu_kpi_get_all_user_tid($tid) {
+    $query = db_query("SELECT entity_id FROM {field_data_field_phongban} WHERE field_phongban_tid =:term", array(':term' => $tid));
+    $num_of_results = $query->rowCount();
+    if($num_of_results > 0) {
+        foreach($query as $data) {
+            $row = $data -> entity_id ;
+            $rows[] = nhansu_uid_to_nid($row);
+        }
+        return $rows;
+    }
+    else {
+        return 1;
+    }
+}
+
+function nhansu_kpi_get_muctieu_text() {
+    $query = db_query("SELECT entity_id FROM {field_data_field_muctieu_kpi} WHERE field_muctieu_kpi_value LIKE :muctieu",array(':muctieu' => '%h%'));
+    foreach($query as $data) {
+        $row[] = $data->entity_id;
+    }
+    return $row;
+}
+
+function nhansu_kpi_get_all_node_in_phong() {
+    global $user;
+    $tid = nhansu_kpi_get_phongban($user->uid);
+    $uid = nhansu_kpi_uid_in_phong($tid);
+    foreach($uid as $data) {
+        $nid = nhansu_uid_to_nid($data['uid']);
+        $node = node_load($nid);
+        $res[$nid] = $node -> title;
+    }
+return $res;
+}
+
+function nhansu_kpi_get_all_nid_from_login() {
+    $check = nhansu_kpi_check_user();
+    if($check == 1) {
+        $query = db_query("SELECT nid,title FROM {node} WHERE type =:type",array(":type" =>'article'));
+        foreach($query as $data) {
+            $nid[] = $data->nid;
+        }
+    }
+    elseif($check == 2) {
+        global $user;
+        $nid =nhansu_kpi_get_all_user($user->uid);
+
+    }
+    else {
+        global $user;
+        $uid = $user ->uid;
+        $nid[] = nhansu_uid_to_nid($uid);
+    }
+return $nid;
+}

@@ -27,13 +27,43 @@ function nhansu_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 1,
     );
-    $items['quanly/nhanvien'] = array(
-        'title' => 'Nhân Viên',
+
+    $items['quanly/thongtin'] = array(
+        'title' => 'Thông tin nhân sự',
         'page callback' => 'nhansu_list_student',
         'access arguments' => array('access content'),
         'type' =>  MENU_LOCAL_TASK,
         'weight' => 1,
     );
+    $items['quanly/kpi'] = array(
+        'title' => 'Giao KPI',
+        'page callback' => 'nhansu_giao_kpi',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 1,
+    );
+    $items['quanly/kpi/giao'] = array(
+        'title' => 'Giao KPI',
+        'page callback' => 'nhansu_giao_kpi',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 1,
+    );
+    $items['quanly/kpi/kiemsoat'] = array(
+        'title' => 'Kiểm soát KPI',
+        'page callback' => 'nhansu_kpi_kiemsoat',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 2,
+    );
+    $items['quanly/kpi/danhgia'] = array(
+        'title' => 'Đánh giá KPI',
+        'page callback' => 'nhansu_kpi_danhgia',
+        'access arguments' => array('access content'),
+        'type' =>  MENU_LOCAL_TASK,
+        'weight' => 3,
+    );
+
     $items['quanly/test'] = array(
         'title' => 'Nhân Viên',
         'page callback' => 'nhansu_list_uid',
@@ -67,6 +97,11 @@ function nhansu_list_student() {
     $output = views_embed_view('nhanvien','default');
     return $output;
 }
+
+function nhansu_giao_kpi() {
+    $output = views_embed_view('nhanvien_kpi','default');
+    return $output;
+}
 function nhansu_home() {
     return "";
 }
@@ -74,6 +109,7 @@ function nhansu_info($id='') {
     module_load_include('inc', 'node', 'node.pages');
     $node = node_load($id);
     $form = node_page_edit($node);
+
     // $form = '<div class="clear-form goldprice-sxht">' . $form . '</div>';
     if(arg(2) =='info'){
         drupal_set_title(t('Sơ yếu lý lịch'));
@@ -85,6 +121,12 @@ function nhansu_info($id='') {
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
   if($form_id == 'article_node_form') {
+     $check = nhansu_kpi_check_user();
+      if($check == 3) {
+          $form['actions']['#access'] = false;
+          $form['actions']['#access'] = false;
+          $form['field_gan_cho']['#access'] = false;
+      }
     $form['field_nghenghiep']['#prefix'] ='<div class="group_info">Thông tin về chuyên môn nghiệp vụ:</div>';
     $form['field_image']['#prefix'] = '<div class="group_info">Thông tin cơ bản:</div>';
     $form['field_lyluan_chinhtri']['#prefix'] = '<div class="group_info">Chính trị:</div>';
@@ -115,6 +157,22 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
           }
           $form['field_is_poster']['#access'] = FALSE;
           $form['fgm_node_article_form_group_chiteu']['#access'] = true;
+          $chi_tieu = $form['field_chiteu']['und']['#default_value'];
+          $node_text = nhansu_kpi_get_muctieu_text();
+          foreach($chi_tieu as $k => $data) {
+              $form['field_muctieu']['und'][$k]['#access'] = false;
+              if(in_array($data,$node_text)) {
+                  $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_muctieu']['und']['value']['#default_value'] = 'Hoàn thành';
+                  $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_toithieu']['und']['value']['#default_value'] = 'Hoàn thành';
+                  $giatri_tt = $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'];
+                  if($giatri_tt == 1 || $giatri_tt == 'Yes') {
+                      $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'] = 'Yes';
+                  }
+                  else {
+                      $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'] = 'No';
+                  }
+              }
+          }
       }
     }
 }
@@ -195,9 +253,9 @@ function nhansu_list_phong_ban() {
 
 function nhansu_list_phong_ban_default() {
     $nid = arg(1);
-    $query = db_query("SELECT uid FROM {node} WHERE nid =:nid",array(":nid" => $nid));
+    $query = db_query("SELECT field_gan_cho_uid FROM {field_data_field_gan_cho} WHERE entity_id =:nid",array(":nid" => $nid));
     foreach($query as $row) {
-        $uid = $row -> uid;
+        $uid = $row -> field_gan_cho_uid;
     }
     $query_tid = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid", array(":uid" =>$uid));
     foreach( $query_tid as $row_tid) {
@@ -207,17 +265,17 @@ function nhansu_list_phong_ban_default() {
 }
 
 function nhansu_nid_to_uid ($id) {
-    $query = db_query("SELECT uid FROM {node} WHERE nid =:nid",array(":nid" => $id));
+    $query = db_query("SELECT field_gan_cho_uid FROM {field_data_field_gan_cho} WHERE entity_id =:nid",array(":nid" => $id));
     foreach($query as $row) {
-        $uid = $row -> uid;
+        $uid = $row -> field_gan_cho_uid;
     }
     return $uid;
 }
 
 function nhansu_uid_to_nid ($id) {
-    $query = db_query("SELECT nid FROM {node} WHERE uid =:uid",array(":uid" => $id));
+    $query = db_query("SELECT entity_id FROM {field_data_field_gan_cho} WHERE field_gan_cho_uid =:uid",array(":uid" => $id));
     foreach($query as $row) {
-        $nid = $row -> nid;
+        $nid = $row -> entity_id;
     }
     return $nid;
 }
@@ -225,6 +283,31 @@ function nhansu_uid_to_nid ($id) {
 
 function nhansu_node_update($node) {
     if($node -> type == 'article') {
+       $muctieu = $node->field_muctieu['und'];
+       foreach($muctieu as $k => $values) {
+           $giatri = trim($values['value']);
+           if(!is_numeric($giatri)) {
+               $chu_hoa = strtoupper($giatri);
+               $m = strpos($chu_hoa,'C');
+               if($m !== false) {
+                   db_query("UPDATE {field_data_field_muctieu} SET field_muctieu_value = :muctieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 0,':delta' => $k,':nid' =>$node->nid));
+                   db_query("UPDATE {field_data_field_toithieu} SET field_toithieu_value = :mutieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 0,':delta' => $k,':nid' =>$node->nid));
+               }
+               else {
+                   db_query("UPDATE {field_data_field_muctieu} SET field_muctieu_value = :muctieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 1,':delta' => $k,':nid' =>$node->nid));
+                   db_query("UPDATE {field_data_field_toithieu} SET field_toithieu_value = :toithieu WHERE delta =:delta AND entity_id =:nid",array(':toithieu' => 1,':delta' => $k,':nid' =>$node->nid));
+                   $thuc_hien = $node->field_muctieu['und'][$k]['value'];
+                   if(strpos($thuc_hien,'es')) {
+                       db_query("UPDATE {field_data_field_thuc_hien} SET field_thuc_hien_value = :thuchien WHERE delta =:delta AND entity_id =:nid",array(':thuchien' => 1,':delta' => $k,':nid' =>$node->nid));
+                   }
+                   else {
+                       db_query("UPDATE {field_data_field_thuc_hien} SET field_thuc_hien_value = :thuchien WHERE delta =:delta AND entity_id =:nid",array(':thuchien' => 1,':delta' => $k,':nid' =>$node->nid));
+                   }
+
+               }
+           }
+
+       }
        if(arg(2) == 'info') {
             $phong_ban = $node ->field_phong_ban['und'][0]['value'];
             $uid = nhansu_nid_to_uid($node->nid);
@@ -241,5 +324,13 @@ function nhansu_node_update($node) {
            user_save($account, $edit);
        }
        drupal_goto('nhanvien/'.$node->nid.'/info');
+    }
+}
+
+
+function nhansu_node_presave($node) {
+    if($node -> type == 'article') {
+
+
     }
 }

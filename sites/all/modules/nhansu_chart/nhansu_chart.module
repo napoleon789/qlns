@@ -281,6 +281,7 @@ function nhansu_data_table($tid = null, $nid = null) {
                 return $rows;
             }
             else {
+
                 $output = nhansu_kpi_get_all($tid);
                 foreach($output as $k => $datas) {
                     $node = node_load($datas['nid']);
@@ -295,6 +296,7 @@ function nhansu_data_table($tid = null, $nid = null) {
                     $row['ht'] = round($datas['ht'],2).'%';
                     $rows[] = $row;
                 }
+
                 return $rows;
             }
 

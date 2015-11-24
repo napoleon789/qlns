@@ -13,6 +13,13 @@ function nhansu_kpi_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
+    $items['danhgia_kpi/%/%'] = array(
+        'title' => 'Thông tin',
+        'page callback' => 'nhansu_chart_data_load_danhgia',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
     return $items;
 }
 
@@ -38,15 +45,39 @@ function nhansu_kpi_danhgia() {
     }
     $tong = $tong.'%';
     $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
-    $output .= theme('table', array('header' => $header,   'rows' => $arr_pb ));
+    $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
+    $output .= '<div class="print_ex"><a href="#">Export</a> </div>';
     return $output;
+}
+
+function nhansu_chart_data_load_danhgia() {
+    $tid = arg(1);
+    $nid = arg(2);
+    $dulieu = nhansu_data_table($tid,$nid);
+
+    $num = count($dulieu);
+    $tong = 0;
+    foreach($dulieu as $content) {
+
+        $giatri = $content['ht'];
+        $giatri = trim(str_replace("%","",$giatri));
+
+        $tong = $tong + $giatri;
+    }
+    $tong = $tong.'%';
+    $arr_pb =   nhansu_data_table($tid,$nid)+ array($num => array("title" => "Tổng","ht" =>$tong)) ;
+    $table = '<h2>Chỉ tiêu KPI</h2>'.theme('table', array('header' => array("KPI","Hoàn thành"),   'rows' => $arr_pb));
+    $content = nhansu_chart_data($tid,$nid);
+    $list_node = nhansu_kpi_list_node_in_phong($tid);
+    print json_encode(array('status' => TRUE, 'data' => $content, 'right' =>$table,'nid' =>$list_node));
+    exit;
 }
 
 function nhansu_chart_data_load() {
     $tid = arg(1);
     $nid = arg(2);
     $dulieu = nhansu_data_table($tid,$nid);
-    $table = '<h2>Tiến độ giải ngân</h2>'.theme('table', array('header' => array("Month","Sales"),   'rows' => $dulieu));
+    $table = '<h2>Chỉ tiêu KPI</h2>'.theme('table', array('header' => array("KPI","Hoàn thành"),   'rows' => $dulieu));
     $content = nhansu_chart_data($tid,$nid);
     $list_node = nhansu_kpi_list_node_in_phong($tid);
     print json_encode(array('status' => TRUE, 'data' => $content, 'right' =>$table,'nid' =>$list_node));
@@ -251,4 +282,17 @@ function nhansu_kpi_get_all_nid_from_login() {
         $nid[] = nhansu_uid_to_nid($uid);
     }
 return $nid;
+}
+
+function nhansu_kpi_export_page($data) {
+    $filename = 'ThongKeGiaVangNgay-' . date('d-m-Y') . '.xls';
+    header('Content-Description: File Transfer');
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename=' . $filename);
+    header('Content-Transfer-Encoding: binary');
+    header('Expires: 0');
+    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+    header('Pragma: public');
+    echo "\xEF\xBB\xBF"; // UTF-8 BOM
+    print $data;exit;
 }

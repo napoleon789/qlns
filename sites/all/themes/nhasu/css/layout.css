@@ -224,20 +224,20 @@ table tr th:first-child, table tr td:first-child {
   display: none;
 }
 /* line 22, sass/_header.scss */
-#header .region-header ul {
+#header .region-header ul.menu {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 /* line 26, sass/_header.scss */
-#header .region-header ul > li {
+#header .region-header ul.menu > li {
   display: inline-block;
   margin-left: 30px;
   position: relative;
   vertical-align: top;
 }
 /* line 31, sass/_header.scss */
-#header .region-header ul > li a {
+#header .region-header ul.menu > li a {
   border-bottom: 1px solid #fcbc18;
   color: #222;
   font-size: 18px;
@@ -247,12 +247,12 @@ table tr th:first-child, table tr td:first-child {
   margin: 0;
 }
 /* line 39, sass/_header.scss */
-#header .region-header ul > li a:hover, #header .region-header ul > li a.active {
+#header .region-header ul.menu > li a:hover, #header .region-header ul.menu > li a.active {
   border-bottom-width: 3px;
   padding-bottom: 0;
 }
 /* line 44, sass/_header.scss */
-#header .region-header ul > li ul {
+#header .region-header ul.menu > li ul {
   position: absolute;
   top: 100%;
   width: 400px;
@@ -261,7 +261,7 @@ table tr th:first-child, table tr td:first-child {
   text-align: center;
 }
 /* line 52, sass/_header.scss */
-#header .region-header ul > li ul li a {
+#header .region-header ul.menu > li ul li a {
   text-transform: inherit;
   border: none;
   font-size: 16px;

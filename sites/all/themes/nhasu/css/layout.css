@@ -528,12 +528,6 @@ table tr th:first-child, table tr td:first-child {
 .page-nhanvien .block-system #fgm_node_article_form_group_chiteu-add-more-wrapper table tr td:nth-child(2) select {
   width: 240px;
 }
-/* line 226, sass/_nhanvien.scss */
-.page-nhanvien .block-system #fgm_node_article_form_group_chiteu-add-more-wrapper .field-group-multiple-add-more-submit {
-  position: absolute;
-  left: 117px;
-  bottom: -69px;
-}
 /* line 232, sass/_nhanvien.scss */
 .page-nhanvien .block-system .field-name-field-phong-ban {
   margin-bottom: -50px;

@@ -203,47 +203,46 @@ table tr th:first-child, table tr td:first-child {
 /* line 1, sass/_header.scss */
 #header {
   background: #fff;
-  -webkit-box-shadow: 0 1px 1px rgba(122, 113, 133, 0.75);
-  box-shadow: 0 1px 1px rgba(122, 113, 133, 0.75);
-  margin-bottom: 18px;
+  border-bottom: 2px solid gray;
+  margin-bottom: 25px;
 }
-/* line 5, sass/_header.scss */
+/* line 6, sass/_header.scss */
 #header #page-wrapper {
   width: 1004px;
   margin: auto;
 }
-/* line 9, sass/_header.scss */
+/* line 10, sass/_header.scss */
 #header #logo {
   float: left;
   margin: 7px 0 5px;
 }
-/* line 13, sass/_header.scss */
+/* line 14, sass/_header.scss */
 #header #name-and-slogan {
   display: none;
 }
-/* line 16, sass/_header.scss */
+/* line 17, sass/_header.scss */
 #header .region-header {
   float: right;
   margin-top: 30px;
 }
-/* line 19, sass/_header.scss */
+/* line 20, sass/_header.scss */
 #header .region-header h2 {
   display: none;
 }
-/* line 22, sass/_header.scss */
+/* line 23, sass/_header.scss */
 #header .region-header ul.menu {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 26, sass/_header.scss */
+/* line 27, sass/_header.scss */
 #header .region-header ul.menu > li {
   display: inline-block;
   margin-left: 30px;
   position: relative;
   vertical-align: top;
 }
-/* line 31, sass/_header.scss */
+/* line 32, sass/_header.scss */
 #header .region-header ul.menu > li a {
   border-bottom: 1px solid #47812c;
   color: #bd3027;
@@ -253,12 +252,12 @@ table tr th:first-child, table tr td:first-child {
   text-decoration: none;
   margin: 0;
 }
-/* line 39, sass/_header.scss */
+/* line 40, sass/_header.scss */
 #header .region-header ul.menu > li a:hover, #header .region-header ul.menu > li a.active {
   border-bottom-width: 3px;
   padding-bottom: 0;
 }
-/* line 44, sass/_header.scss */
+/* line 45, sass/_header.scss */
 #header .region-header ul.menu > li ul {
   position: absolute;
   top: 100%;
@@ -267,12 +266,12 @@ table tr th:first-child, table tr td:first-child {
   margin-top: 8px;
   text-align: center;
 }
-/* line 52, sass/_header.scss */
+/* line 53, sass/_header.scss */
 #header .region-header ul.menu > li ul li a {
   text-transform: inherit;
   border: none;
   font-size: 16px;
-  color: #444;
+  color: #47812c;
 }
 
 /* line 1, sass/_footer.scss */

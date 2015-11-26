@@ -1,7 +1,8 @@
 #header{
   background: #fff;
-  @include box-shadow(0 1px 1px rgba(122, 113, 133, 0.75));
-  margin-bottom: 18px;
+//  @include box-shadow(0 1px 1px rgba(122, 113, 133, 0.75));
+  border-bottom: 2px solid gray;
+  margin-bottom: 25px;
   #page-wrapper{
     width: 1004px;
     margin: auto;
@@ -53,7 +54,7 @@
               text-transform: inherit;
               border:none;
               font-size: 16px;
-              color:#444;
+              color:#47812c;
             }
           }
         }

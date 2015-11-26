@@ -68,20 +68,20 @@ textarea{
 }
 
 input[type="submit"]{
-  color: #2f2f2f;
+  color: #fff;
   font-size: 11px;
   font-weight: bold;
   @include font();
   text-transform: uppercase;
   padding: 5px 10px;
   min-width: 104px;
-  background: #fcbc17;
+  background: #47812c;
   @include border-radius(10px);
   cursor: pointer;
   border: none;
   @include transition();
   &:hover{
-    background: #2f2f2f;
+    background: #59a538;
     color: #fff;
   }
 }
@@ -95,7 +95,7 @@ input[type="submit"]{
 }
 
 a{
-  color: #333;
+  color: #47812c;
   text-decoration: none;
   &:hover{
     text-decoration: underline;
@@ -115,9 +115,14 @@ body{
   @include font();
   font-size: 14px;
   color:#333;
-  background: url("../images/body.jpg") repeat;
+//  background: url("../images/body.jpg") repeat;
   margin: 0;
   padding: 0;
+}
+#main{
+  width: 1004px;
+  margin: auto;
+  @include box-shadow(0 7px 10px 2px #a9abb1);
 }
 
 .sticky-header{
@@ -128,8 +133,8 @@ body{
   margin: auto;
   list-style: none;
   width: 1004px;
-  background: #838484;
-  border-bottom: 3px solid #fcbc18;
+  background: #47812c;
+  border-bottom: 3px solid #B43B3B;
   padding: 0 20px;
   li{
     display: inline-block;
@@ -140,7 +145,7 @@ body{
     @include transition();
     &:hover, &.active{
       &::after{
-        border-bottom: 12px solid #fcbc18;
+        border-bottom: 12px solid #B43B3B;
         border-left: 6px solid transparent;
         border-right: 6px solid transparent;
         bottom: 0;
@@ -153,7 +158,7 @@ body{
         width: 0;
       }
       a{
-        color: #fcbc18;
+        color: #fff;
       }
     }
     a{
@@ -163,7 +168,7 @@ body{
       font-size: 18px;
       &:hover{
         text-decoration: none;
-        color: #fcbc18;
+        color: #fff;
       }
     }
   }

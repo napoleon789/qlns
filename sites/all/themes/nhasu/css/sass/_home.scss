@@ -3,7 +3,7 @@
   table{
     thead{
       tr{
-        background: #eef8f9;
+        background: #f8f7f7;
       }
     }
     td{
@@ -16,14 +16,14 @@
       span{
         cursor: pointer;
         @include transition();
-        color:#fdbd17;
+        color:#47812c;
         &:hover{
           color:#333;
         }
       }
     }
     tr.even{
-      background: #eef8f9;
+      background: #f8f7f7;
     }
   }
 }

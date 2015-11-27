@@ -8,18 +8,6 @@ function nhansu_chart_init() {
     drupal_add_js(drupal_get_path('module','nhansu_chart').'/misc/chart.js');
 }
 
-/**
- * Implement hook_block_info
- */
-
-function nhansu_chart_block_info() {
-    $blocks['chart_colum_home'] = array(
-        'info' => t('Chart KPI'),
-    );
-
-    return $blocks;
-}
-
 function nhansu_chart_menu() {
     $items['nv/%/%'] = array(
         'title' => 'Thông tin',
@@ -29,8 +17,33 @@ function nhansu_chart_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
- return $items;
+    return $items;
 }
+/**
+ * Implement hook_block_info
+ */
+
+function nhansu_chart_block_info() {
+    $blocks['chart_colum_home'] = array(
+        'info' => t('Chart KPI'),
+    );
+    $blocks['chart_xanhdovang'] = array(
+        'info' => t('Xanh do vang'),
+    );
+
+    $blocks['home_giamdoc'] = array(
+        'info' => t('Home cho Giám Đốc'),
+    );
+    $blocks['home_truongphong'] = array(
+        'info' => t('Home cho Trưởng Phòng'),
+    );
+    $blocks['home_nhanvien'] = array(
+        'info' => t('Home cho Nhân Viên'),
+    );
+
+    return $blocks;
+}
+
 
 function nhansu_chart_block_view($delta = '') {
 
@@ -39,9 +52,105 @@ function nhansu_chart_block_view($delta = '') {
         case 'chart_colum_home':
             $block['content'] = nhansu_chart_colum();
             break;
+        case 'chart_xanhdovang':
+            $block['content'] = nhansu_char_xanhdovang();
+            break;
+
+        case 'home_giamdoc':
+            $block['content'] = nhansu_chart_home_giamdoc();
+            break;
+        case 'home_truongphong':
+            $block['content'] = nhansu_chart_home_truongphong();
+            break;
+        case 'home_truongphong':
+            $block['content'] = nhansu_chart_home_nhanvien();
+            break;
     }
     return $block;
 }
+
+function nhansu_chart_home_giamdoc() {
+   $output = nhansu_chart_colum_giamdoc();
+   return $output;
+}
+
+
+function nhansu_char_xanhdovang() {
+    $toi_thieu = 100;
+    $muc_tieu = 200;
+    $thuc_hien = 150;
+    $ouput = '<h2>Cảnh báo mức độ hoàn thành</h2>';
+    if($thuc_hien < $toi_thieu) {
+      $ouput .= '
+                <ul>
+                    <li class="do den_giaothong dat_chuan" style="background: red;width: 300px;height: 40px"></li>
+                    <li class="vang den_giaothong" style="background: yellow;width: 300px;height: 40px"></li>
+                    <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
+                </ul>
+      ';
+    }
+    elseif($thuc_hien < $muc_tieu && $thuc_hien > $toi_thieu ) {
+        $ouput .= '
+                <ul>
+                    <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
+                    <li class="vang den_giaothong dat_chuan" style="background: yellow;width: 300px;height: 40px"></li>
+                    <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
+                </ul>
+      ';
+    }
+    else {
+        $ouput .= '
+                <ul>
+                    <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
+                    <li class="vang den_giaothong " style="background: yellow;width: 300px;height: 40px"></li>
+                    <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
+                </ul>
+      ';
+    }
+    return $ouput;
+}
+
+function nhansu_chart_colum_giamdoc() {
+    $js =  '
+        google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ["Đã giải ngân", "Chưa giải ngân"],
+          '.nhansu_chart_data().'
+        ]);
+
+        var options = {
+          is3D: true,
+           chartArea:{top:10,bottom:50,left:10,right:150,width:"150%"},
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById("chart_div2"));
+        chart.draw(data, options);
+        }
+    ';
+    $block = module_invoke('nhansu_chart', 'block_view', 'chart_xanhdovang');
+    $giao_thong =  render($block['content']);
+    drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
+    $form1 = drupal_get_form('nhansu_chart_form_select');
+    $form = drupal_get_form('nhansu_chart_filer_time');
+    $output = '<div class="filter_time">'.drupal_render($form).'</div>';
+    $output .= '<div class="chart_reve">';
+    $output .= drupal_render($form1);
+    $output .= '</div>';
+    $output .= '<div class="content_home1"> <div class="right_1"> <h2>Tỷ lệ hoàn thành chỉ tiêu</h2><div id="chart_div2" style="width:450px;height:300px;float:left"></div></div>';
+    $output .= nhansu_chart_colum_chuan();
+    $output .= '</div>';
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= $giao_thong;
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= '<div id="chart_colum1"><h2 id="tieu_colum"></h2><div id="chart_colum"></div></div>';
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= nhansu_chart_chitiet_home_thongke_giamdoc();
+    return $output;
+}
+
+
 
 function nhansu_chart_colum() {
     $js =  '
@@ -62,16 +171,21 @@ function nhansu_chart_colum() {
         chart.draw(data, options);
         }
     ';
+    $block = module_invoke('nhansu_chart', 'block_view', 'chart_xanhdovang');
+    $giao_thong =  render($block['content']);
     drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
     $header = array('KPI','Hoàn thành');
     $form1 = drupal_get_form('nhansu_chart_form_select');
-    $output = '<div class="chart_reve"><h2>Chỉ tiêu KPI</h2>';
+    $form = drupal_get_form('nhansu_chart_filer_time');
+    $output = '<div class="filter_time">'.drupal_render($form).'</div>';
+    $output .= '<div class="chart_reve"><h2>Chỉ tiêu KPI</h2>';
     $output .= drupal_render($form1);
     $output .= '</div>';
     $output  .= '<div class="content_revenue" style ="width:280px;float:right;margin-right:35px;"><h2>Chi tiết</h2>'.theme('table', array('header' => $header,   'rows' => nhansu_data_table() )).'</div>';
     $output .= '<div class="content_home1"> <div id="chart_div2" style="width:640px;height:300px;float:left"></div>';
-
     $output .= '</div>';
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= $giao_thong;
     $output .= '<div id="clear" style="clear: both"></div>';
     $output .= '<div id="chart_colum1"><h2 id="tieu_colum"></h2><div id="chart_colum"></div></div>';
     return $output;
@@ -99,6 +213,55 @@ function nhansu_chart_list_all_user() {
 
 }
 
+function nhansu_chart_filer_time() {
+    $timenow = time();
+    $form = array();
+
+    $form['from'] = array(
+        '#type' => 'date_popup',
+        '#title' => t('Từ ngày'),
+        '#size' => 20,
+        '#date_format' => 'd/m/Y',
+        '#default_value' => date('c', strtotime($timenow)),
+        '#date_year_range' => '-3:+3'
+    );
+    $form['to'] = array(
+        '#type' => 'date_popup',
+        '#title' => t('Tới'),
+        '#size' => 20,
+        '#date_format' => 'd/m/Y',
+        '#default_value' => date('c', strtotime($timenow)),
+        '#date_year_range' => '-3:+3'
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#attributes' => array('onclick' => 'return (false);'),
+        '#value' => t('Xem'),
+    );
+    return $form;
+}
+function nhansu_chart_filer_time_validate($form, &$form_state) {
+    $from = strtotime($form_state['values']['from']);
+    $to = strtotime($form_state['values']['to']);
+    $timenow = time();
+
+    if (!$from && $to) {
+        $from = $to;
+    }
+
+    if (!$to && $from) {
+        $to = $from;
+    }
+
+    if ($from > $timenow || $from > $to) {
+        form_set_error('Thời gian nhập vào không hợp lệ');
+        return;
+    }
+
+    $query = 'from[date]=' . format_date($from, 'custom', 'm/d/Y') . '&to[date]='.format_date($to, 'custom', 'm/d/Y');
+    $query = str_replace('/', '%2F', $query);
+    drupal_goto('doji/thongke', $query);
+}
 function nhansu_chart_form_select() {
     $role = nhansu_kpi_check_user();
     $arr_pb = array('ALL'=>'-- Tất cả --') + nhansu_list_phong_ban();
@@ -359,4 +522,65 @@ function nhansu_get_data_kpi($nid,$item) {
     }
     print json_encode($row);
     exit;
+}
+
+function nhansu_chart_colum_chuan() {
+    $js =  '
+        google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+
+          ["Element", "Density", { role: "style" } ],
+        ["Mục tiêu", 2000, "#b87333"],
+        ["Tối thiểu", 1000, "silver"],
+        ["Thực hiện", 1500, "color: #e5e4e2"]
+        ]);
+         var view = new google.visualization.DataView(data);
+      view.setColumns([0, 1,
+                       { calc: "stringify",
+                         sourceColumn: 1,
+                         type: "string",
+                         role: "annotation" },
+                       2]);
+
+        var options = {
+          is3D: true,
+           chartArea:{top:10,bottom:50,left:10,right:150,width:"150%"},
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById("chart_div2_colum"));
+      chart.draw(view, options);
+        chart.draw(data, options);
+        }
+    ';
+
+    drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
+    $output = "<div class='right_2'>";
+    $output .= '<h2 id="tieu_colum">Tiến độ thực hiện công việc</h2>';
+    $output .= '<div id="chart_div2_colum" style="width:300px;height:300px;float:right"></div>';
+    $output .= "</div>";
+    return $output;
+}
+
+function nhansu_chart_chitiet_home_thongke_giamdoc() {
+    drupal_set_title("");
+    $output = '';
+    $output .= '<h2></h2>';
+    $header = array('KPI','Hoàn thành');
+    $data = nhansu_data_table();
+    $num = count($data);
+    $tong = 0;
+    foreach($data as $content) {
+
+        $giatri = $content['ht'];
+        $giatri = trim(str_replace("%","",$giatri));
+
+        $tong = $tong + $giatri;
+    }
+    $tong = $tong.'%';
+    $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
+    $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
+    $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
+    return $output;
 }

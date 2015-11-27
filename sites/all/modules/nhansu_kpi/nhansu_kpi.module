@@ -46,7 +46,7 @@ function nhansu_kpi_danhgia() {
     $tong = $tong.'%';
     $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
-    $output .= '<div class="print_ex"><a href="#">Export</a> </div>';
+    $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;
 }
 

@@ -1,0 +1,19 @@
+<?php
+
+function nhansu_caidat_menu() {
+    $items['caidat'] = array(
+        'title' => 'Thông tin',
+        'page callback' => 'nhansu_caidat_kpi',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+
+    return $items;
+
+}
+
+function nhansu_caidat_kpi() {
+    return "";
+}

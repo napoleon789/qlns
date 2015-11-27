@@ -101,7 +101,9 @@ a{
     text-decoration: underline;
   }
 }
-
+a.chua_giao{
+  color:#bd3027;
+}
 #content{
   width: 1004px;
   margin: auto;
@@ -192,6 +194,22 @@ table{
       &:first-child{
         border-left: none;
       }
+    }
+  }
+}
+
+.sub_menu_student{
+  margin: 0 0 20px;
+  list-style: none;
+  padding: 4px 20px 6px;
+  border-bottom: 1px solid #ccc;
+  li{
+    display: inline-block;
+    margin-right: 15px;
+    border-right:1px solid #ccc;
+    padding: 1px 15px 2px 0;
+    &:last-child{
+      border-right: none;
     }
   }
 }

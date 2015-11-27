@@ -424,7 +424,7 @@ function nhansu_data_table($tid = null, $nid = null) {
                 toi_thieu = ' .$toi_thieu.'
                 muc_tieu = ' .$muc_tieu.'
                 id = "kpi_'.$k.'">' .$node->title.'</span></a>';
-                $row['ht'] = round($datas['ht'],2).'%';
+               // $row['ht'] = round($datas['ht'],2).'%';
                 $rows[] = $row;
             }
             return $rows;

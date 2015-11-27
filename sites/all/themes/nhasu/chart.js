@@ -2,9 +2,6 @@
 (function ($) {
     Drupal.behaviors.nhansu_chart = {
         attach: function (context, settings) {
-
-                jQuery("#edit-submit").submit(function(){return false;});
-
             jQuery(".ckpi").click(function() {
                 var thuc_hien = $(this).attr("thuc_hien");
                 var toi_thieu = $(this).attr("toi_thieu");
@@ -12,7 +9,7 @@
                 var title = $(this).text();
                 var nid = jQuery(this).attr("alt");
                 var item = jQuery(this).attr("rel");
-                jQuery('#chart_colum').html('<div class="loadding"><img src="sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
+                jQuery('#chart_colum').html('<div class="loadding"><img src="http://qlns.drupalvietnam.com/sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
                 jQuery.ajax({
                     url: 'https://www.google.com/jsapi?callback',
                     cache: true,
@@ -23,7 +20,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
+                                url: 'http://qlns.drupalvietnam.com/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);
@@ -65,7 +62,7 @@
                 var title = $(this).text();
                 var nid = jQuery(this).attr("alt");
                 var item = jQuery(this).attr("rel");
-                jQuery('#chart_colum').html('<div class="loadding"><img src="sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
+                jQuery('#chart_colum').html('<div class="loadding"><img src="http://qlns.drupalvietnam.com/sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
                 jQuery.ajax({
                     url: 'https://www.google.com/jsapi?callback',
                     cache: true,
@@ -76,7 +73,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
+                                url: 'http://qlns.drupalvietnam.com/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);
@@ -117,7 +114,7 @@ function nhansu_chart_data() {
         var title = jQuery(this).text();
         var nid = jQuery(this).attr("alt");
         var item = jQuery(this).attr("rel");
-        jQuery('#chart_colum').html('<div class="loadding"><img src="sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
+        jQuery('#chart_colum').html('<div class="loadding"><img src="http://qlns.drupalvietnam.com/sites/all/modules/nhansu_chart/images/bx_loader.gif" /></div>');
         jQuery.ajax({
             url: 'https://www.google.com/jsapi?callback',
             cache: true,
@@ -128,7 +125,7 @@ function nhansu_chart_data() {
                     jQuery.ajax({
                         type: "POST",
                         dataType: "json",
-                        url: 'nv/'+nid+'/'+item,
+                        url: 'http://qlns.drupalvietnam.com/nv/'+nid+'/'+item,
                         success: function(output) {
                             jQuery("#chart_colum").css("height","400px");
                             jQuery("#chart_colum1 h2").text(title);

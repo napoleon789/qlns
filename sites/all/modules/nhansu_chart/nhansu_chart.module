@@ -81,30 +81,38 @@ function nhansu_char_xanhdovang() {
     $thuc_hien = 150;
     $ouput = '<h2>Cảnh báo mức độ hoàn thành</h2>';
     if($thuc_hien < $toi_thieu) {
-      $ouput .= '
+      $ouput .= ' <div class="canhbao_left">
                 <ul>
                     <li class="do den_giaothong dat_chuan" style="background: red;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong" style="background: yellow;width: 300px;height: 40px"></li>
                     <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
                 </ul>
+                </div>
+                <div class="canhbao_right">Doanh thu của công ty đang ở mức nguy hiểm.</div>
       ';
     }
     elseif($thuc_hien < $muc_tieu && $thuc_hien > $toi_thieu ) {
         $ouput .= '
+ <div class="canhbao_left">
                 <ul>
                     <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong dat_chuan" style="background: yellow;width: 300px;height: 40px"></li>
                     <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
                 </ul>
+                 </div>
+                <div class="canhbao_right">Doanh thu của công ty chưa đạt mục tiêu.</div>
       ';
     }
     else {
         $ouput .= '
+                <div class="canhbao_left">
                 <ul>
                     <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong " style="background: yellow;width: 300px;height: 40px"></li>
                     <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
                 </ul>
+                 </div>
+                <div class="canhbao_right">Doanh thu của công ty đã đạt mục tiêu.</div>
       ';
     }
     return $ouput;
@@ -383,6 +391,24 @@ function nhansu_chart_data($tid = null,$nid = null ) {
 
 }
 
+function nhansu_data_table_home_giamdoc() {
+    $output = nhansu_kpi_get_all();
+    foreach($output as $k => $datas) {
+        $node = node_load($datas['nid']);
+        $thuc_hien = $datas['thuc_hien'];
+        $toi_thieu = $datas['toi_thieu'];
+        $muc_tieu = $datas['muc_tieu'];
+        $row['title'] =  $node -> title;
+        $row['muc_tieu'] = $muc_tieu;
+        $row['toi_thieu'] = $toi_thieu;
+        $row['thuc_hien'] = $thuc_hien;
+        //$row['ht'] = round($datas['ht'],2).'%';
+        $rows[] = $row;
+    }
+    return $rows;
+
+}
+
 function nhansu_data_table($tid = null, $nid = null) {
     if($tid == null) {
         $role = nhansu_kpi_check_user();
@@ -531,10 +557,10 @@ function nhansu_chart_colum_chuan() {
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
 
-          ["Element", "Density", { role: "style" } ],
-        ["Mục tiêu", 2000, "#b87333"],
-        ["Tối thiểu", 1000, "silver"],
-        ["Thực hiện", 1500, "color: #e5e4e2"]
+          ["Element", "Doanh thu", { role: "style" } ],
+        ["Mục tiêu", 2000, "color:#1222C0"],
+        ["Tối thiểu", 1000, "color:#F00012"],
+        ["Thực hiện", 1500, "color: #009ac3"]
         ]);
          var view = new google.visualization.DataView(data);
       view.setColumns([0, 1,
@@ -547,6 +573,7 @@ function nhansu_chart_colum_chuan() {
         var options = {
           is3D: true,
            chartArea:{top:10,bottom:50,left:10,right:150,width:"150%"},
+
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById("chart_div2_colum"));
@@ -566,20 +593,25 @@ function nhansu_chart_colum_chuan() {
 function nhansu_chart_chitiet_home_thongke_giamdoc() {
     drupal_set_title("");
     $output = '';
-    $output .= '<h2></h2>';
-    $header = array('KPI','Hoàn thành');
-    $data = nhansu_data_table();
+    $output .= '<h2>Thống kê chi tiết</h2>';
+    $header = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện");
+    $data = nhansu_data_table_home_giamdoc();
     $num = count($data);
-    $tong = 0;
+    $tong_toi_thieu = 0;
+    $tong_muc_tieu = 0;
+    $tong_thuc_hien = 0;
     foreach($data as $content) {
 
-        $giatri = $content['ht'];
-        $giatri = trim(str_replace("%","",$giatri));
-
-        $tong = $tong + $giatri;
+       // $giatri = $content['ht'];
+       // $giatri = trim(str_replace("%","",$giatri));
+        $tong_toi_thieu = $tong_toi_thieu + $content['toi_thieu'];
+        $tong_muc_tieu = $tong_muc_tieu + $content['muc_tieu'];
+        $tong_thuc_hien = $tong_thuc_hien + $content['thuc_hien'];
+        $tong_thuc_hien = $tong_thuc_hien + $content['thuc_hien'];
+       // $tong = $tong + $giatri;
     }
-    $tong = $tong.'%';
-    $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
+   // $tong = $tong.'%';
+    $arr_pb =  nhansu_data_table_home_giamdoc() + array($num => array("title" => "Tổng","toi_thieu" =>$tong_toi_thieu,"muc_tieu" =>$tong_muc_tieu,"thuc_hien" =>$tong_thuc_hien)) ;
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
     $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;

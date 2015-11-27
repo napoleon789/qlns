@@ -424,7 +424,7 @@ function nhansu_data_table($tid = null, $nid = null) {
                 toi_thieu = ' .$toi_thieu.'
                 muc_tieu = ' .$muc_tieu.'
                 id = "kpi_'.$k.'">' .$node->title.'</span></a>';
-               // $row['ht'] = round($datas['ht'],2).'%';
+                $row['ht'] = round($datas['ht'],2).'%';
                 $rows[] = $row;
             }
             return $rows;
@@ -602,8 +602,8 @@ function nhansu_chart_chitiet_home_thongke_giamdoc() {
     $tong_thuc_hien = 0;
     foreach($data as $content) {
 
-        $giatri = $content['ht'];
-        $giatri = trim(str_replace("%","",$giatri));
+       // $giatri = $content['ht'];
+       // $giatri = trim(str_replace("%","",$giatri));
         $tong_toi_thieu = $tong_toi_thieu + $content['toi_thieu'];
         $tong_muc_tieu = $tong_muc_tieu + $content['muc_tieu'];
         $tong_thuc_hien = $tong_thuc_hien + $content['thuc_hien'];

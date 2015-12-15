@@ -1,0 +1,5 @@
+name = "nhansu user"
+description = "Nhan Sự user"
+core = "7.x"
+package = "DPLDEV"
+version = "7.x"

@@ -145,7 +145,16 @@
                 <?php if (is_numeric(arg(1)) && arg(2) == 'info'):?>
                     <ul class="menu_student">
                         <li class="item menu1 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/info">Thông tin lý lịch</a> </li>
-                        <li class="item menu2"><a href="#">Hồ sơ công việc</a> </li>
+                        <li class="item menu2" ><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso">Hồ sơ công việc</a> </li>
+                        <li class="item menu2"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/kpi">KPI</a> </li>
+
+                    </ul>
+
+                <?php endif; ?>
+                <?php if (is_numeric(arg(1)) && arg(2) == 'hoso'):?>
+                    <ul class="menu_student">
+                        <li class="item menu1 "><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/info">Thông tin lý lịch</a> </li>
+                        <li class="item menu2 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso">Hồ sơ công việc</a> </li>
                         <li class="item menu2"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/kpi">KPI</a> </li>
 
                     </ul>
@@ -157,10 +166,14 @@
                     </ul>
                 <?php endif; ?>
 
+
                 <?php if (is_numeric(arg(1)) && arg(2) == 'kpi'):?>
                     <ul class="menu_student">
-                        <li class="item menu1"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/info">Thông tin cơ bản</a> </li>
-                        <li class="item menu2 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/kpi">KPI</a> </li>
+                        <ul class="menu_student">
+                            <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi/giao">Giao KPI</a> </li>
+                            <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
+                            <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
+                        </ul>
                     </ul>
                 <?php endif; ?>
 

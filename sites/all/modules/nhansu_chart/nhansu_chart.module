@@ -76,9 +76,9 @@ function nhansu_chart_home_giamdoc() {
 
 
 function nhansu_char_xanhdovang() {
-    $toi_thieu = 100;
-    $muc_tieu = 200;
-    $thuc_hien = 150;
+    $toi_thieu = 1000;
+    $muc_tieu = 2000;
+    $thuc_hien = 1500;
     $ouput = '<h2>Cảnh báo mức độ hoàn thành</h2>';
     if($thuc_hien < $toi_thieu) {
       $ouput .= ' <div class="canhbao_left">
@@ -100,7 +100,7 @@ function nhansu_char_xanhdovang() {
                     <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
                 </ul>
                  </div>
-                <div class="canhbao_right">Doanh thu của công ty chưa đạt mục tiêu.</div>
+                <div class="canhbao_right">Doanh thu của công ty đã vượt qua mức tối thiểu nhưng chưa đạt mục tiêu.</div>
       ';
     }
     else {
@@ -125,7 +125,8 @@ function nhansu_chart_colum_giamdoc() {
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
         ["Đã giải ngân", "Chưa giải ngân"],
-          '.nhansu_chart_data().'
+          [" Hoàn thành", 1500 ],
+          [" Chưa hoàn thành", 500 ],
         ]);
 
         var options = {
@@ -593,26 +594,49 @@ function nhansu_chart_colum_chuan() {
 function nhansu_chart_chitiet_home_thongke_giamdoc() {
     drupal_set_title("");
     $output = '';
-    $output .= '<h2>Thống kê chi tiết</h2>';
+    $output .= '<h2>Thống kê chi tiết. Đơn vị(Triệu đồng)</h2>';
     $header = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện");
     $data = nhansu_data_table_home_giamdoc();
+    $data = array(
+        0=> array(
+            "title" => "Thanh toán phí cung cấp thông tin đến hạn",
+            "muc_tieu" => 400,
+            "toi_thieu" => 200,
+            "thuc_hien" => 400,
+            "ht" => "10"
+        ),
+        1=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ kế toán",
+            "muc_tieu" => 500,
+            "toi_thieu" => 300,
+            "thuc_hien" => 400,
+            "ht" => "15"
+        ),
+        2=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ giáo dục",
+            "muc_tieu" => 600,
+            "toi_thieu" => 400,
+            "thuc_hien" => 400,
+            "ht" => "10"
+        ),
+        3=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ tư vấn",
+            "muc_tieu" => 500,
+            "toi_thieu" => 100,
+            "thuc_hien" => 300,
+            "ht" => "20"
+        ),
+    );
     $num = count($data);
     $tong_toi_thieu = 0;
     $tong_muc_tieu = 0;
     $tong_thuc_hien = 0;
     foreach($data as $content) {
-
-       // $giatri = $content['ht'];
-       // $giatri = trim(str_replace("%","",$giatri));
         $tong_toi_thieu = $tong_toi_thieu + $content['toi_thieu'];
         $tong_muc_tieu = $tong_muc_tieu + $content['muc_tieu'];
         $tong_thuc_hien = $tong_thuc_hien + $content['thuc_hien'];
-        $tong_thuc_hien = $tong_thuc_hien + $content['thuc_hien'];
-       // $tong = $tong + $giatri;
     }
-   // $tong = $tong.'%';
-    $arr_pb =  nhansu_data_table_home_giamdoc() + array($num => array("title" => "Tổng","toi_thieu" =>$tong_toi_thieu,"muc_tieu" =>$tong_muc_tieu,"thuc_hien" =>$tong_thuc_hien)) ;
+    $arr_pb =  $data + array($num => array("title" => "Tổng","toi_thieu" =>$tong_toi_thieu,"muc_tieu" =>$tong_muc_tieu,"thuc_hien" =>$tong_thuc_hien)) ;
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
-    $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;
 }

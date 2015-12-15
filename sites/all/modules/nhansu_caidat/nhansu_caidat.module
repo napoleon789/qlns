@@ -2,8 +2,80 @@
 
 function nhansu_caidat_menu() {
     $items['caidat'] = array(
-        'title' => 'Thông tin',
+        'title' => 'Cài đặt hệ thống',
         'page callback' => 'nhansu_caidat_kpi',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/kpi'] = array(
+        'title' => 'Cài đặt hệ thống',
+        'page callback' => 'nhansu_caidat_kpi',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/phongban'] = array(
+        'title' => 'Cài đặt phòng ban',
+        'page callback' => 'nhansu_caidat_phongban',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user'] = array(
+        'title' => 'Cài đặt user',
+        'page callback' => 'nhansu_caidat_user',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user/vaitro'] = array(
+        'title' => 'Cài đặt user',
+        'page callback' => 'nhansu_caidat_user_vaitro',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['nhanvien/%/hoso'] = array(
+        'title' => 'Thông tin',
+        'page callback' => 'nhansu_caidat_hoso',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['nhanvien/%/mota'] = array(
+        'title' => 'Mô tả công việc',
+        'page callback' => 'nhansu_caidat_hoso',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['nhanvien/%/nangluc'] = array(
+        'title' => 'Năng lực nhân viên',
+        'page callback' => 'nhansu_caidat_nangluc',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['nhanvien/%/daingo'] = array(
+        'title' => 'Chế độ đãi ngộ',
+        'page callback' => 'nhansu_caidat_daingo',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['nhanvien/%/condanh'] = array(
+        'title' => 'Con đường công danh',
+        'page callback' => 'nhansu_caidat_congdanh',
         'page arguments' => array(1),
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
@@ -14,6 +86,43 @@ function nhansu_caidat_menu() {
 
 }
 
-function nhansu_caidat_kpi() {
+function nhansu_caidat_user_vaitro() {
+    $form = drupal_get_form("user_admin_roles");
+    $ouput = drupal_render($form);
+    return $ouput;
+}
+function nhansu_caidat_nangluc() {
     return "";
+}
+function nhansu_caidat_daingo() {
+    return "";
+}
+function nhansu_caidat_congdanh() {
+    return "";
+}
+function nhansu_caidat_user(){
+    //$form = drupal_get_form('nhansu_chart_form_select');
+    //$output = drupal_render($form);
+    $output = views_embed_view('caidat_user','default');
+    return $output;
+}
+
+function nhansu_caidat_phongban() {
+    $output = views_embed_view('phong_ban','default');
+    return $output;
+}
+
+function nhansu_caidat_hoso() {
+    drupal_set_title("Mô tả công việc");
+    return "";
+}
+
+function nhansu_caidat_kpi() {
+    drupal_set_title("Cài đặt KPI");
+    $output = views_embed_view('thu_vien_kpi','default');
+    return $output;
+}
+
+function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
+
 }

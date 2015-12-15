@@ -94,12 +94,16 @@ function nhansu_menu() {
 }
 function nhansu_list_student() {
     global $base_url;
-    $output = views_embed_view('nhanvien','default');
+    $form = drupal_get_form('nhansu_chart_form_select');
+    $output = drupal_render($form);
+    $output .= views_embed_view('nhanvien','default');
     return $output;
 }
 
 function nhansu_giao_kpi() {
-    $output = views_embed_view('nhanvien_kpi','default');
+    $form = drupal_get_form('nhansu_chart_form_select');
+    $output = drupal_render($form);
+    $output .= views_embed_view('nhanvien_kpi','default');
     return $output;
 }
 function nhansu_home() {

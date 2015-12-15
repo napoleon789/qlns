@@ -30,9 +30,11 @@ function nhansu_kpi_kiemsoat() {
 
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
+    $form1 = drupal_get_form('nhansu_chart_filer_time');
+    $output = drupal_render($form1);
     $form = drupal_get_form('nhansu_chart_form_select');
-    $output = '<div id ="danhgia_kpi">'.drupal_render($form).'</div>';
-    $header = array('KPI','Hoàn thành');
+    $output .= '<div id ="danhgia_kpi">'.drupal_render($form).'</div>';
+    $header = array('KPI',"Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');
     $data = nhansu_data_table();
     $num = count($data);
     $tong = 0;
@@ -43,8 +45,38 @@ function nhansu_kpi_danhgia() {
 
        $tong = $tong + $giatri;
     }
+    $data = array(
+        0=> array(
+            "title" => "Thanh toán phí cung cấp thông tin đến hạn",
+            "muc_tieu" => 400,
+            "toi_thieu" => 200,
+            "thuc_hien" => 400,
+            "ht" => "10%"
+        ),
+        1=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ kế toán",
+            "muc_tieu" => 500,
+            "toi_thieu" => 300,
+            "thuc_hien" => 400,
+            "ht" => "15%"
+        ),
+        2=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ giáo dục",
+            "muc_tieu" => 600,
+            "toi_thieu" => 400,
+            "thuc_hien" => 400,
+            "ht" => "20%"
+        ),
+        3=> array(
+            "title" => "Doanh thu thuần hoạt động nghiệp vụ tư vấn",
+            "muc_tieu" => 500,
+            "toi_thieu" => 100,
+            "thuc_hien" => 300,
+            "ht" => "20%"
+        ),
+    );
     $tong = $tong.'%';
-    $arr_pb =  nhansu_data_table() + array($num => array("title" => "Tổng","ht" =>$tong)) ;
+    $arr_pb =  $data + array($num => array("title" => "Tổng","muc_tieu" => 2000,"toi_thieu" => 1000,"thuc_hien" => 1500,"ht" =>"65%")) ;
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
     $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;

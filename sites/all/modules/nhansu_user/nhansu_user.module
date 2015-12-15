@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implement hook_init
+ */
+
+function nhansu_user_user_insert(&$edit, $account, $category) {
+    $uid = $account -> uid;
+    $node_hoso = new stdClass();
+    $node_hoso->type = 'article';
+    $node_hoso->status = 1;
+    $node_hoso->timestamp = strtotime("now");
+    $node_hoso->uid = 1;
+    $node_hoso->title = $account->name;
+    $node_hoso->comment = 2;
+    $node_hoso->promote = 1;
+    $node_hoso->field_uid['und'][0]['value'] = $uid;
+    node_save($node_hoso);
+
+    $node_giao_kpi = new stdClass();
+    $node_giao_kpi->type = 'giao_kpi';
+    $node_giao_kpi->status = 1;
+    $node_giao_kpi->timestamp = strtotime("now");
+    $node_giao_kpi->uid = 1;
+    $node_giao_kpi->title = $account->name;
+    $node_giao_kpi->comment = 2;
+    $node_giao_kpi->promote = 1;
+    $node_giao_kpi->field_uid['und'][0]['value'] = $uid;
+    node_save($node_giao_kpi);
+}

@@ -53,7 +53,7 @@ textarea {
 }
 
 /* line 70, sass/_theme.scss */
-input[type="submit"] {
+input[type="submit"], .new_time {
   color: #fff;
   font-size: 11px;
   font-weight: bold;
@@ -70,7 +70,7 @@ input[type="submit"] {
   transition: all ease 0.5s;
 }
 /* line 83, sass/_theme.scss */
-input[type="submit"]:hover {
+input[type="submit"]:hover, .new_time:hover {
   background: #59a538;
   color: #fff;
 }
@@ -222,6 +222,27 @@ table tr th:first-child, table tr td:first-child {
 /* line 211, sass/_theme.scss */
 .sub_menu_student li:last-child {
   border-right: none;
+}
+
+/* line 218, sass/_theme.scss */
+.form-type-radios.form-item-loc-theo label {
+  float: left;
+  width: 60px;
+}
+/* line 223, sass/_theme.scss */
+.form-type-radios.form-item-loc-theo .form-radios label {
+  float: none;
+  width: auto;
+}
+/* line 227, sass/_theme.scss */
+.form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo {
+  display: inline-block;
+  width: 19%;
+}
+/* line 230, sass/_theme.scss */
+.form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo input, .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo label {
+  margin-top: 0;
+  vertical-align: middle;
 }
 
 /* line 1, sass/_header.scss */
@@ -610,17 +631,12 @@ table tr th:first-child, table tr td:first-child {
   min-height: 800px;
 }
 
-/* line 293, sass/_nhanvien.scss */
-.page-quanly-kpi-danhgia .block-system table tbody tr:last-child {
-  font-weight: bold;
-}
-
-/* line 301, sass/_nhanvien.scss */
+/* line 289, sass/_nhanvien.scss */
 .print_ex {
   margin-top: 20px;
   text-align: right;
 }
-/* line 304, sass/_nhanvien.scss */
+/* line 292, sass/_nhanvien.scss */
 .print_ex a {
   text-align: left;
   text-indent: -9999px;
@@ -848,4 +864,169 @@ table tr th:first-child, table tr td:first-child {
 /* line 188, sass/_home.scss */
 .content_home1 .right_2 {
   float: right;
+}
+
+/* line 5, sass/_kpi.scss */
+.page-quanly-kpi-danhgia .block-system table tbody tr:last-child {
+  font-weight: bold;
+}
+
+/* line 15, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-type-radios.form-item-loc-theo label, .page-quanly-kpi-danhgia .form-type-radios.form-item-loc-theo label {
+  float: left;
+  width: 60px;
+}
+/* line 20, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-type-radios.form-item-loc-theo .form-radios label, .page-quanly-kpi-danhgia .form-type-radios.form-item-loc-theo .form-radios label {
+  float: none;
+  width: auto;
+}
+/* line 24, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo, .page-quanly-kpi-danhgia .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo {
+  display: inline-block;
+  width: 19%;
+}
+/* line 27, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo input, .page-quanly-kpi-kiemsoat .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo label, .page-quanly-kpi-danhgia .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo input, .page-quanly-kpi-danhgia .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo label {
+  margin-top: 0;
+  vertical-align: middle;
+}
+/* line 36, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-item-cac-quy, .page-quanly-kpi-kiemsoat .form-item-nam-quy, .page-quanly-kpi-danhgia .form-item-cac-quy, .page-quanly-kpi-danhgia .form-item-nam-quy {
+  width: 20%;
+  margin-right: 15px;
+  float: left;
+  margin-top: 0;
+}
+/* line 41, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-item-cac-quy label, .page-quanly-kpi-kiemsoat .form-item-nam-quy label, .page-quanly-kpi-danhgia .form-item-cac-quy label, .page-quanly-kpi-danhgia .form-item-nam-quy label {
+  width: 33%;
+}
+/* line 44, sass/_kpi.scss */
+.page-quanly-kpi-kiemsoat .form-item-cac-quy select, .page-quanly-kpi-kiemsoat .form-item-nam-quy select, .page-quanly-kpi-danhgia .form-item-cac-quy select, .page-quanly-kpi-danhgia .form-item-nam-quy select {
+  width: 67%;
+}
+
+/* line 52, sass/_kpi.scss */
+.page-nhanvien-kpi .new_time {
+  float: right;
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 15px;
+}
+/* line 58, sass/_kpi.scss */
+.page-nhanvien-kpi .nguoi_giao {
+  line-height: 30px;
+  float: left;
+  width: 724px;
+  margin: 0;
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 0;
+  clear: both;
+}
+/* line 27, sass/_mixin.scss */
+.page-nhanvien-kpi .nguoi_giao::after, .page-nhanvien-kpi .nguoi_giao::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 68, sass/_kpi.scss */
+.page-nhanvien-kpi .nguoi_giao span {
+  background: #47812c none repeat scroll 0 0;
+  color: #fff;
+  float: left;
+  height: 30px;
+  line-height: 30px;
+  margin: 0;
+  padding: 0 10px;
+  width: 40%;
+  margin-right: 8px;
+}
+/* line 81, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-giaotheo {
+  clear: both;
+}
+/* line 27, sass/_mixin.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-giaotheo::after, .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 83, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-giaotheo label[for="edit-field-giaokpi-giaotheo-und"] {
+  float: left;
+  margin-top: 5px;
+  font-weight: bold;
+  width: 80px;
+}
+/* line 90, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item {
+  display: inline-block;
+  width: 19%;
+}
+/* line 93, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item input, .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item label {
+  margin-top: 0;
+  vertical-align: middle;
+}
+/* line 101, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-kpi-giao-tu {
+  padding-left: 0 !important;
+}
+/* line 104, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-kpi-giao-tu, .page-nhanvien-kpi .field-name-field-giao-kpi-den, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und {
+  margin-top: 0;
+  width: 30% !important;
+}
+/* line 107, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-kpi-giao-tu legend, .page-nhanvien-kpi .field-name-field-kpi-giao-tu label, .page-nhanvien-kpi .field-name-field-giao-kpi-den legend, .page-nhanvien-kpi .field-name-field-giao-kpi-den label, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und legend, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und label {
+  float: left;
+  font-weight: bold;
+  margin-top: 5px;
+  width: 33%;
+  padding-right: 15px;
+}
+/* line 114, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-kpi-giao-tu .fieldset-wrapper, .page-nhanvien-kpi .field-name-field-kpi-giao-tu select, .page-nhanvien-kpi .field-name-field-giao-kpi-den .fieldset-wrapper, .page-nhanvien-kpi .field-name-field-giao-kpi-den select, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und .fieldset-wrapper, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und select {
+  width: 67% !important;
+  float: left;
+}
+/* line 119, sass/_kpi.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-quy {
+  clear: both;
+}
+/* line 27, sass/_mixin.scss */
+.page-nhanvien-kpi .field-name-field-giaokpi-quy::after, .page-nhanvien-kpi .field-name-field-giaokpi-quy::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 124, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user table td {
+  vertical-align: top;
+}
+/* line 126, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user table td ul, .page-nhanvien-kpi .view-id-kpi_user table td li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 134, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table thead, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table .field-multiple-drag {
+  display: none;
+}
+/* line 139, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table tbody tr:nth-child(3) {
+  display: none;
+}
+/* line 145, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable ul, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .tabledrag-toggle-weight-wrapper, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .clearfix, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .tabledrag-handle {
+  display: none;
+}
+/* line 152, sass/_kpi.scss */
+.page-nhanvien-kpi .view-id-kpi_user #edit-actions {
+  border-top: none !important;
+  padding-top: 0 !important;
 }

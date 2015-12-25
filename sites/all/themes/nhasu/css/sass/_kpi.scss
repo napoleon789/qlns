@@ -1,0 +1,158 @@
+.page-quanly-kpi-danhgia{
+  .block-system{
+    table{
+      tbody{
+        tr:last-child{
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.page-quanly-kpi-kiemsoat, .page-quanly-kpi-danhgia{
+  .form-type-radios.form-item-loc-theo{
+    label{
+      float: left;
+      width: 60px;
+    }
+    .form-radios{
+      label{
+        float: none;
+        width: auto;
+      }
+      .form-item-loc-theo{
+        display: inline-block;
+        width: 19%;
+        input,label{
+          margin-top: 0;
+          vertical-align: middle;
+        }
+      }
+    }
+
+
+  }
+  .form-item-cac-quy, .form-item-nam-quy{
+    width: 20%;
+    margin-right: 15px;
+    float: left;
+    margin-top: 0;
+    label{
+      width: 33%;
+    }
+    select{
+      width: 67%;
+    }
+  }
+}
+
+
+.page-nhanvien-kpi{
+  .new_time{
+    float: right;
+    display: inline-block;
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .nguoi_giao{
+    line-height: 30px;
+    float: left;
+    width: 724px;
+    margin: 0;
+    border-top:1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding: 0;
+    @include clearfix();
+    span{
+      background: #47812c none repeat scroll 0 0;
+      color: #fff;
+      float: left;
+      height: 30px;
+      line-height: 30px;
+      margin: 0;
+      padding: 0 10px;
+      width: 40%;
+      margin-right: 8px;
+    }
+  }
+
+  .field-name-field-giaokpi-giaotheo{
+    @include clearfix();
+    label[for="edit-field-giaokpi-giaotheo-und"]{
+      float: left;
+      margin-top: 5px;
+      font-weight: bold;
+      width: 80px;
+    }
+    .form-radios{
+      .form-item{
+        display: inline-block;
+        width: 19%;
+        input,label{
+          margin-top: 0;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .field-name-field-kpi-giao-tu{
+    padding-left: 0 !important;
+  }
+  .field-name-field-kpi-giao-tu, .field-name-field-giao-kpi-den, .form-type-select.form-item-field-giaokpi-quy-und{
+    margin-top: 0;
+    width: 30% !important;
+    legend, label{
+      float: left;
+      font-weight: bold;
+      margin-top: 5px;
+      width: 33%;
+      padding-right: 15px;
+    }
+    .fieldset-wrapper, select{
+      width: 67% !important;
+      float: left;
+    }
+  }
+  .field-name-field-giaokpi-quy{
+    @include clearfix();
+  }
+  .view-id-kpi_user{
+    table{
+      td{
+        vertical-align: top;
+        ul, li{
+          list-style: none;
+          margin: 0;
+          padding: 0;
+        }
+
+        &.views-field-field-giaokpi-thuchien-editable{
+          table{
+            thead, .field-multiple-drag{
+              display: none;
+            }
+            tbody{
+              tr{
+                &:nth-child(3){
+                display: none;
+              }
+              }
+            }
+          }
+          ul, .tabledrag-toggle-weight-wrapper, .clearfix, .tabledrag-handle{
+            display: none;
+          }
+
+        }
+      }
+    }
+    #edit-actions{
+      border-top: none !important;
+      padding-top: 0 !important;
+    }
+  }
+
+}

@@ -21,3 +21,12 @@
   -webkit-transition:all ease 0.5s;
   transition:all ease 0.5s;
 }
+
+@mixin clearfix(){
+  clear: both;
+  &::after,&::before{
+    display: table;
+    clear: both;
+    content: "";
+  }
+}

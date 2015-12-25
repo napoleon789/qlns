@@ -1,0 +1,7 @@
+<?php
+
+function nhansu_clone_node_update($node) {
+}
+
+function nhansu_clone_form_alter(&$form, &$form_state, $form_id)  {
+}

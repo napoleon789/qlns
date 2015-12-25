@@ -62,7 +62,7 @@ function nhansu_chart_block_view($delta = '') {
         case 'home_truongphong':
             $block['content'] = nhansu_chart_home_truongphong();
             break;
-        case 'home_truongphong':
+        case 'home_nhanvien':
             $block['content'] = nhansu_chart_home_nhanvien();
             break;
     }
@@ -73,7 +73,10 @@ function nhansu_chart_home_giamdoc() {
    $output = nhansu_chart_colum_giamdoc();
    return $output;
 }
-
+function nhansu_chart_home_nhanvien() {
+   $output = nhansu_chart_colum_nhanvien();
+   return $output;
+}
 
 function nhansu_char_xanhdovang() {
     $toi_thieu = 1000;
@@ -160,6 +163,75 @@ function nhansu_chart_colum_giamdoc() {
 }
 
 
+function nhansu_chart_colum_nhanvien() {
+    $uid = 18;
+    $nid = nhansu_get_nid_from_uid($uid,'giao_kpi');
+    $node = node_load($nid);
+    $count = $node-> field_giaokpi_chi['und'];
+    $ht = 0;
+    foreach($count as $k => $result) {
+        $hoan_thanh = trim($node -> field_giaokpi_hoanthanh['und'][$k]['value']);
+        $hoan_thanh = substr($hoan_thanh,0,-1);
+        $ht = $ht + $hoan_thanh;
+        //table ben phai
+        $node_dl = node_load($result['value']);
+        $title = $node_dl -> title;
+        $ht_field = $node->field_giaokpi_hoanthanh['und'][$k]['value'];
+        $thuc_hien = $node->field_giaokpi_thuchien['und'][$k]['value'];
+        $toi_thieu = $node->field_giaokpi_toi['und'][$k]['value'];
+        $muc_tieu = $node->field_giaokpi_muctieu['und'][$k]['value'];
+        $row['title'] = '<a href="#chart_div2"><span toi_thieu="'.$toi_thieu.'" thuc_hien="'.$thuc_hien.'" muc_tieu ="'               .$muc_tieu.'" class= "ckpi_ad" rel ="'.$k.'" id = "kpi_'.$nid.'" alt = "'.$nid.'">' .$title.'</span></a>';
+        $row['ht'] = $ht_field;
+        $chitiet['title'] = $title;
+        $chitiet['toi_thieu'] = $toi_thieu;
+        $chitiet['muc_tieu'] = $muc_tieu;
+        $chitiet['thuc_hien'] = $thuc_hien;
+        $chitiet["ht"] = $ht_field;
+        $rows[] = $row;
+        $row_chitiets[] = $chitiet;
+    }
+    $cht = 100 - $ht;
+    $data = '  [" Hoàn thành", '.$ht.' ],
+          [" Chưa hoàn thành", '.$cht.' ],';
+    $js =  '
+        google.load("visualization", "1", {packages:["corechart"]});
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+        ["Đã giải ngân", "Chưa giải ngân"],'.$data.'
+
+        ]);
+
+        var options = {
+          is3D: true,
+           chartArea:{top:10,bottom:50,left:10,right:150,width:"150%"},
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById("chart_div2"));
+        chart.draw(data, options);
+        }
+    ';
+    $header = array('KPI','Hoàn thành');
+    $block = module_invoke('nhansu_chart', 'block_view', 'chart_xanhdovang');
+    $giao_thong =  render($block['content']);
+    drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
+    $form = drupal_get_form('nhansu_chart_filer_time');
+    $output = '<div class="filter_time">'.drupal_render($form).'</div>';
+    $output .= '<div class="content_home1"> <div class="right_1"> <h2>Tỷ lệ hoàn thành chỉ tiêu</h2><div id="chart_div2" style="width:450px;height:300px;float:left"></div></div>';
+    $output  .= '<div class="content_revenue" style ="width:280px;float:right;margin-right:35px;"><h2>Chi tiết</h2>'.theme('table', array('header' => $header,   'rows' => $rows )).'</div>';
+    $output .= '</div>';
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= $giao_thong;
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= '<div id="chart_colum1"><h2 id="tieu_colum"></h2><div id="chart_colum"></div></div>';
+    $output .= '<div id="clear" style="clear: both"></div>';
+    $output .= '<h2>Thống kê chi tiết. Đơn vị(Triệu đồng)</h2>';
+    $header_chitiet = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện","Hoàn thành");
+    $output .= '<div class="noidung">'.theme('table', array('header' => $header_chitiet,   'rows' => $row_chitiets )).'</div>';
+    return $output;
+}
+
+
 
 function nhansu_chart_colum() {
     $js =  '
@@ -222,54 +294,102 @@ function nhansu_chart_list_all_user() {
 
 }
 
-function nhansu_chart_filer_time() {
-    $timenow = time();
-    $form = array();
+function nhansu_chart_filer_time($form, &$form_state) {
+    $cac_quy = array(
+        0 => '--Quỹ--',
+        1 => "Quý 1",
+        2 => "Quý 2",
+        3 => "Quý 3",
+        4 => "Quý 4",
+    );
+    $nam_quy = array(
+        0 => '--Năm--',
+        1 => "2016",
+        2 => "2015",
+        3 => "2014",
+        4 => "2013",
+    );
+    $from ="";
+    $to = "";
+    $value_quy = 0;
+    $value_nam = 0;
+    $loc_theo = 0 ;
+    $format = 'Y-m-d';
+    if(isset($_GET['from_time']) || isset($_GET['to_time'])) {
+          $from = $_GET['from_time'];
+          $to  = $_GET['to_time'];
+          $loc_theo = $_GET['loc_theo'];
+          $value_quy = $_GET['cac_quy'];
+          $value_nam = $_GET['nam_quy'];
+    }
 
-    $form['from'] = array(
+    $active = array(0 => t('Theo tháng'), 1 => t('Theo quý'));
+    $form['loc_theo'] = array(
+        '#type' => 'radios',
+        '#title' => t('Lọc theo: '),
+        '#default_value' => $loc_theo,
+        '#options' => $active,
+    );
+    $form['cac_quy'] = array(
+        '#title' => t('Chọn quý'),
+        '#type' => 'select',
+        '#options' => $cac_quy,
+        '#attributes' => array(
+            'class' =>array('select_area'),
+        ),
+        '#default_value' => $value_quy,
+    );
+    $form['nam_quy'] = array(
+        '#title' => t('Chọn năm'),
+        '#type' => 'select',
+        '#options' => $nam_quy,
+        '#default_value' => $value_nam,
+        '#attributes' => array(
+            'class' =>array('select_area'),
+        ),
+    );
+    $form['from_time'] = array(
         '#type' => 'date_popup',
         '#title' => t('Từ ngày'),
         '#size' => 20,
-        '#date_format' => 'd/m/Y',
-        '#default_value' => date('c', strtotime($timenow)),
+        '#date_format' => $format,
+        '#default_value' => $from,
         '#date_year_range' => '-3:+3'
     );
-    $form['to'] = array(
+    $form['to_time'] = array(
         '#type' => 'date_popup',
         '#title' => t('Tới'),
         '#size' => 20,
-        '#date_format' => 'd/m/Y',
-        '#default_value' => date('c', strtotime($timenow)),
+        '#date_format' => $format,
+        '#default_value' => $to,
         '#date_year_range' => '-3:+3'
     );
     $form['submit'] = array(
         '#type' => 'submit',
-        '#attributes' => array('onclick' => 'return (false);'),
+        //'#attributes' => array('onclick' => 'return (false);'),
         '#value' => t('Xem'),
     );
-    return $form;
+   return $form;
 }
-function nhansu_chart_filer_time_validate($form, &$form_state) {
-    $from = strtotime($form_state['values']['from']);
-    $to = strtotime($form_state['values']['to']);
-    $timenow = time();
+function nhansu_chart_filer_time_submit($form, &$form_state) {
+    dpm($form_state);
+    if (isset($form_state['input'])) {
+        $from_time = $form_state['input']['from_time']['date'];
+        $to_time = $form_state['input']['to_time']['date'];
+        $loc_theo = $form_state['input']['loc_theo'];
+        $cac_quy = $form_state['input']['cac_quy'];
+        $nam_quy = $form_state['input']['nam_quy'];
+        $form_state['redirect'] =  array(
+            'quanly/kpi/kiemsoat',
+            array('query' => array(
+                'from_time' => $from_time,
+                'to_time' => $to_time,
+                'loc_theo' => $loc_theo,
+                'cac_quy' => $cac_quy,
+                'nam_quy' => $nam_quy,
+            )));
 
-    if (!$from && $to) {
-        $from = $to;
     }
-
-    if (!$to && $from) {
-        $to = $from;
-    }
-
-    if ($from > $timenow || $from > $to) {
-        form_set_error('Thời gian nhập vào không hợp lệ');
-        return;
-    }
-
-    $query = 'from[date]=' . format_date($from, 'custom', 'm/d/Y') . '&to[date]='.format_date($to, 'custom', 'm/d/Y');
-    $query = str_replace('/', '%2F', $query);
-    drupal_goto('doji/thongke', $query);
 }
 function nhansu_chart_form_select() {
     $role = nhansu_kpi_check_user();
@@ -639,4 +759,55 @@ function nhansu_chart_chitiet_home_thongke_giamdoc() {
     $arr_pb =  $data + array($num => array("title" => "Tổng","toi_thieu" =>$tong_toi_thieu,"muc_tieu" =>$tong_muc_tieu,"thuc_hien" =>$tong_thuc_hien)) ;
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
     return $output;
+}
+
+function nhansu_chart_chitiet_home_thongke_nhanvien() {
+    $uid = 18;
+    $nid = nhansu_get_nid_from_uid($uid,"giao_kpi");
+    $node = node_load($nid);
+    drupal_set_title("");
+    $output = '';
+    $output .= '<h2>Thống kê chi tiết. Đơn vị(Triệu đồng)</h2>';
+    $header = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện");
+    $arr = $node -> field_giaokpi_chi['und'];
+    foreach($arr as $k =>$data) {
+
+    }
+    $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
+    return $output;
+}
+function nhansu_chart_data_nhanvien() {
+    $uid = 18;
+    $nid = nhansu_get_nid_from_uid($uid,'giao_kpi');
+    $node = node_load($nid);
+    $count = $node-> field_giaokpi_chi['und'];
+    $ht = 0;
+    foreach($count as $k => $data) {
+        $hoan_thanh = trim($node -> field_giaokpi_hoanthanh['und'][$k]['value']);
+        $hoan_thanh = substr($hoan_thanh,0,-1);
+        $ht = $ht + $hoan_thanh;
+    }
+    $cht = 100 - $ht;
+    $data = '  [" Hoàn thành", '.$ht.' ],
+          [" Chưa hoàn thành", '.$cht.' ],';
+    return $data;
+}
+function nhansu_data_table_nhanvien($tid = null, $nid = null) {
+    $uid = 18;
+    $nid = nhansu_get_nid_from_uid($uid,"giao_kpi");
+    $node = node_load($nid);
+    dpm($node);
+    $ctieu = $node ->field_giaokpi_chi['und'];
+    foreach($ctieu as $k =>$result) {
+        $node_dl = node_load($result['value']);
+        $title = $node_dl -> title;
+        $ht = $node->field_giaokpi_hoanthanh['und'][$k]['value'];
+        $thuc_hien = $node->field_giaokpi_thuchien['und'][$k]['value'];
+        $toi_thieu = $node->field_giaokpi_toi['und'][$k]['value'];
+        $muc_tieu = $node->field_giaokpi_muctieu['und'][$k]['value'];
+        $row['title'] = '<a href="#chart_div2"><span toi_thieu="'.$toi_thieu.'" thuc_hien="'.$thuc_hien.'" muc_tieu ="'.$muc_tieu.'" class= "ckpi" rel ="'.$k.'" id = "kpi_'.$nid.'" alt = "'.$nid.'">' .$title.'</span></a>';
+        $row['ht'] = $ht;
+        $rows[] = $row;
+    };
+    return $rows;
 }

@@ -21,7 +21,15 @@ function nhansu_menu() {
     );
     $items['nhanvien/%/kpi'] = array(
         'title' => 'KPI',
-        'page callback' => 'nhansu_info',
+        'page callback' => 'nhansu_info_kpi',
+        'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 1,
+    );
+    $items['kpi/%/create'] = array(
+        'title' => 'KPI',
+        'page callback' => 'nhansu_kpi_create',
         'page arguments' => array(1),
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
@@ -92,6 +100,44 @@ function nhansu_menu() {
     );
     return $items;
 }
+
+function nhansu_kpi_create() {
+    global $user;
+    $nid = nhansu_get_nid_from_uid(arg(1),'giao_kpi');
+    $query = db_query("SELECT title FROM {node} WHERE nid =:nid",array(":nid" => $nid));
+    foreach($query as $data) {
+        $title = $data -> title;
+    }
+
+    $node_giao_kpi = new stdClass();
+    $node_giao_kpi->type = 'giao_kpi';
+    $node_giao_kpi->status = 1;
+    $node_giao_kpi->timestamp = strtotime("now");
+    $node_giao_kpi->uid = $user -> uid;
+    $node_giao_kpi->title = $title;
+    $node_giao_kpi->comment = 2;
+    $node_giao_kpi->promote = 1;
+    $node_giao_kpi->field_uid['und'][0]['value'] = arg(1);
+    $node_giao_kpi->field_giaokpi_nguoigiao['und'][0]['value'] = $user ->uid;
+    node_save($node_giao_kpi);
+}
+
+function nhansu_info_kpi() {
+    $role = nhansu_kpi_check_user();
+    if($role == 3) {
+        $id = nhansu_get_nid_from_uid(arg(1),'giao_kpi');
+        $form = views_embed_view('kpi_user','default',$id);
+    }
+    else {
+        $uid = arg(1);
+        $id = nhansu_get_nid_from_uid($uid,"giao_kpi");
+        module_load_include('inc', 'node', 'node.pages');
+        $node = node_load($id);
+        $form = node_page_edit($node);
+    }
+    drupal_set_title(t('Chỉ tiêu KPI'));
+    return $form;
+}
 function nhansu_list_student() {
     global $base_url;
     $form = drupal_get_form('nhansu_chart_form_select');
@@ -124,12 +170,30 @@ function nhansu_info($id='') {
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
+
+  if($form_id = "giao_kpi_node_form") {
+      $role = nhansu_kpi_check_user();
+      if(arg(2) == 'kpi') {
+          if($role != 3) {
+          $uid = $form['field_giaokpi_nguoigiao']['und'][0]['value']['#default_value'];
+          $user_giao = user_load($uid);
+          $form['title']['#prefix'] = '<div class="new_time" id ="'.arg(1).'">Tạo quỹ mới</div>';
+          $form['title']['#prefix'] .= '<div class="nguoi_giao"><span>Người giao:</span>'.$user_giao -> name.'</div>';
+          $form['field_giaokpi_nguoigiao']['#access'] = FALSE;
+          $form['field_uid']['#access'] = FALSE;
+          if(!isset($form_state['build_info']['files'])){
+              $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+          }
+          }
+      }
+  }
   if($form_id == 'article_node_form') {
      $check = nhansu_kpi_check_user();
       if($check == 3) {
           $form['actions']['#access'] = false;
           $form['actions']['#access'] = false;
           $form['field_gan_cho']['#access'] = false;
+          $form['field_giaokpi_nguoigiao']['#access'] = false;
       }
     $form['field_nghenghiep']['#prefix'] ='<div class="group_info">Thông tin về chuyên môn nghiệp vụ:</div>';
     $form['field_image']['#prefix'] = '<div class="group_info">Thông tin cơ bản:</div>';
@@ -335,6 +399,14 @@ function nhansu_node_update($node) {
 function nhansu_node_presave($node) {
     if($node -> type == 'article') {
 
-
     }
+}
+
+function nhansu_get_nid_from_uid($uid,$type) {
+    $query = db_query("SELECT MAX(node.nid) as nid FROM {node} INNER JOIN {field_data_field_uid} ON node.nid = field_data_field_uid.entity_id AND field_uid_value =:uid AND node.type = :type",array(":uid" => $uid,":type" =>$type));
+    foreach($query as $data) {
+        $nid = $data->nid;
+    }
+
+    return $nid;
 }

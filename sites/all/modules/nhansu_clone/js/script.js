@@ -1,20 +1,6 @@
 (function ($) {
 Drupal.behaviors.myModule = {
     attach: function (context, settings) {
-        $(".new_time").click(function() {
-            $(".node-giao_kpi-form").html("Loading.....");
-            var getUrl = window.location;
-            var id = $(this).attr("id");
-            var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
-            var url = baseUrl+'/kpi/'+id+'/create';
-            $.ajax({
-                url : url,
-                type: "GET",
-                success : function(output) {
-                    location.reload();
-                }
-            })
-        });
         $("#fgm-node-article-form-group-chiteu-values tbody tr").each(function() {
             var getUrl = window.location;
             var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];

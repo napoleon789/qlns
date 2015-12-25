@@ -22,7 +22,22 @@ function nhansu_kpi_menu() {
     );
     return $items;
 }
+function nhansu_kpi_block_info() {
+    $blocks['kpi_user'] = array(
+        'info' => t('KPI cho user'),
+    );
+    return $blocks;
+}
+function nhansu_kpi_block_view($delta = '') {
 
+    $block = array();
+    switch ($delta) {
+        case 'kpi_user':
+            $block['content'] = nhansu_kpi_giao_user();
+            break;
+    }
+    return $block;
+}
 function nhansu_kpi_kiemsoat() {
   drupal_set_title("Kiểm soát KPI");
   return "";
@@ -315,7 +330,6 @@ function nhansu_kpi_get_all_nid_from_login() {
     }
 return $nid;
 }
-
 function nhansu_kpi_export_page($data) {
     $filename = 'ThongKeGiaVangNgay-' . date('d-m-Y') . '.xls';
     header('Content-Description: File Transfer');
@@ -327,4 +341,23 @@ function nhansu_kpi_export_page($data) {
     header('Pragma: public');
     echo "\xEF\xBB\xBF"; // UTF-8 BOM
     print $data;exit;
+}
+
+function nhansu_kpi_giao_user() {
+    $nid = nhansu_get_nid_from_uid(arg(1),"giao_kpi");
+    $node = node_load($nid);
+    $output = '';
+    $tu_ngay = $node-> field_kpi_giao_tu['und'][0]['value'];
+    $den_ngay = $node -> field_giao_kpi_den['und'][0]['value'];
+    $id_nguoigiao = $node -> field_giaokpi_nguoigiao['und'][0]['value'];
+    $user = user_load($id_nguoigiao);
+    $nguoi_giao = $user ->name;
+    $nguoi_nhan = $node ->title;
+    $hieu_suat = $node -> field_giaokpi_chi['und'];
+    $num = count($hieu_suat);
+    $output .= '<div class="giao"><span>Người giao: </span>'.$nguoi_giao .'</div>';
+    $output .= '<div class="giao"><span>Người nhận: </span>'.$nguoi_nhan .'</div>';
+    $output .= '<div class="time"><span>Thời gian: </span><span>Từ ngày:</span>'.date("d/m/Y",$tu_ngay);
+    $output .= '<span>   Đến ngày: </span>'.date("d/m/Y",$den_ngay);
+    return $output;
 }

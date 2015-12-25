@@ -165,8 +165,6 @@
                         <li class="item menu2"><a href="#">Lộ trình công danh</a> </li>
                     </ul>
                 <?php endif; ?>
-
-
                 <?php if (is_numeric(arg(1)) && arg(2) == 'kpi'):?>
                     <ul class="menu_student">
                         <ul class="menu_student">

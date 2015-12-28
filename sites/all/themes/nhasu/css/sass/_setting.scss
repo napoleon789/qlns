@@ -69,3 +69,42 @@
 
   }
 }
+
+// xem kpi
+.page-caidat-kpi-admin-view{
+  .node-kpi.node-promoted.contextual-links-region{
+    h2{
+      font-size: 24px;
+      margin: 0 0 30px;
+      text-align: center;
+      a{
+        color: #333;
+      }
+    }
+    .field-name-field-nhomchiteu{
+      h3{
+        margin-bottom: 5px;
+      }
+      ul{
+        margin-top: 0;
+      }
+    }
+    .field-name-field-mota-giai, .field-name-field-sanpham{
+      margin-bottom: 15px;
+      .field-label{
+        margin-bottom: 5px;
+      }
+      .field-items{
+        margin-left: 29px;
+      }
+    }
+    .field-name-field-toithieu-kpi, .field-name-field-muctieu-kpi, .field-name-field-donvi-kpi, .field-name-field-trongso-kpi{
+      margin-bottom: 15px;
+      .field-label, .field-items{
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+

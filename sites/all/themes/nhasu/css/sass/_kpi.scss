@@ -11,28 +11,6 @@
 }
 
 .page-quanly-kpi-kiemsoat, .page-quanly-kpi-danhgia{
-  .form-type-radios.form-item-loc-theo{
-    label{
-      float: left;
-      width: 60px;
-    }
-    .form-radios{
-      label{
-        float: none;
-        width: auto;
-      }
-      .form-item-loc-theo{
-        display: inline-block;
-        width: 19%;
-        input,label{
-          margin-top: 0;
-          vertical-align: middle;
-        }
-      }
-    }
-
-
-  }
   .form-item-cac-quy, .form-item-nam-quy{
     width: 20%;
     margin-right: 15px;

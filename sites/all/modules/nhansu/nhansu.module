@@ -101,26 +101,6 @@ function nhansu_menu() {
     return $items;
 }
 
-function nhansu_kpi_create() {
-    global $user;
-    $nid = nhansu_get_nid_from_uid(arg(1),'giao_kpi');
-    $query = db_query("SELECT title FROM {node} WHERE nid =:nid",array(":nid" => $nid));
-    foreach($query as $data) {
-        $title = $data -> title;
-    }
-
-    $node_giao_kpi = new stdClass();
-    $node_giao_kpi->type = 'giao_kpi';
-    $node_giao_kpi->status = 1;
-    $node_giao_kpi->timestamp = strtotime("now");
-    $node_giao_kpi->uid = $user -> uid;
-    $node_giao_kpi->title = $title;
-    $node_giao_kpi->comment = 2;
-    $node_giao_kpi->promote = 1;
-    $node_giao_kpi->field_uid['und'][0]['value'] = arg(1);
-    $node_giao_kpi->field_giaokpi_nguoigiao['und'][0]['value'] = $user ->uid;
-    node_save($node_giao_kpi);
-}
 
 function nhansu_info_kpi() {
     $role = nhansu_kpi_check_user();
@@ -170,16 +150,19 @@ function nhansu_info($id='') {
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
-
   if($form_id = "giao_kpi_node_form") {
+      $form['from_time']['#date_format'] ='d/m/Y';
       $role = nhansu_kpi_check_user();
       if(arg(2) == 'kpi') {
           if($role != 3) {
+
           $uid = $form['field_giaokpi_nguoigiao']['und'][0]['value']['#default_value'];
           $user_giao = user_load($uid);
           $form['title']['#prefix'] = '<div class="new_time" id ="'.arg(1).'">Tạo quỹ mới</div>';
           $form['title']['#prefix'] .= '<div class="nguoi_giao"><span>Người giao:</span>'.$user_giao -> name.'</div>';
           $form['field_giaokpi_nguoigiao']['#access'] = FALSE;
+          $form['field_giaokpi_muctieu']['und']['#access'] = FALSE;
+          $form['field_giaokpi_hoanthanh']['#access'] = FALSE;
           $form['field_uid']['#access'] = FALSE;
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
@@ -403,10 +386,15 @@ function nhansu_node_presave($node) {
 }
 
 function nhansu_get_nid_from_uid($uid,$type) {
-    $query = db_query("SELECT MAX(node.nid) as nid FROM {node} INNER JOIN {field_data_field_uid} ON node.nid = field_data_field_uid.entity_id AND field_uid_value =:uid AND node.type = :type",array(":uid" => $uid,":type" =>$type));
+    $time_now = time();
+    $query = db_query("SELECT MIN(den.entity_id) as nid FROM {field_data_field_giao_kpi_den} AS den
+    INNER JOIN {field_data_field_uid} AS us ON den.entity_id = us.entity_id
+    INNER JOIN {node} AS node ON node.nid = den.entity_id
+    AND us.field_uid_value =:uid AND node.type = :type AND den.field_giao_kpi_den_value >=:time",array(":uid" => $uid,":type" =>$type,"time" =>$time_now));
     foreach($query as $data) {
         $nid = $data->nid;
     }
 
     return $nid;
 }
+

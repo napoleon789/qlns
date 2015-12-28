@@ -223,23 +223,27 @@ table tr th:first-child, table tr td:first-child {
 .sub_menu_student li:last-child {
   border-right: none;
 }
+/* line 214, sass/_theme.scss */
+.sub_menu_student li.active {
+  font-weight: bold;
+}
 
-/* line 218, sass/_theme.scss */
+/* line 221, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo label {
   float: left;
   width: 60px;
 }
-/* line 223, sass/_theme.scss */
+/* line 226, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios label {
   float: none;
   width: auto;
 }
-/* line 227, sass/_theme.scss */
+/* line 230, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo {
   display: inline-block;
   width: 19%;
 }
-/* line 230, sass/_theme.scss */
+/* line 233, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo input, .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo label {
   margin-top: 0;
   vertical-align: middle;

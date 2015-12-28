@@ -84,10 +84,32 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
+// cai dat cho trang user
     $items['caidat/user'] = array(
         'title' => 'Cài đặt user',
         'page callback' => 'nhansu_caidat_user',
         'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user/add'] = array(
+        'title' => 'Thêm mới user',
+        'page callback' => 'nhansu_caidat_user_add',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user/%/edit'] = array(
+        'title' => 'Chỉnh sửa user',
+        'page callback' => 'nhansu_caidat_user_edit',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user/%/view'] = array(
+        'title' => 'Xem chi tiết user',
+        'page callback' => 'nhansu_caidat_user_view',
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
@@ -142,6 +164,19 @@ function nhansu_caidat_menu() {
     );
 
     return $items;
+}
+
+function nhansu_caidat_user_add() {
+    drupal_set_title("Thêm mới user");
+    $output = drupal_get_form('user_register_form');
+    return $output;
+}
+function nhansu_caidat_user_edit() {
+    $id = arg(2);
+    $user = user_load($id);
+    module_load_include('inc', 'user', 'user.pages');
+    $output = drupal_get_form('user_profile_form', $user);
+    return drupal_render($output);
 }
 function nhansu_caidat_phongban_add() {
     $vocabulary = taxonomy_vocabulary_load(1, FALSE);
@@ -215,8 +250,7 @@ function nhansu_caidat_congdanh() {
     return "";
 }
 function nhansu_caidat_user(){
-    //$form = drupal_get_form('nhansu_chart_form_select');
-    //$output = drupal_render($form);
+   drupal_set_title("Danh sách user");
     $output = views_embed_view('caidat_user','default');
     return $output;
 }
@@ -232,12 +266,13 @@ function nhansu_caidat_hoso() {
 }
 
 function nhansu_caidat_kpi() {
-    drupal_set_title("Cài đặt KPI");
+    drupal_set_title("Danh sách KPI");
     $output = views_embed_view('thu_vien_kpi','default');
     return $output;
 }
 
 function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
+    dd($form);
     if(arg(1) == "nhom") {
         $form['name']['#title'] ="Tên nhóm chỉ tiêu";
         $form['description']['#access'] = FALSE;
@@ -250,5 +285,9 @@ function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
         if(is_numeric(arg(3))) {
             $form['field_congthuc']['#access'] = FALSE;
         }
+    }
+    if(arg(0) =='caidat' && arg(1) =='user') {
+        $form['picture']['#access'] = FALSE;
+        $form['Timezone']['#access'] = FALSE;
     }
 }

@@ -149,6 +149,13 @@
                       <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/phongban">Phòng ban</a> </li>
                       <li class="item menu4"><a href="<?php echo $base_url;?>/caidat/user">User</a> </li>
                   </ul>
+                  <?php if(!isset($tham)):?>
+                  <ul class="sub_menu_student">
+                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/caidat">Danh sách KPI</a> </li>
+                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
+
+                  </ul>
+                  <?php  endif; ?>
                   <?php if(arg(2) == 'admin') :?>
                       <?php if(is_numeric(arg(3))) :?>
                           <ul class="sub_menu_student">
@@ -159,9 +166,10 @@
                       <?php endif; ?>
                       <?php if(arg(3) == 'add') :?>
                           <ul class="sub_menu_student">
-                              <li class="item menu1 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
-                              <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add_nhom">Tạo mới nhóm</a> </li>
-                              <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/kpi/admin/list_nhom">Nhóm chỉ tiêu</a> </li>
+                              <li class="item menu1"><a href="<?php echo $base_url;?>/caidat/">Danh sách KPI</a> </li>
+                              <li class="item menu2 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
+
+
                           </ul>
                       <?php endif; ?>
 
@@ -172,22 +180,25 @@
                       <li class="item menu1"><a href="<?php echo $base_url;?>/caidat">Thư viện KPI</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/nhom/admin/list">Nhóm chỉ tiêu</a> </li>
                       <li class="item menu3 active"><a href="<?php echo $base_url;?>/caidat/phongban">Phòng ban</a> </li>
-                      <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/user">User</a> </li>
+                      <li class="item menu4"><a href="<?php echo $base_url;?>/caidat/user">User</a> </li>
                   </ul>
                   <ul class="sub_menu_student">
                       <li class="item menu1 active"><a href="<?php echo $base_url;?>/caidat/phongban">Danh sách phòng ban</a> </li>
-                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/phongban/add">Tạo mới nhóm</a> </li>
-
+                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/phongban/add">Tạo mới phòng ban</a> </li>
                   </ul>
               <?php endif; ?>
 
               <?php if ($tham == "user"):?>
                   <ul class="menu_student">
                       <li class="item menu1"><a href="<?php echo $base_url;?>/caidat">Thư viện KPI</a> </li>
-                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/phongban">Phòng ban</a> </li>
-                      <li class="item menu3 active"><a href="<?php echo $base_url;?>/caidat/user">User</a> </li>
+                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/nhom/admin/list">Nhóm chỉ tiêu</a> </li>
+                      <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/phongban">Phòng ban</a> </li>
+                      <li class="item menu4 active"><a href="<?php echo $base_url;?>/caidat/user">User</a> </li>
                   </ul>
-
+                  <ul class="sub_menu_student">
+                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/caidat/user">Danh sách user</a> </li>
+                      <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/user/add">Tạo mới user</a> </li>
+                  </ul>
               <?php endif; ?>
               <?php if ($tham == 'nhom'):?>
                   <ul class="menu_student">

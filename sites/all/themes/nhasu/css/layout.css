@@ -1010,3 +1010,83 @@ table tr th:first-child, table tr td:first-child {
   border-top: none !important;
   padding-top: 0 !important;
 }
+
+/* line 2, sass/_setting.scss */
+.page-caidat #edit-actions {
+  padding-top: 20px;
+  clear: both;
+}
+/* line 27, sass/_mixin.scss */
+.page-caidat #edit-actions::after, .page-caidat #edit-actions::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 5, sass/_setting.scss */
+.page-caidat #edit-actions input {
+  margin-right: 15px;
+}
+/* line 9, sass/_setting.scss */
+.page-caidat .form-item-path-alias, .page-caidat #edit-relations {
+  display: none;
+}
+/* line 13, sass/_setting.scss */
+.page-caidat .form-item-name label {
+  display: inline-block;
+  padding-right: 15px;
+}
+/* line 17, sass/_setting.scss */
+.page-caidat .form-item-name input {
+  display: inline-block;
+  vertical-align: middle;
+  max-width: 30%;
+}
+/* line 24, sass/_setting.scss */
+.page-caidat .pager {
+  margin-top: 20px;
+}
+
+/* line 32, sass/_setting.scss */
+.page-caidat-nhom-admin-add #block-system-main, .page-caidat-nhom-admin-edit #block-system-main, .page-caidat-phongban-edit #block-system-main, .page-caidat-phongban-add #block-system-main {
+  max-width: 50%;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* line 37, sass/_setting.scss */
+.page-caidat-nhom-admin-add .form-item-name, .page-caidat-nhom-admin-edit .form-item-name, .page-caidat-phongban-edit .form-item-name, .page-caidat-phongban-add .form-item-name {
+  padding-top: 30px;
+}
+/* line 39, sass/_setting.scss */
+.page-caidat-nhom-admin-add .form-item-name label, .page-caidat-nhom-admin-edit .form-item-name label, .page-caidat-phongban-edit .form-item-name label, .page-caidat-phongban-add .form-item-name label {
+  float: left;
+  margin-top: 5px;
+  width: 30%;
+}
+/* line 44, sass/_setting.scss */
+.page-caidat-nhom-admin-add .form-item-name input, .page-caidat-nhom-admin-edit .form-item-name input, .page-caidat-phongban-edit .form-item-name input, .page-caidat-phongban-add .form-item-name input {
+  max-width: 70%;
+}
+/* line 48, sass/_setting.scss */
+.page-caidat-nhom-admin-add #edit-actions, .page-caidat-nhom-admin-edit #edit-actions, .page-caidat-phongban-edit #edit-actions, .page-caidat-phongban-add #edit-actions {
+  text-align: center;
+}
+/* line 50, sass/_setting.scss */
+.page-caidat-nhom-admin-add #edit-actions input, .page-caidat-nhom-admin-edit #edit-actions input, .page-caidat-phongban-edit #edit-actions input, .page-caidat-phongban-add #edit-actions input {
+  margin-left: 7px;
+  margin-right: 7px;
+}
+
+/* line 59, sass/_setting.scss */
+.page-caidat-kpi .vertical-tabs.clearfix {
+  display: none;
+}
+/* line 62, sass/_setting.scss */
+.page-caidat-kpi form {
+  margin: 0 -10px;
+}
+/* line 64, sass/_setting.scss */
+.page-caidat-kpi form .form-item-title, .page-caidat-kpi form .form-wrapper {
+  float: left;
+  width: 50%;
+  padding: 0 10px;
+}

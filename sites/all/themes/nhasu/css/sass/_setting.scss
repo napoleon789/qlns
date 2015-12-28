@@ -1,0 +1,71 @@
+.page-caidat{
+  #edit-actions{
+    padding-top: 20px;
+    @include clearfix();
+    input{
+      margin-right: 15px;
+    }
+  }
+  .form-item-path-alias, #edit-relations{
+    display: none;
+  }
+  .form-item-name{
+    label{
+      display: inline-block;
+      padding-right: 15px;
+    }
+    input{
+      display: inline-block;
+      vertical-align: middle;
+      max-width: 30%;
+    }
+  }
+
+  .pager{
+    margin-top: 20px;
+  }
+}
+
+
+// tab nhom chi tieu, tab phong ban
+.page-caidat-nhom-admin-add, .page-caidat-nhom-admin-edit, .page-caidat-phongban-edit, .page-caidat-phongban-add{
+  #block-system-main{
+    max-width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .form-item-name{
+    padding-top: 30px;
+    label{
+      float: left;
+      margin-top: 5px;
+      width: 30%;
+    }
+    input{
+      max-width: 70%;
+    }
+  }
+  #edit-actions{
+    text-align: center;
+    input{
+      margin-left: 7px;
+      margin-right: 7px;
+    }
+  }
+}
+
+// tab thu vien kpi
+.page-caidat-kpi{
+  .vertical-tabs.clearfix{
+    display: none;
+  }
+  form{
+    margin: 0 -10px;
+    .form-item-title, .form-wrapper{
+      float: left;
+      width: 50%;
+      padding: 0 10px;
+    }
+
+  }
+}

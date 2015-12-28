@@ -296,7 +296,7 @@ function nhansu_chart_list_all_user() {
 
 function nhansu_chart_filer_time($form, &$form_state) {
     $cac_quy = array(
-        0 => '--Quỹ--',
+        0 => '--Quý--',
         1 => "Quý 1",
         2 => "Quý 2",
         3 => "Quý 3",
@@ -350,11 +350,13 @@ function nhansu_chart_filer_time($form, &$form_state) {
     );
     $form['from_time'] = array(
         '#type' => 'date_popup',
-        '#title' => t('Từ ngày'),
-        '#size' => 20,
-        '#date_format' => $format,
+        '#t#title' => 'Date',
         '#default_value' => $from,
-        '#date_year_range' => '-3:+3'
+        '#date_format' => $format,
+        '#date_label_position' => 'within',
+        '#date_timezone' => 'Europe/Rome',
+        '#date_increment' => 15,
+        '#date_year_range' => '0:+2',
     );
     $form['to_time'] = array(
         '#type' => 'date_popup',
@@ -372,7 +374,6 @@ function nhansu_chart_filer_time($form, &$form_state) {
    return $form;
 }
 function nhansu_chart_filer_time_submit($form, &$form_state) {
-    dpm($form_state);
     if (isset($form_state['input'])) {
         $from_time = $form_state['input']['from_time']['date'];
         $to_time = $form_state['input']['to_time']['date'];

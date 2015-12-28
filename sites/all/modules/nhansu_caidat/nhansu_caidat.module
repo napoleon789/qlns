@@ -17,10 +17,69 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
+    $items['caidat/kpi/admin/%/edit'] = array(
+        'title' => 'Chỉnh sửa KPI',
+        'page callback' => 'nhansu_caidat_edit_kpi',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/kpi/admin/%/view'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_caidat_view_kpi',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/kpi/admin/add'] = array(
+        'title' => 'Thêm mới KPI',
+        'page callback' => 'nhansu_caidat_add_kpi',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+
+//duong dan cho nhom chi tieu
+    $items['caidat/nhom/admin/list'] = array(
+        'title' => 'Thêm mới KPI',
+        'page callback' => 'nhansu_caidat_nhom',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/nhom/admin/%/edit'] = array(
+        'title' => '',
+        'page callback' => 'nhansu_caidat_nhom_edit',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/nhom/admin/add'] = array(
+        'title' => 'Thêm mới KPI',
+        'page callback' => 'nhansu_caidat_add_nhom',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+//page phong ban
     $items['caidat/phongban'] = array(
         'title' => 'Cài đặt phòng ban',
         'page callback' => 'nhansu_caidat_phongban',
         'page arguments' => array(1),
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/phongban/add'] = array(
+        'title' => 'Thêm phòng ban mới',
+        'page callback' => 'nhansu_caidat_phongban_add',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/phongban/%/edit'] = array(
+        'title' => 'Chỉnh sửa phong ban',
+        'page callback' => 'nhansu_caidat_phongban_edit',
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
@@ -83,6 +142,61 @@ function nhansu_caidat_menu() {
     );
 
     return $items;
+}
+function nhansu_caidat_phongban_add() {
+    $vocabulary = taxonomy_vocabulary_load(1, FALSE);
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    drupal_set_title("Thêm mới phòng ban");
+    $output = drupal_get_form('taxonomy_form_term',array(), $vocabulary);
+    return $output;
+}
+function nhansu_caidat_phongban_edit() {
+    $id = arg(2);
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    $term = taxonomy_term_load($id);
+    drupal_set_title("Chỉnh sửa phong ban");
+    $output = drupal_get_form('taxonomy_form_term', $term);
+    return $output;
+}
+
+function nhansu_caidat_nhom_edit() {
+    $id = arg(3);
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    $term = taxonomy_term_load($id);
+    drupal_set_title("Chỉnh sửa nhóm chỉ tiêu");
+    $output = drupal_get_form('taxonomy_form_term', $term);
+    return $output;
+}
+function nhansu_caidat_nhom() {
+    drupal_set_title("Danh sách nhóm chỉ tiêu");
+    $output = views_embed_view('nhom_chitieu','default');
+    return $output;
+
+}
+function nhansu_caidat_add_nhom () {
+    $vocabulary = taxonomy_vocabulary_load(4, FALSE);
+    module_load_include('inc', 'taxonomy', 'taxonomy.admin');
+    drupal_set_title("Thêm mới nhóm chỉ tiêu");
+    $output = drupal_get_form('taxonomy_form_term',array(), $vocabulary);
+    return $output;
+}
+function nhansu_caidat_view_kpi() {
+    $node = node_load(arg(3));
+    $view = node_view($node);
+    return $view;
+}
+function nhansu_caidat_edit_kpi() {
+    $id = arg(3);
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
+    return $form;
+}
+function nhansu_caidat_add_kpi() {
+    module_load_include('inc', 'node', 'node.pages');
+    $form = node_add('kpi');
+    drupal_set_title("Tạo KPI mới");
+    return drupal_render($form);
 
 }
 
@@ -124,5 +238,17 @@ function nhansu_caidat_kpi() {
 }
 
 function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
-
+    if(arg(1) == "nhom") {
+        $form['name']['#title'] ="Tên nhóm chỉ tiêu";
+        $form['description']['#access'] = FALSE;
+    }
+    if(arg(1) == "phongban"){
+        $form['name']['#title'] ="Tên phòng ban";
+        $form['description']['#access'] = FALSE;
+    }
+    if($form_id == 'kpi_node_form') {
+        if(is_numeric(arg(3))) {
+            $form['field_congthuc']['#access'] = FALSE;
+        }
+    }
 }

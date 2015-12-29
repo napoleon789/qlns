@@ -144,7 +144,7 @@
               <?php $tham = arg(2)?>
               <?php if ($tham == 'giao' || !isset($tham)):?>
                   <ul class="menu_student">
-                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi/giao">Giao KPI</a> </li>
+                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi">Giao KPI</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
                   </ul>
@@ -152,7 +152,7 @@
 
               <?php if ($tham == "kiemsoat"):?>
                   <ul class="menu_student">
-                      <li class="item menu1 "><a href="<?php echo $base_url;?>/quanly/kpi/giao">Giao KPI</a> </li>
+                      <li class="item menu1 "><a href="<?php echo $base_url;?>/quanly/kpi">Giao KPI</a> </li>
                       <li class="item menu2 active"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
                   </ul>
@@ -160,7 +160,7 @@
 
               <?php if ($tham == "danhgia"):?>
                   <ul class="menu_student">
-                      <li class="item menu1 "><a href="<?php echo $base_url;?>/quanly/kpi/giao">Giao KPI</a> </li>
+                      <li class="item menu1 "><a href="<?php echo $base_url;?>/quanly/kpi">Giao KPI</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
                       <li class="item menu2 active"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
                   </ul>

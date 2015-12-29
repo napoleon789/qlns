@@ -362,22 +362,11 @@ function nhansu_kpi_giao_user() {
     return $output;
 }
 function nhansu_kpi_create() {
-    global $user;
-    $nid = nhansu_get_nid_from_uid(arg(1),'giao_kpi');
-    $query = db_query("SELECT title FROM {node} WHERE nid =:nid",array(":nid" => $nid));
-    foreach($query as $data) {
-        $title = $data -> title;
-    }
+    module_load_include('inc', 'node', 'node.pages');
+    $form = node_add('giao_kpi');
+    $title = nhansu_get_title_from_uid(arg(1));
+    drupal_set_title("Giao KPI mới cho: ".$title);
+    return drupal_render($form);
 
-    $node_giao_kpi = new stdClass();
-    $node_giao_kpi->type = 'giao_kpi';
-    $node_giao_kpi->status = 1;
-    $node_giao_kpi->timestamp = strtotime("now");
-    $node_giao_kpi->uid = $user -> uid;
-    $node_giao_kpi->title = $title;
-    $node_giao_kpi->comment = 2;
-    $node_giao_kpi->promote = 1;
-    $node_giao_kpi->field_uid['und'][0]['value'] = arg(1);
-    $node_giao_kpi->field_giaokpi_nguoigiao['und'][0]['value'] = $user ->uid;
-    node_save($node_giao_kpi);
+
 }

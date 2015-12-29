@@ -24,7 +24,22 @@ function nhansu_user_user_insert(&$edit, $account, $category) {
     $node_giao_kpi->uid = 1;
     $node_giao_kpi->title = $account->name;
     $node_giao_kpi->comment = 2;
+    $node_giao_kpi ->field_kpi_giao_tu['und'][0]['value'] = 1286643600;
     $node_giao_kpi->promote = 1;
     $node_giao_kpi->field_uid['und'][0]['value'] = $uid;
     node_save($node_giao_kpi);
+}
+
+function nhansu_user_check_time($uid) {
+    $id = nhansu_get_nid_from_uid($uid,"giao_kpi");
+    $node = node_load($id);
+    $tu = $node -> field_kpi_giao_tu['und'][0]['value'];
+
+    if($tu == 1286643600) {
+        $output = '<a href ="../nhanvien/'.$uid.'/kpi"> Chưa giao</a>';
+    }
+    else {
+        $output = '<a href ="../nhanvien/'.$uid.'/kpi"> Đã giao</a>';
+    }
+    return $output;
 }

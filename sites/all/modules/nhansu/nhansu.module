@@ -27,7 +27,7 @@ function nhansu_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 1,
     );
-    $items['kpi/%/create'] = array(
+    $items['nhanvien/%/kpi/add'] = array(
         'title' => 'KPI',
         'page callback' => 'nhansu_kpi_create',
         'page arguments' => array(1),
@@ -114,6 +114,12 @@ function nhansu_info_kpi() {
         module_load_include('inc', 'node', 'node.pages');
         $node = node_load($id);
         $form = node_page_edit($node);
+        $uid = $form['field_giaokpi_nguoigiao']['und'][0]['value']['#default_value'];
+        if($uid)
+            $user_giao = user_load($uid);
+        else
+            $user_giao = user_load(1);
+        $form['field_uid']['und']['#prefix'] .= '<div id="field-uid-add-more-wrapper"><div class="nguoi_giao"><span>Người giao:</span>'.$user_giao -> name.'</div><div class="nguoi_giao"><span>Người nhận:</span>'.nhansu_get_title_from_uid(arg(1)).'</div>';
     }
     drupal_set_title(t('Chỉ tiêu KPI'));
     return $form;
@@ -127,9 +133,9 @@ function nhansu_list_student() {
 }
 
 function nhansu_giao_kpi() {
-    $form = drupal_get_form('nhansu_chart_form_select');
-    $output = drupal_render($form);
-    $output .= views_embed_view('nhanvien_kpi','default');
+    //$form = drupal_get_form('nhansu_chart_form_select');
+   // $output = drupal_render($form);
+    $output = views_embed_view('nhanvien_kpi','default');
     return $output;
 }
 function nhansu_home() {
@@ -151,22 +157,22 @@ function nhansu_info() {
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
+
   if($form_id == "giao_kpi_node_form") {
-      $form['from_time']['#date_format'] ='d/m/Y';
       $role = nhansu_kpi_check_user();
       if(arg(2) == 'kpi') {
+          $add = arg(3);
           if($role != 3) {
-          $uid = $form['field_giaokpi_nguoigiao']['und'][0]['value']['#default_value'];
-          $user_giao = user_load($uid);
-          $form['title']['#prefix'] = '<div class="new_time" id ="'.arg(1).'">Tạo quỹ mới</div>';
-          $form['title']['#prefix'] .= '<div class="nguoi_giao"><span>Người giao:</span>'.$user_giao -> name.'</div>';
+
+         //$form['field_uid']['#access'] = FALSE;
+          $form['title']['#access'] = FALSE;
           $form['field_giaokpi_nguoigiao']['#access'] = FALSE;
-          $form['field_giaokpi_muctieu']['und']['#access'] = FALSE;
-          $form['field_giaokpi_hoanthanh']['#access'] = FALSE;
-          $form['field_uid']['#access'] = FALSE;
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+              }
           }
+          if(isset($add) && $add =='add') {
+              $form['title']['#access'] = FALSE;
           }
       }
 
@@ -253,12 +259,6 @@ function nhansu_list_nhom_chitieu() {
 
 }
 
-function nhansu_get_phongban() {
-    global $user;
-    $uid = $user ->uid;
-    $query = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid",array(':uid' =>$uid));
-}
-
 function nhansu_list_node_kpi() {
     $query = db_query("SELECT nid,title FROM {node} WHERE type =:type",array(':type' => 'kpi'));
     foreach($query as $result) {
@@ -329,35 +329,9 @@ function nhansu_uid_to_nid ($id) {
 
 function nhansu_node_update($node) {
     if($node -> type == 'article') {
-       $muctieu = $node->field_muctieu['und'];
-       foreach($muctieu as $k => $values) {
-           $giatri = trim($values['value']);
-           if(!is_numeric($giatri)) {
-               $chu_hoa = strtoupper($giatri);
-               $m = strpos($chu_hoa,'C');
-               if($m !== false) {
-                   db_query("UPDATE {field_data_field_muctieu} SET field_muctieu_value = :muctieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 0,':delta' => $k,':nid' =>$node->nid));
-                   db_query("UPDATE {field_data_field_toithieu} SET field_toithieu_value = :mutieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 0,':delta' => $k,':nid' =>$node->nid));
-               }
-               else {
-                   db_query("UPDATE {field_data_field_muctieu} SET field_muctieu_value = :muctieu WHERE delta =:delta AND entity_id =:nid",array(':muctieu' => 1,':delta' => $k,':nid' =>$node->nid));
-                   db_query("UPDATE {field_data_field_toithieu} SET field_toithieu_value = :toithieu WHERE delta =:delta AND entity_id =:nid",array(':toithieu' => 1,':delta' => $k,':nid' =>$node->nid));
-                   $thuc_hien = $node->field_muctieu['und'][$k]['value'];
-                   if(strpos($thuc_hien,'es')) {
-                       db_query("UPDATE {field_data_field_thuc_hien} SET field_thuc_hien_value = :thuchien WHERE delta =:delta AND entity_id =:nid",array(':thuchien' => 1,':delta' => $k,':nid' =>$node->nid));
-                   }
-                   else {
-                       db_query("UPDATE {field_data_field_thuc_hien} SET field_thuc_hien_value = :thuchien WHERE delta =:delta AND entity_id =:nid",array(':thuchien' => 1,':delta' => $k,':nid' =>$node->nid));
-                   }
-
-               }
-           }
-
-       }
        if(arg(2) == 'info') {
-
             $phong_ban = $node ->field_phong_ban['und'][0]['value'];
-            $uid = nhansu_nid_to_uid($node->nid);
+            $uid = arg(1);
             $account = user_load($uid); // Loading account
             $edit = array(
                 'field_phongban' => array(
@@ -370,7 +344,10 @@ function nhansu_node_update($node) {
             );
            user_save($account, $edit);
        }
-       drupal_goto('nhanvien/'.$node->nid.'/info');
+       drupal_goto('nhanvien/'.arg(1).'/info');
+    }
+    if($node ->type == 'giao_kpi') {
+        drupal_goto('nhanvien/'.$node->field_uid['und'][0]['value'].'/kpi');
     }
 }
 
@@ -381,20 +358,34 @@ function nhansu_node_presave($node) {
     }
 }
 
-function nhansu_get_nid_from_uid($uid,$type) {
-
-    if($type == 'article') {
-        $query = db_query("SELECT nod.nid as nid FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>$type,":uid" => $uid));
+function nhansu_get_nid_from_uid($uid,$type,$from=null,$to =null) {
+    if(isset($from)) {
+       $from = strtotime($from);
+       $to = strtotime($to);
+        $query = db_query("SELECT MAX(vid) FROM {node_revision} WHERE timestamp >:from AND timestamp <:to GROUP BY nid",array(":from" => $from,":to" => $to));
         foreach($query as $data) {
-            $nid = $data -> nid;
+            $nid[] = $data-> vid;
+            dpm($data);
         }
     }
     else {
-        $query = db_query("SELECT max(nod.nid) as nid FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>$type,":uid" => $uid));
-        foreach($query as $data) {
-            $nid = $data->nid;
+        if($type == 'article') {
+            $query = db_query("SELECT nod.nid as nid FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>$type,":uid" => $uid));
+            foreach($query as $data) {
+                $nid = $data -> nid;
+            }
+        }
+        else {
+            $query = db_query("SELECT max(nod.nid) as nid FROM {node} as nod
+        INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id
+        INNER JOIN {field_data_field_kpi_giao_tu} as tu ON nod.nid = tu.entity_id
+        AND nod.type =:type AND nguoidung.field_uid_value =:uid AND (tu.field_kpi_giao_tu_value = :ngay OR tu.field_kpi_giao_tu_value<:time)",array(":type" =>$type,":uid" => $uid,":ngay" =>1286643600,":time" =>time()));
+            foreach($query as $data) {
+                $nid = $data->nid;
+            }
         }
     }
+
     return $nid;
 }
 
@@ -408,6 +399,5 @@ function nhansu_get_title_from_uid($uid) {
             $title = $data -> title;
         }
     }
-
     return $title;
 }

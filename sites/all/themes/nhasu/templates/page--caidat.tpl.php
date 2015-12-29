@@ -158,18 +158,25 @@
                   <?php  endif; ?>
                   <?php if(arg(2) == 'admin') :?>
                       <?php if(is_numeric(arg(3))) :?>
+                          <?php if(arg(4) =='edit'):?>
                           <ul class="sub_menu_student">
-                              <li class="item menu1 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/view">Xem KPI</a> </li>
-                              <li class="item menu2"><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/edit">Chỉnh sửa KPI</a> </li>
+                              <li class="item menu1 "><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/view">Xem KPI</a> </li>
+                              <li class="item menu2 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/edit">Chỉnh sửa KPI</a> </li>
                               <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
                           </ul>
+                          <?php  endif; ?>
+                          <?php if(arg(4) =='view'):?>
+                              <ul class="sub_menu_student">
+                                  <li class="item menu1 active "><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/view">Xem KPI</a> </li>
+                                  <li class="item menu2 "><a href="<?php echo $base_url;?>/caidat/kpi/admin/<?php echo arg(3) ?>/edit">Chỉnh sửa KPI</a> </li>
+                                  <li class="item menu3"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
+                              </ul>
+                          <?php  endif; ?>
                       <?php endif; ?>
                       <?php if(arg(3) == 'add') :?>
                           <ul class="sub_menu_student">
                               <li class="item menu1"><a href="<?php echo $base_url;?>/caidat">Danh sách KPI</a> </li>
                               <li class="item menu2 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
-
-
                           </ul>
                       <?php endif; ?>
 

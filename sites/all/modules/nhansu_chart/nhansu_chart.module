@@ -162,10 +162,12 @@ function nhansu_chart_colum_giamdoc() {
     return $output;
 }
 
-
 function nhansu_chart_colum_nhanvien() {
-    $uid = 18;
+    $uid = 23;
     $nid = nhansu_get_nid_from_uid($uid,'giao_kpi');
+    if(isset($_GET['from_time'])) {
+        $nid = nhansu_get_nid_from_uid($uid,"giao_kpi",$_GET['from_time'],$_GET['to_time']);
+    }
     $node = node_load($nid);
     $count = $node-> field_giaokpi_chi['und'];
     $ht = 0;
@@ -350,7 +352,7 @@ function nhansu_chart_filer_time($form, &$form_state) {
     );
     $form['from_time'] = array(
         '#type' => 'date_popup',
-        '#t#title' => 'Date',
+        '#title' => 'Từ ngày',
         '#default_value' => $from,
         '#date_format' => $format,
         '#date_label_position' => 'within',
@@ -360,7 +362,7 @@ function nhansu_chart_filer_time($form, &$form_state) {
     );
     $form['to_time'] = array(
         '#type' => 'date_popup',
-        '#title' => t('Tới'),
+        '#title' => t('Tới ngày'),
         '#size' => 20,
         '#date_format' => $format,
         '#default_value' => $to,

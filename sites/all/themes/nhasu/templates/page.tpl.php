@@ -166,12 +166,14 @@
                     </ul>
                 <?php endif; ?>
                 <?php if (is_numeric(arg(1)) && arg(2) == 'kpi'):?>
-                    <ul class="menu_student">
                         <ul class="menu_student">
-                            <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi/giao">Giao KPI</a> </li>
+                            <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi">Giao KPI</a> </li>
                             <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
                             <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
                         </ul>
+                    <ul class="sub_menu_student">
+                        <li class="item menu1"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1)?>/kpi">KPI hiện tại</a> </li>
+                        <li class="item menu2"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1)?>/kpi/add">Giao KPI mới</a> </li>
                     </ul>
                 <?php endif; ?>
 

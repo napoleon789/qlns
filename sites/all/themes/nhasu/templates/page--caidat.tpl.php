@@ -166,7 +166,7 @@
                       <?php endif; ?>
                       <?php if(arg(3) == 'add') :?>
                           <ul class="sub_menu_student">
-                              <li class="item menu1"><a href="<?php echo $base_url;?>/caidat/">Danh sách KPI</a> </li>
+                              <li class="item menu1"><a href="<?php echo $base_url;?>/caidat">Danh sách KPI</a> </li>
                               <li class="item menu2 active"><a href="<?php echo $base_url;?>/caidat/kpi/admin/add">Tạo mới KPI</a> </li>
 
 

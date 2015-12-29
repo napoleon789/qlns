@@ -122,7 +122,7 @@ function nhansu_list_student() {
     global $base_url;
     $form = drupal_get_form('nhansu_chart_form_select');
     $output = drupal_render($form);
-    $output .= views_embed_view('nhanvien','default');
+    $output .= views_embed_view('thongtin_nhanvien','default');
     return $output;
 }
 
@@ -135,11 +135,12 @@ function nhansu_giao_kpi() {
 function nhansu_home() {
     return "";
 }
-function nhansu_info($id='') {
+function nhansu_info() {
+    $uid = arg(1);
+    $id = nhansu_get_nid_from_uid($uid,"article");
     module_load_include('inc', 'node', 'node.pages');
     $node = node_load($id);
     $form = node_page_edit($node);
-
     // $form = '<div class="clear-form goldprice-sxht">' . $form . '</div>';
     if(arg(2) =='info'){
         drupal_set_title(t('Sơ yếu lý lịch'));
@@ -150,12 +151,11 @@ function nhansu_info($id='') {
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
-  if($form_id = "giao_kpi_node_form") {
+  if($form_id == "giao_kpi_node_form") {
       $form['from_time']['#date_format'] ='d/m/Y';
       $role = nhansu_kpi_check_user();
       if(arg(2) == 'kpi') {
           if($role != 3) {
-
           $uid = $form['field_giaokpi_nguoigiao']['und'][0]['value']['#default_value'];
           $user_giao = user_load($uid);
           $form['title']['#prefix'] = '<div class="new_time" id ="'.arg(1).'">Tạo quỹ mới</div>';
@@ -169,6 +169,7 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
           }
           }
       }
+
   }
   if($form_id == 'article_node_form') {
      $check = nhansu_kpi_check_user();
@@ -193,11 +194,11 @@ function nhansu_form_alter(&$form, &$form_state, $form_id) {
       $form['fgm_node_article_form_group_daotao']['#suffix'] ='</div><h4>Ghi chú: Hình thức đào tạo: Chính quy, tại chức, chuyên tu, bồi dưỡng ..../ Văn bằng: TSKH, TS, Ths, Cử nhân, Kỹ sư ............</h4>';
 
       $form['fgm_node_article_form_group_congtac']['#prefix'] ='<div id="fgm_node_article_form_group_congtac-add-more-wrapper"><div class="group_info">  Tóm tắt quá trình công tác</div>';
-
       if(arg(2) == 'info') {
           if(!isset($form_state['build_info']['files'])){
               $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
           }
+          $form['field_uid']['#access'] = false;
           $form['fgm_node_article_form_group_chiteu']['#access'] = false;
           $form['field_phong_ban']['und']['#default_value'][0] = nhansu_list_phong_ban_default();
       }
@@ -303,15 +304,9 @@ function nhansu_list_phong_ban() {
 }
 
 function nhansu_list_phong_ban_default() {
-    $nid = arg(1);
-    $query = db_query("SELECT field_gan_cho_uid FROM {field_data_field_gan_cho} WHERE entity_id =:nid",array(":nid" => $nid));
-    foreach($query as $row) {
-        $uid = $row -> field_gan_cho_uid;
-    }
-    $query_tid = db_query("SELECT field_phongban_tid FROM {field_data_field_phongban} WHERE entity_id =:uid", array(":uid" =>$uid));
-    foreach( $query_tid as $row_tid) {
-        $tid = $row_tid-> field_phongban_tid;
-    }
+    $uid = arg(1);
+    $user = user_load($uid);
+    $tid = $user ->field_phongban['und'][0]['tid'];
     return $tid;
 }
 
@@ -360,6 +355,7 @@ function nhansu_node_update($node) {
 
        }
        if(arg(2) == 'info') {
+
             $phong_ban = $node ->field_phong_ban['und'][0]['value'];
             $uid = nhansu_nid_to_uid($node->nid);
             $account = user_load($uid); // Loading account
@@ -386,15 +382,32 @@ function nhansu_node_presave($node) {
 }
 
 function nhansu_get_nid_from_uid($uid,$type) {
-    $time_now = time();
-    $query = db_query("SELECT MIN(den.entity_id) as nid FROM {field_data_field_giao_kpi_den} AS den
-    INNER JOIN {field_data_field_uid} AS us ON den.entity_id = us.entity_id
-    INNER JOIN {node} AS node ON node.nid = den.entity_id
-    AND us.field_uid_value =:uid AND node.type = :type AND den.field_giao_kpi_den_value >=:time",array(":uid" => $uid,":type" =>$type,"time" =>$time_now));
-    foreach($query as $data) {
-        $nid = $data->nid;
-    }
 
+    if($type == 'article') {
+        $query = db_query("SELECT nod.nid as nid FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>$type,":uid" => $uid));
+        foreach($query as $data) {
+            $nid = $data -> nid;
+        }
+    }
+    else {
+        $query = db_query("SELECT max(nod.nid) as nid FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>$type,":uid" => $uid));
+        foreach($query as $data) {
+            $nid = $data->nid;
+        }
+    }
     return $nid;
 }
 
+function nhansu_get_title_from_uid($uid) {
+    $query = db_query("SELECT nod.title as title FROM {node} as nod INNER JOIN {field_data_field_uid} as nguoidung ON nod.nid = nguoidung.entity_id AND nod.type =:type AND nguoidung.field_uid_value =:uid",array(":type" =>'article',":uid" => $uid));
+    $num = $query->rowCount();
+    if($num == 0)
+        $title = "";
+    else {
+        foreach($query as $data) {
+            $title = $data -> title;
+        }
+    }
+
+    return $title;
+}

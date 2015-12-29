@@ -78,7 +78,7 @@ function nhansu_caidat_menu() {
         'weight' => 0,
     );
     $items['caidat/phongban/%/edit'] = array(
-        'title' => 'Chỉnh sửa phong ban',
+        'title' => 'Chỉnh sửa phòng ban',
         'page callback' => 'nhansu_caidat_phongban_edit',
         'access arguments' => array('access content'),
         'type' => MENU_NORMAL_ITEM,
@@ -189,7 +189,7 @@ function nhansu_caidat_phongban_edit() {
     $id = arg(2);
     module_load_include('inc', 'taxonomy', 'taxonomy.admin');
     $term = taxonomy_term_load($id);
-    drupal_set_title("Chỉnh sửa phong ban");
+    drupal_set_title("Chỉnh sửa phòng ban");
     $output = drupal_get_form('taxonomy_form_term', $term);
     return $output;
 }
@@ -272,7 +272,9 @@ function nhansu_caidat_kpi() {
 }
 
 function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
-    dd($form);
+    if($form_id =='user_register_form') {
+
+    }
     if(arg(1) == "nhom") {
         $form['name']['#title'] ="Tên nhóm chỉ tiêu";
         $form['description']['#access'] = FALSE;

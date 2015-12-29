@@ -1136,80 +1136,84 @@ table tr th:first-child, table tr td:first-child {
 }
 
 /* line 113, sass/_setting.scss */
-.page-caidat-user-add .element-invisible {
+.page-caidat-user-add .element-invisible, .page-caidat-user-edit .element-invisible {
   height: auto;
   position: static !important;
 }
 /* line 117, sass/_setting.scss */
-.page-caidat-user-add .description {
-  display: none;
+.page-caidat-user-add .description, .page-caidat-user-add .password-strength-title, .page-caidat-user-add .password-indicator, .page-caidat-user-add .confirm-parent div.password-confirm, .page-caidat-user-add .password-strength, .page-caidat-user-edit .description, .page-caidat-user-edit .password-strength-title, .page-caidat-user-edit .password-indicator, .page-caidat-user-edit .confirm-parent div.password-confirm, .page-caidat-user-edit .password-strength {
+  display: none !important;
 }
 /* line 120, sass/_setting.scss */
-.page-caidat-user-add #block-system-main {
+.page-caidat-user-add .confirm-parent, .page-caidat-user-add .password-parent, .page-caidat-user-edit .confirm-parent, .page-caidat-user-edit .password-parent {
+  width: auto;
+}
+/* line 123, sass/_setting.scss */
+.page-caidat-user-add #block-system-main, .page-caidat-user-edit #block-system-main {
   max-width: 50%;
   margin: auto;
 }
-/* line 123, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item {
+/* line 126, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item, .page-caidat-user-edit #block-system-main .form-item {
   margin-top: 0;
   margin-bottom: 15px;
   clear: both;
 }
 /* line 27, sass/_mixin.scss */
-.page-caidat-user-add #block-system-main .form-item::after, .page-caidat-user-add #block-system-main .form-item::before {
+.page-caidat-user-add #block-system-main .form-item::after, .page-caidat-user-add #block-system-main .form-item::before, .page-caidat-user-edit #block-system-main .form-item::after, .page-caidat-user-edit #block-system-main .form-item::before {
   display: table;
   clear: both;
   content: "";
 }
-/* line 127, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item.form-item-pass {
+/* line 130, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item.form-item-pass, .page-caidat-user-edit #block-system-main .form-item.form-item-pass {
   margin-bottom: 0;
 }
-/* line 130, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item > label {
+/* line 133, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item > label, .page-caidat-user-edit #block-system-main .form-item > label {
   float: left;
   width: 30%;
   margin-top: 5px;
   padding-right: 10px;
 }
-/* line 136, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item input[type="text"], .page-caidat-user-add #block-system-main .form-item select, .page-caidat-user-add #block-system-main .form-item .form-radios, .page-caidat-user-add #block-system-main .form-item .form-checkboxes, .page-caidat-user-add #block-system-main .form-item input[type="email"], .page-caidat-user-add #block-system-main .form-item input[type="password"] {
+/* line 139, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item input[type="text"], .page-caidat-user-add #block-system-main .form-item select, .page-caidat-user-add #block-system-main .form-item .form-radios, .page-caidat-user-add #block-system-main .form-item .form-checkboxes, .page-caidat-user-add #block-system-main .form-item input[type="email"], .page-caidat-user-add #block-system-main .form-item input[type="password"], .page-caidat-user-edit #block-system-main .form-item input[type="text"], .page-caidat-user-edit #block-system-main .form-item select, .page-caidat-user-edit #block-system-main .form-item .form-radios, .page-caidat-user-edit #block-system-main .form-item .form-checkboxes, .page-caidat-user-edit #block-system-main .form-item input[type="email"], .page-caidat-user-edit #block-system-main .form-item input[type="password"] {
   float: left;
   width: 70%;
   max-width: 70%;
   margin-bottom: 0;
 }
-/* line 143, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item .form-radios label, .page-caidat-user-add #block-system-main .form-item .form-checkboxes label {
+/* line 146, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item .form-radios label, .page-caidat-user-add #block-system-main .form-item .form-checkboxes label, .page-caidat-user-edit #block-system-main .form-item .form-radios label, .page-caidat-user-edit #block-system-main .form-item .form-checkboxes label {
   float: none;
   width: auto;
   margin: 0;
 }
-/* line 148, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item .form-radios .form-item, .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item {
+/* line 151, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item .form-radios .form-item, .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item, .page-caidat-user-edit #block-system-main .form-item .form-radios .form-item, .page-caidat-user-edit #block-system-main .form-item .form-checkboxes .form-item {
   margin-bottom: 2px;
 }
-/* line 150, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item .form-radios .form-item input, .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item input {
+/* line 153, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item .form-radios .form-item input, .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item input, .page-caidat-user-edit #block-system-main .form-item .form-radios .form-item input, .page-caidat-user-edit #block-system-main .form-item .form-checkboxes .form-item input {
   vertical-align: middle;
   margin-top: 0;
   margin-left: 0;
 }
-/* line 155, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item .form-radios .form-item input[type="radio"], .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item input[type="radio"] {
+/* line 158, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item .form-radios .form-item input[type="radio"], .page-caidat-user-add #block-system-main .form-item .form-checkboxes .form-item input[type="radio"], .page-caidat-user-edit #block-system-main .form-item .form-radios .form-item input[type="radio"], .page-caidat-user-edit #block-system-main .form-item .form-checkboxes .form-item input[type="radio"] {
   position: relative;
   top: -2px;
 }
-/* line 162, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item.form-item-notify label {
+/* line 165, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item.form-item-notify label, .page-caidat-user-edit #block-system-main .form-item.form-item-notify label {
   font-weight: bold;
   margin-top: 0;
 }
-/* line 166, sass/_setting.scss */
-.page-caidat-user-add #block-system-main .form-item.form-item-notify input {
+/* line 169, sass/_setting.scss */
+.page-caidat-user-add #block-system-main .form-item.form-item-notify input, .page-caidat-user-edit #block-system-main .form-item.form-item-notify input {
   margin: 0;
 }
-/* line 171, sass/_setting.scss */
-.page-caidat-user-add #block-system-main #edit-actions {
+/* line 174, sass/_setting.scss */
+.page-caidat-user-add #block-system-main #edit-actions, .page-caidat-user-edit #block-system-main #edit-actions {
   text-align: center;
 }

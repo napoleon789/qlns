@@ -109,13 +109,16 @@
 }
 
 // tab user
-.page-caidat-user-add{
+.page-caidat-user-add, .page-caidat-user-edit{
   .element-invisible{
     height: auto;
     position: static !important;
   }
-  .description{
-    display: none;
+  .description, .password-strength-title, .password-indicator, .confirm-parent div.password-confirm, .password-strength{
+    display: none !important;
+  }
+  .confirm-parent, .password-parent{
+    width: auto;
   }
   #block-system-main{
     max-width: 50%;

@@ -109,5 +109,69 @@
 }
 
 // tab user
+.page-caidat-user-add{
+  .element-invisible{
+    height: auto;
+    position: static !important;
+  }
+  .description{
+    display: none;
+  }
+  .block-system{
+    max-width: 50%;
+    margin: auto;
+    .form-item{
+      margin-top: 0;
+      margin-bottom: 15px;
+      @include clearfix();
+      &.form-item-pass{
+        margin-bottom: 0;
+      }
+      &>label{
+        float: left;
+        width: 30%;
+        margin-top: 5px;
+        padding-right: 10px;
+      }
+      input[type="text"], select, .form-radios, .form-checkboxes, input[type="email"], input[type="password"]{
+        float: left;
+        width: 70%;
+        max-width:70%;
+        margin-bottom: 0;
+      }
+      .form-radios, .form-checkboxes{
+        label{
+          float: none;
+          width: auto;
+          margin: 0;
+        }
+        .form-item{
+          margin-bottom: 2px;
+          input{
+            vertical-align: middle;
+            margin-top: 0;
+            margin-left: 0;
+          }
+          input[type="radio"]{
+            position: relative;
+            top:-2px;
+          }
+        }
+      }
+      &.form-item-notify{
+        label{
+          font-weight: bold;
+          margin-top: 0;
+        }
+        input{
+          margin: 0;
+        }
+      }
+    }
+    #edit-actions{
+      text-align: center;
+    }
+  }
+}
 
 

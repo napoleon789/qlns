@@ -297,6 +297,9 @@ function nhansu_chart_list_all_user() {
 }
 
 function nhansu_chart_filer_time($form, &$form_state) {
+    $role = nhansu_kpi_check_user();
+    $arr_pb = array('ALL'=>'-- Tất cả --') + nhansu_list_phong_ban();
+    $arr = array('ALL'=>'-- Tất cả --') + nhansu_chart_list_roles();
     $cac_quy = array(
         0 => '--Quý--',
         1 => "Quý 1",
@@ -368,6 +371,37 @@ function nhansu_chart_filer_time($form, &$form_state) {
         '#default_value' => $to,
         '#date_year_range' => '-3:+3'
     );
+    //loc theo quyen
+    if($role == 1){
+        $form['selected_phong'] = array(
+            '#title' => t('Phòng ban'),
+            '#type' => 'select',
+            '#options' => $arr_pb,
+            '#attributes' => array(
+                'class' =>array('select_area'),
+            ),
+        );
+        $form['selected'] = array(
+            '#title' => t('Nhân viên'),
+            '#type' => 'select',
+            '#options' => $arr,
+            '#attributes' => array(
+                'class' =>array('select_nhanvien'),
+            ),
+        );
+    }
+    if($role == 2) {
+        $arr1 = array('ALL'=>'-- Tất cả --') + nhansu_kpi_get_all_node_in_phong();
+        $form['selected'] = array(
+            '#title' => t('Nhân viên'),
+            '#type' => 'select',
+            '#options' => $arr1,
+            '#attributes' => array(
+                'class' =>array('select_nhanvien'),
+            ),
+        );
+    }
+
     $form['submit'] = array(
         '#type' => 'submit',
         //'#attributes' => array('onclick' => 'return (false);'),

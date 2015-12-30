@@ -362,10 +362,14 @@ function nhansu_get_nid_from_uid($uid,$type,$from=null,$to =null) {
     if(isset($from)) {
        $from = strtotime($from);
        $to = strtotime($to);
-        $query = db_query("SELECT MAX(vid) FROM {node_revision} WHERE timestamp >:from AND timestamp <:to GROUP BY nid",array(":from" => $from,":to" => $to));
+        $query = db_query("SELECT MAX(nv.vid) as vid,nv.nid AS nid FROM {node_revision} AS nv
+        INNER JOIN {field_data_field_uid} AS nguoidung ON nguoidung.entity_id = nv.nid
+        INNER JOIN {node} AS node ON node.nid = nv.nid
+        AND node.type =:type AND nguoidung.field_uid_value =:uid AND nv.timestamp >:from AND nv.timestamp <:to GROUP BY nv.nid",array(":type" => $type,":uid" => $uid,":from" => $from,":to" => $to));
         foreach($query as $data) {
-            $nid[] = $data-> vid;
-            dpm($data);
+            $row['nid'] = $data-> nid;
+            $row['vid'] = $data-> vid;
+            $nid[] = $row;
         }
     }
     else {

@@ -33,14 +33,15 @@
     text-align: center;
     margin-bottom: 15px;
   }
+  .form-item-field-uid-und-0-value{
+    display: none;
+  }
   .nguoi_giao{
     line-height: 30px;
     float: left;
     width: 724px;
     margin: 0;
-    border-top:1px solid #ccc;
-    border-left: 1px solid #ccc;
-    border-right: 1px solid #ccc;
+    border:1px solid #ccc;
     padding: 0;
     @include clearfix();
     span{
@@ -132,5 +133,35 @@
       padding-top: 0 !important;
     }
   }
-
+  #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper{
+    table{
+      tr{
+        td{
+          &:first-child{
+            width: 210px;
+          }
+          &:nth-child(2){
+            width: 320px;
+          }
+        }
+      }
+    }
+  }
+  #block-nhansu-kpi-kpi-user{
+    span{
+      font-weight: bold;
+    }
+    .giao{
+      margin-bottom: 3px;
+    }
+    .time{
+      margin-bottom: 20px;
+      span{
+        margin-left: 20px;
+        &:first-child, &:nth-child(2){
+          margin-left: 0;
+        }
+      }
+    }
+  }
 }

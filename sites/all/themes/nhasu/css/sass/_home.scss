@@ -66,9 +66,10 @@
   border-bottom:1px solid #ccc;
   padding-bottom: 20px;
   margin-bottom: 10px;
+  @include clearfix();
   .container-inline-date{
     float: left;
-    width: 20%;
+    width: 21.7%;
     clear: inherit;
     padding-right: 15px;
     div{
@@ -104,6 +105,45 @@
   input[type="submit"]{
     height: 30px;
     min-width: 65px;
+  }
+
+  .form-type-select{
+    float: left;
+    width: 43%;
+    padding-left: 7px;
+    label{
+      float: left;
+      margin-top: 4px;
+      width: 16%;
+    }
+    select{
+      float: left;
+      width: 84%;
+    }
+    &.form-item-selected+input[type="submit"]{
+      float: left;
+      margin-top: 1em;
+      height: 33px;
+      margin-left:15px;
+    }
+  }
+  .form-item-selected-phong, .form-item-cac-quy{
+    clear: left;
+    padding-left: 0;
+    padding-right: 7px;
+
+  }
+  .form-item-cac-quy, .form-item-nam-quy{
+    width: 20.3%;
+    margin-right: 15px;
+    float: left;
+    margin-top: 0;
+    label{
+      width: 33%;
+    }
+    select{
+      width: 67%;
+    }
   }
 }
 

@@ -46,7 +46,7 @@ function nhansu_kpi_kiemsoat() {
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
     $form1 = drupal_get_form('nhansu_chart_filer_time');
-    $output = drupal_render($form1);
+    $output = '<div class="filter_time">'.drupal_render($form1).'</div>';
     $form = drupal_get_form('nhansu_chart_form_select');
     $output .= '<div id ="danhgia_kpi">'.drupal_render($form).'</div>';
     $header = array('KPI',"Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');

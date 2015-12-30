@@ -727,68 +727,120 @@ table tr th:first-child, table tr td:first-child {
   border-bottom: 1px solid #ccc;
   padding-bottom: 20px;
   margin-bottom: 10px;
+  clear: both;
 }
-/* line 69, sass/_home.scss */
+/* line 27, sass/_mixin.scss */
+.filter_time::after, .filter_time::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 70, sass/_home.scss */
 .filter_time .container-inline-date {
   float: left;
-  width: 20%;
+  width: 21.7%;
   clear: inherit;
   padding-right: 15px;
 }
-/* line 74, sass/_home.scss */
+/* line 75, sass/_home.scss */
 .filter_time .container-inline-date div {
   display: block;
 }
-/* line 77, sass/_home.scss */
+/* line 78, sass/_home.scss */
 .filter_time .container-inline-date .form-item .form-item {
   float: none;
 }
-/* line 80, sass/_home.scss */
+/* line 81, sass/_home.scss */
 .filter_time .container-inline-date > .form-item {
   margin-right: 0;
 }
-/* line 84, sass/_home.scss */
+/* line 85, sass/_home.scss */
 .filter_time label {
   float: left;
   width: 33%;
   margin-top: 5px;
 }
-/* line 89, sass/_home.scss */
+/* line 90, sass/_home.scss */
 .filter_time .date-padding {
   float: left;
   width: 67%;
 }
-/* line 92, sass/_home.scss */
+/* line 93, sass/_home.scss */
 .filter_time .date-padding div {
   margin: 0;
   padding: 0;
 }
-/* line 96, sass/_home.scss */
+/* line 97, sass/_home.scss */
 .filter_time .date-padding input {
   width: 100%;
   margin: 0;
 }
-/* line 100, sass/_home.scss */
+/* line 101, sass/_home.scss */
 .filter_time .date-padding .description, .filter_time .date-padding label {
   display: none;
 }
-/* line 104, sass/_home.scss */
+/* line 105, sass/_home.scss */
 .filter_time input[type="submit"] {
   height: 30px;
   min-width: 65px;
 }
-
 /* line 110, sass/_home.scss */
+.filter_time .form-type-select {
+  float: left;
+  width: 43%;
+  padding-left: 7px;
+}
+/* line 114, sass/_home.scss */
+.filter_time .form-type-select label {
+  float: left;
+  margin-top: 4px;
+  width: 16%;
+}
+/* line 119, sass/_home.scss */
+.filter_time .form-type-select select {
+  float: left;
+  width: 84%;
+}
+/* line 123, sass/_home.scss */
+.filter_time .form-type-select.form-item-selected + input[type="submit"] {
+  float: left;
+  margin-top: 1em;
+  height: 33px;
+  margin-left: 15px;
+}
+/* line 130, sass/_home.scss */
+.filter_time .form-item-selected-phong, .filter_time .form-item-cac-quy {
+  clear: left;
+  padding-left: 0;
+  padding-right: 7px;
+}
+/* line 136, sass/_home.scss */
+.filter_time .form-item-cac-quy, .filter_time .form-item-nam-quy {
+  width: 20.3%;
+  margin-right: 15px;
+  float: left;
+  margin-top: 0;
+}
+/* line 141, sass/_home.scss */
+.filter_time .form-item-cac-quy label, .filter_time .form-item-nam-quy label {
+  width: 33%;
+}
+/* line 144, sass/_home.scss */
+.filter_time .form-item-cac-quy select, .filter_time .form-item-nam-quy select {
+  width: 67%;
+}
+
+/* line 150, sass/_home.scss */
 .canhbao_left {
   float: left;
 }
-/* line 112, sass/_home.scss */
+/* line 152, sass/_home.scss */
 .canhbao_left ul {
   margin: 0 0 10px 20px;
   list-style: none;
   padding: 0;
 }
-/* line 116, sass/_home.scss */
+/* line 156, sass/_home.scss */
 .canhbao_left ul li {
   margin-bottom: 5px;
   opacity: 0.2;
@@ -797,12 +849,12 @@ table tr th:first-child, table tr td:first-child {
   width: 40px !important;
   height: 40px !important;
 }
-/* line 123, sass/_home.scss */
+/* line 163, sass/_home.scss */
 .canhbao_left ul li.dat_chuan {
   opacity: 1;
 }
 
-/* line 133, sass/_home.scss */
+/* line 173, sass/_home.scss */
 .canhbao_right {
   float: left;
   margin-left: 20px;
@@ -811,61 +863,61 @@ table tr th:first-child, table tr td:first-child {
 }
 
 @-moz-keyframes blinker {
-  /* line 141, sass/_home.scss */
+  /* line 181, sass/_home.scss */
   0% {
     opacity: 1.0;
   }
 
-  /* line 145, sass/_home.scss */
+  /* line 185, sass/_home.scss */
   50% {
     opacity: 0.0;
   }
 
-  /* line 149, sass/_home.scss */
+  /* line 189, sass/_home.scss */
   100% {
     opacity: 1.0;
   }
 }
 
 @-webkit-keyframes blinker {
-  /* line 156, sass/_home.scss */
+  /* line 196, sass/_home.scss */
   0% {
     opacity: 1.0;
   }
 
-  /* line 160, sass/_home.scss */
+  /* line 200, sass/_home.scss */
   50% {
     opacity: 0.0;
   }
 
-  /* line 164, sass/_home.scss */
+  /* line 204, sass/_home.scss */
   100% {
     opacity: 1.0;
   }
 }
 
 @keyframes blinker {
-  /* line 170, sass/_home.scss */
+  /* line 210, sass/_home.scss */
   0% {
     opacity: 1.0;
   }
 
-  /* line 174, sass/_home.scss */
+  /* line 214, sass/_home.scss */
   50% {
     opacity: 0.0;
   }
 
-  /* line 178, sass/_home.scss */
+  /* line 218, sass/_home.scss */
   100% {
     opacity: 1.0;
   }
 }
 
-/* line 185, sass/_home.scss */
+/* line 225, sass/_home.scss */
 .content_home1 .right_1 {
   float: left;
 }
-/* line 188, sass/_home.scss */
+/* line 228, sass/_home.scss */
 .content_home1 .right_2 {
   float: right;
 }
@@ -877,7 +929,7 @@ table tr th:first-child, table tr td:first-child {
 
 /* line 14, sass/_kpi.scss */
 .page-quanly-kpi-kiemsoat .form-item-cac-quy, .page-quanly-kpi-kiemsoat .form-item-nam-quy, .page-quanly-kpi-danhgia .form-item-cac-quy, .page-quanly-kpi-danhgia .form-item-nam-quy {
-  width: 20%;
+  width: 20.3%;
   margin-right: 15px;
   float: left;
   margin-top: 0;
@@ -899,14 +951,16 @@ table tr th:first-child, table tr td:first-child {
   margin-bottom: 15px;
 }
 /* line 36, sass/_kpi.scss */
+.page-nhanvien-kpi .form-item-field-uid-und-0-value {
+  display: none;
+}
+/* line 39, sass/_kpi.scss */
 .page-nhanvien-kpi .nguoi_giao {
   line-height: 30px;
   float: left;
   width: 724px;
   margin: 0;
-  border-top: 1px solid #ccc;
-  border-left: 1px solid #ccc;
-  border-right: 1px solid #ccc;
+  border: 1px solid #ccc;
   padding: 0;
   clear: both;
 }
@@ -916,7 +970,7 @@ table tr th:first-child, table tr td:first-child {
   clear: both;
   content: "";
 }
-/* line 46, sass/_kpi.scss */
+/* line 47, sass/_kpi.scss */
 .page-nhanvien-kpi .nguoi_giao span {
   background: #47812c none repeat scroll 0 0;
   color: #fff;
@@ -928,7 +982,7 @@ table tr th:first-child, table tr td:first-child {
   width: 40%;
   margin-right: 8px;
 }
-/* line 59, sass/_kpi.scss */
+/* line 60, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo {
   clear: both;
 }
@@ -938,33 +992,33 @@ table tr th:first-child, table tr td:first-child {
   clear: both;
   content: "";
 }
-/* line 61, sass/_kpi.scss */
+/* line 62, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo label[for="edit-field-giaokpi-giaotheo-und"] {
   float: left;
   margin-top: 5px;
   font-weight: bold;
   width: 80px;
 }
-/* line 68, sass/_kpi.scss */
+/* line 69, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item {
   display: inline-block;
   width: 19%;
 }
-/* line 71, sass/_kpi.scss */
+/* line 72, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item input, .page-nhanvien-kpi .field-name-field-giaokpi-giaotheo .form-radios .form-item label {
   margin-top: 0;
   vertical-align: middle;
 }
-/* line 79, sass/_kpi.scss */
+/* line 80, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-kpi-giao-tu {
   padding-left: 0 !important;
 }
-/* line 82, sass/_kpi.scss */
+/* line 83, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-kpi-giao-tu, .page-nhanvien-kpi .field-name-field-giao-kpi-den, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und {
   margin-top: 0;
   width: 30% !important;
 }
-/* line 85, sass/_kpi.scss */
+/* line 86, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-kpi-giao-tu legend, .page-nhanvien-kpi .field-name-field-kpi-giao-tu label, .page-nhanvien-kpi .field-name-field-giao-kpi-den legend, .page-nhanvien-kpi .field-name-field-giao-kpi-den label, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und legend, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und label {
   float: left;
   font-weight: bold;
@@ -972,12 +1026,12 @@ table tr th:first-child, table tr td:first-child {
   width: 33%;
   padding-right: 15px;
 }
-/* line 92, sass/_kpi.scss */
+/* line 93, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-kpi-giao-tu .fieldset-wrapper, .page-nhanvien-kpi .field-name-field-kpi-giao-tu select, .page-nhanvien-kpi .field-name-field-giao-kpi-den .fieldset-wrapper, .page-nhanvien-kpi .field-name-field-giao-kpi-den select, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und .fieldset-wrapper, .page-nhanvien-kpi .form-type-select.form-item-field-giaokpi-quy-und select {
   width: 67% !important;
   float: left;
 }
-/* line 97, sass/_kpi.scss */
+/* line 98, sass/_kpi.scss */
 .page-nhanvien-kpi .field-name-field-giaokpi-quy {
   clear: both;
 }
@@ -987,32 +1041,60 @@ table tr th:first-child, table tr td:first-child {
   clear: both;
   content: "";
 }
-/* line 102, sass/_kpi.scss */
+/* line 103, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user table td {
   vertical-align: top;
 }
-/* line 104, sass/_kpi.scss */
+/* line 105, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user table td ul, .page-nhanvien-kpi .view-id-kpi_user table td li {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 112, sass/_kpi.scss */
+/* line 113, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table thead, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table .field-multiple-drag {
   display: none;
 }
-/* line 117, sass/_kpi.scss */
+/* line 118, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable table tbody tr:nth-child(3) {
   display: none;
 }
-/* line 123, sass/_kpi.scss */
+/* line 124, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable ul, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .tabledrag-toggle-weight-wrapper, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .clearfix, .page-nhanvien-kpi .view-id-kpi_user table td.views-field-field-giaokpi-thuchien-editable .tabledrag-handle {
   display: none;
 }
-/* line 130, sass/_kpi.scss */
+/* line 131, sass/_kpi.scss */
 .page-nhanvien-kpi .view-id-kpi_user #edit-actions {
   border-top: none !important;
   padding-top: 0 !important;
+}
+/* line 140, sass/_kpi.scss */
+.page-nhanvien-kpi #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper table tr td:first-child {
+  width: 210px;
+}
+/* line 143, sass/_kpi.scss */
+.page-nhanvien-kpi #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper table tr td:nth-child(2) {
+  width: 320px;
+}
+/* line 151, sass/_kpi.scss */
+.page-nhanvien-kpi #block-nhansu-kpi-kpi-user span {
+  font-weight: bold;
+}
+/* line 154, sass/_kpi.scss */
+.page-nhanvien-kpi #block-nhansu-kpi-kpi-user .giao {
+  margin-bottom: 3px;
+}
+/* line 157, sass/_kpi.scss */
+.page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time {
+  margin-bottom: 20px;
+}
+/* line 159, sass/_kpi.scss */
+.page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span {
+  margin-left: 20px;
+}
+/* line 161, sass/_kpi.scss */
+.page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:first-child, .page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:nth-child(2) {
+  margin-left: 0;
 }
 
 /* line 2, sass/_setting.scss */
@@ -1217,4 +1299,3 @@ table tr th:first-child, table tr td:first-child {
 .page-caidat-user-add #block-system-main #edit-actions, .page-caidat-user-edit #block-system-main #edit-actions {
   text-align: center;
 }
-

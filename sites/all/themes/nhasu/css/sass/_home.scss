@@ -72,6 +72,7 @@
     width: 21.7%;
     clear: inherit;
     padding-right: 15px;
+    margin-bottom: 1em;
     div{
       display: block;
     }
@@ -107,10 +108,10 @@
     min-width: 65px;
   }
 
-  .form-type-select{
-    float: left;
+  .form-item-selected-phong, .form-item-selected{
     width: 43%;
-    padding-left: 7px;
+    @include clearfix();
+    padding-right: 9px;
     label{
       float: left;
       margin-top: 4px;
@@ -120,17 +121,9 @@
       float: left;
       width: 84%;
     }
-    &.form-item-selected+input[type="submit"]{
-      float: left;
-      margin-top: 1em;
-      height: 33px;
-      margin-left:15px;
-    }
   }
   .form-item-selected-phong, .form-item-cac-quy{
     clear: left;
-    padding-left: 0;
-    padding-right: 7px;
 
   }
   .form-item-cac-quy, .form-item-nam-quy{

@@ -196,7 +196,7 @@ function nhansu_caidat_menu() {
 
 function nhansu_caidat_user_delete() {
     global $base_url;
-    $output = "<div class='xoa_node'>Ban chắc chắn muốn xóa user này chứ? </div><div><span><a href='".$base_url."/caidat/user/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat/user'>Không</a> </span></div>";
+    $output = "<div class='xoa_node'><div>Ban chắc chắn muốn xóa user này chứ? </div><div><span><a href='".$base_url."/caidat/user/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat/user'>Không</a> </span></div></div>";
     return $output;
 }
 function nhansu_caidat_user_deleted() {
@@ -206,7 +206,7 @@ function nhansu_caidat_user_deleted() {
 }
 function nhansu_caidat_delete_kpi() {
   global $base_url;
-  $output = "<div class='xoa_node'>Ban chắc chắn muốn xóa thư viện KPI này chứ?</div><div> <span><a href='".$base_url."/caidat/kpi/admin/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat'>Không</a> </span></div>";
+  $output = "<div class='xoa_node'><div>Ban chắc chắn muốn xóa thư viện KPI này chứ?</div><div> <span><a href='".$base_url."/caidat/kpi/admin/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat'>Không</a> </span></div></div>";
   return $output;
 }
 function nhansu_caidat_deleted_kpi() {

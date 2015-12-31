@@ -31,6 +31,20 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
+    $items['caidat/kpi/admin/%/delete'] = array(
+        'title' => 'Xóa KPI',
+        'page callback' => 'nhansu_caidat_delete_kpi',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/kpi/admin/%/deleted'] = array(
+        'title' => 'Xóa KPI',
+        'page callback' => 'nhansu_caidat_deleted_kpi',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
     $items['caidat/kpi/admin/add'] = array(
         'title' => 'Thêm mới KPI',
         'page callback' => 'nhansu_caidat_add_kpi',
@@ -107,6 +121,20 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
+    $items['caidat/user/%/delete'] = array(
+        'title' => 'Xóa user',
+        'page callback' => 'nhansu_caidat_user_delete',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
+    $items['caidat/user/%/deleted'] = array(
+        'title' => 'Xóa user',
+        'page callback' => 'nhansu_caidat_user_deleted',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+        'weight' => 0,
+    );
     $items['caidat/user/%/view'] = array(
         'title' => 'Xem chi tiết user',
         'page callback' => 'nhansu_caidat_user_view',
@@ -166,6 +194,26 @@ function nhansu_caidat_menu() {
     return $items;
 }
 
+function nhansu_caidat_user_delete() {
+    global $base_url;
+    $output = "<div class='xoa_node'>Ban chắc chắn muốn xóa user này chứ? <span><a href='".$base_url."/caidat/user/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat/user'>Không</a> </span></div>";
+    return $output;
+}
+function nhansu_caidat_user_deleted() {
+    $id = arg(2);
+    user_delete($id);
+    drupal_goto("/caidat/user");
+}
+function nhansu_caidat_delete_kpi() {
+  global $base_url;
+  $output = "<div class='xoa_node'>Ban chắc chắn muốn xóa thư viện KPI này chứ? <span><a href='".$base_url."/caidat/kpi/admin/".arg(3)."/deleted'>Có</a></span><span><a href='".$base_url."/caidat'>Không</a> </span></div>";
+  return $output;
+}
+function nhansu_caidat_deleted_kpi() {
+  $id = arg(3);
+  node_delete($id);
+  drupal_goto("/caidat");
+}
 function nhansu_caidat_user_add() {
     drupal_set_title("Thêm mới user");
     $output = drupal_get_form('user_register_form');
@@ -179,11 +227,33 @@ function nhansu_caidat_user_edit() {
     return drupal_render($output);
 }
 function nhansu_caidat_phongban_add() {
-    $vocabulary = taxonomy_vocabulary_load(1, FALSE);
+    $vocabulary = taxonomy_vocabulary_load(3, FALSE);
     module_load_include('inc', 'taxonomy', 'taxonomy.admin');
     drupal_set_title("Thêm mới phòng ban");
     $output = drupal_get_form('taxonomy_form_term',array(), $vocabulary);
     return $output;
+}
+
+/**
+ * @param $term
+ */
+function nhansu_caidat_taxonomy_term_insert ($term) {
+    $vid = $term -> vid;
+    if($vid == 3) {
+        drupal_goto("caidat/phongban");
+    }
+    if($vid == 4) {
+        drupal_goto("caidat/nhom/admin/list");
+    }
+}
+function nhansu_caidat_taxonomy_term_delete($term){
+    $vid = $term -> vid;
+    if($vid == 3) {
+        drupal_goto("caidat/phongban");
+    }
+    if($vid == 4) {
+        drupal_goto("caidat/nhom/admin/list");
+    }
 }
 function nhansu_caidat_phongban_edit() {
     $id = arg(2);
@@ -235,6 +305,7 @@ function nhansu_caidat_add_kpi() {
 
 }
 
+
 function nhansu_caidat_user_vaitro() {
     $form = drupal_get_form("user_admin_roles");
     $ouput = drupal_render($form);
@@ -272,8 +343,15 @@ function nhansu_caidat_kpi() {
 }
 
 function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
-    if($form_id =='user_register_form') {
-
+    if($form_id =='user_register_form' ) {
+      $form['account']['status']['#access'] = FALSE;
+    }
+    if($form_id == 'user_profile_form') {
+        global $base_url;
+        $form['account']['status']['#access'] = FALSE;
+        $form['actions']['cancel']['#access'] = FALSE;
+        $delete ="<a href='".$base_url."/caidat/user/".arg(2)."/delete'>Delete</a>";
+        $form['actions']['submit']["#suffix"] = $delete;
     }
     if(arg(1) == "nhom") {
         $form['name']['#title'] ="Tên nhóm chỉ tiêu";

@@ -128,7 +128,7 @@ function nhansu_list_student() {
     global $base_url;
     $form = drupal_get_form('nhansu_chart_form_select');
     $output = drupal_render($form);
-    $output .= views_embed_view('thongtin_nhanvien','default');
+    $output = views_embed_view('thongtin_nhanvien','default');
     return $output;
 }
 
@@ -157,7 +157,12 @@ function nhansu_info() {
     return $form;
 }
 function nhansu_form_alter(&$form, &$form_state, $form_id) {
-
+    if($form_id == 'kpi_node_form' && arg(1) == 'kpi') {
+        global $base_url;
+        $form['actions']['delete']['#access'] = FALSE;
+        $delete ="<a href='".$base_url."/caidat/kpi/admin/".arg(3)."/delete'>Delete</a>";
+        $form['actions']['submit']["#suffix"] = $delete;
+    }
   if($form_id == "giao_kpi_node_form") {
       $role = nhansu_kpi_check_user();
       if(arg(2) == 'kpi') {
@@ -349,6 +354,9 @@ function nhansu_node_update($node) {
     if($node ->type == 'giao_kpi') {
         drupal_goto('nhanvien/'.$node->field_uid['und'][0]['value'].'/kpi');
     }
+    if($node ->type == 'kpi') {
+        drupal_goto('caidat');
+    }
 }
 
 
@@ -358,10 +366,14 @@ function nhansu_node_presave($node) {
     }
 }
 
-function nhansu_get_nid_from_uid($uid,$type,$from=null,$to =null) {
+function nhansu_get_nid_from_uid($uid,$type,$from = null,$to = null,$loc = null,$cac_quy = null,$nam_quy = null,$phong_ban = null,$nhan_vien = null) {
     if(isset($from)) {
-       $from = strtotime($from);
-       $to = strtotime($to);
+        $and = "";
+        if(isset($from)) {
+            $from = strtotime($from);
+            $to = strtotime($to);
+            $and .= ' AND nv.timestamp >'.$from.' AND nv.timestamp < '.$to;
+        }
         $query = db_query("SELECT MAX(nv.vid) as vid,nv.nid AS nid FROM {node_revision} AS nv
         INNER JOIN {field_data_field_uid} AS nguoidung ON nguoidung.entity_id = nv.nid
         INNER JOIN {node} AS node ON node.nid = nv.nid
@@ -404,4 +416,16 @@ function nhansu_get_title_from_uid($uid) {
         }
     }
     return $title;
+}
+
+function nhansu_list_all_nid_giamdoc() {
+    $query = db_query("SELECT node.nid as nid FROM {node} as node
+                       INNER JOIN {field_data_field_kpi_giao_tu} AS tu ON node.nid = tu.entity_id
+                       INNER JOIN {field_data_field_giao_kpi_den} AS den ON node.nid = den.entity_id
+                       AND tu.field_kpi_giao_tu_value <:time AND den.field_giao_kpi_den_value >:time
+                       ",array(":time" =>time()));
+    foreach($query as $data) {
+        $nid[] = $data->nid;
+    }
+    return $nid;
 }

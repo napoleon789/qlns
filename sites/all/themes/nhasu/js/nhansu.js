@@ -1,22 +1,22 @@
 jQuery(document).ready(function($) {
     //page kiem soat KPI quanly/kpi/kiemsoat
-   var m =  $("#edit-loc-theo-0").attr("checked");
+   var m =  $("#nhansu-chart-filer-time #edit-loc-theo-0").attr("checked");
    if(m) {
        $(".form-item-cac-quy").hide();
        $(".form-item-nam-quy").hide();
        $(".container-inline-date").show();
    }
    else {
-       $(".container-inline-date").hide();
-       $(".form-item-cac-quy").show();
-       $(".form-item-nam-quy").show();
+       $("#nhansu-chart-filer-time .container-inline-date").hide();
+       $("#nhansu-chart-filer-time .form-item-cac-quy").show();
+       $("#nhansu-chart-filer-time .form-item-nam-quy").show();
    }
-    $("#edit-loc-theo-1").click(function() {
+    $("#nhansu-chart-filer-time #edit-loc-theo-1").click(function() {
        $(".container-inline-date").hide();
        $(".form-item-cac-quy").show();
        $(".form-item-nam-quy").show();
     });
-    $("#edit-loc-theo-0").click(function() {
+    $("#nhansu-chart-filer-time #edit-loc-theo-0").click(function() {
         $(".form-item-cac-quy").hide();
         $(".form-item-nam-quy").hide();
         $(".container-inline-date").show();

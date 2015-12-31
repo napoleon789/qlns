@@ -148,6 +148,10 @@
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/kiemsoat">Kiểm soát</a> </li>
                       <li class="item menu2"><a href="<?php echo $base_url;?>/quanly/kpi/danhgia">Đánh giá</a> </li>
                   </ul>
+                  <ul class="sub_menu_student">
+                      <li class="item menu1 active"><a href="<?php echo $base_url;?>/quanly/kpi">Danh giao KPI</a> </li>
+
+                  </ul>
               <?php endif; ?>
 
               <?php if ($tham == "kiemsoat"):?>

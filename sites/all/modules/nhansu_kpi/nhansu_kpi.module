@@ -42,7 +42,6 @@ function nhansu_kpi_kiemsoat() {
   drupal_set_title("Kiểm soát KPI");
   return "";
 }
-
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
     $form1 = drupal_get_form('nhansu_chart_filer_time');
@@ -54,10 +53,8 @@ function nhansu_kpi_danhgia() {
     $num = count($data);
     $tong = 0;
     foreach($data as $content) {
-
        $giatri = $content['ht'];
        $giatri = trim(str_replace("%","",$giatri));
-
        $tong = $tong + $giatri;
     }
     $data = array(
@@ -101,14 +98,11 @@ function nhansu_chart_data_load_danhgia() {
     $tid = arg(1);
     $nid = arg(2);
     $dulieu = nhansu_data_table($tid,$nid);
-
     $num = count($dulieu);
     $tong = 0;
     foreach($dulieu as $content) {
-
         $giatri = $content['ht'];
         $giatri = trim(str_replace("%","",$giatri));
-
         $tong = $tong + $giatri;
     }
     $tong = $tong.'%';

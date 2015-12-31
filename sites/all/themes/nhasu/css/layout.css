@@ -53,7 +53,7 @@ textarea {
 }
 
 /* line 70, sass/_theme.scss */
-input[type="submit"], .new_time {
+input[type="submit"], .new_time, #edit-actions a {
   color: #fff;
   font-size: 11px;
   font-weight: bold;
@@ -68,40 +68,48 @@ input[type="submit"], .new_time {
   border: none;
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
+  display: inline-block;
+  text-align: center;
 }
-/* line 83, sass/_theme.scss */
-input[type="submit"]:hover, .new_time:hover {
+/* line 85, sass/_theme.scss */
+input[type="submit"]:hover, .new_time:hover, #edit-actions a:hover {
   background: #59a538;
   color: #fff;
+  text-decoration: none;
 }
 
-/* line 89, sass/_theme.scss */
+/* line 91, sass/_theme.scss */
+#edit-actions a {
+  padding: 6px 10px;
+}
+
+/* line 95, sass/_theme.scss */
 .clrb {
   clear: left;
 }
 
-/* line 93, sass/_theme.scss */
+/* line 99, sass/_theme.scss */
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-/* line 97, sass/_theme.scss */
+/* line 103, sass/_theme.scss */
 a {
   color: #47812c;
   text-decoration: none;
 }
-/* line 100, sass/_theme.scss */
+/* line 106, sass/_theme.scss */
 a:hover {
   text-decoration: underline;
 }
 
-/* line 104, sass/_theme.scss */
+/* line 110, sass/_theme.scss */
 a.chua_giao {
   color: #bd3027;
 }
 
-/* line 107, sass/_theme.scss */
+/* line 113, sass/_theme.scss */
 #content {
   width: 1004px;
   margin: auto;
@@ -110,7 +118,7 @@ a.chua_giao {
   min-height: 420px;
 }
 
-/* line 116, sass/_theme.scss */
+/* line 122, sass/_theme.scss */
 body {
   font-family: "Roboto Condensed", Arial, Helvetica, sans-serif;
   font-size: 14px;
@@ -119,7 +127,7 @@ body {
   padding: 0;
 }
 
-/* line 124, sass/_theme.scss */
+/* line 130, sass/_theme.scss */
 #main {
   width: 1004px;
   margin: auto;
@@ -127,12 +135,12 @@ body {
   box-shadow: 0 7px 10px 2px #a9abb1;
 }
 
-/* line 130, sass/_theme.scss */
+/* line 136, sass/_theme.scss */
 .sticky-header {
   display: none;
 }
 
-/* line 134, sass/_theme.scss */
+/* line 140, sass/_theme.scss */
 .menu_student {
   margin: auto;
   list-style: none;
@@ -141,7 +149,7 @@ body {
   border-bottom: 3px solid #B43B3B;
   padding: 0 20px;
 }
-/* line 141, sass/_theme.scss */
+/* line 147, sass/_theme.scss */
 .menu_student li {
   display: inline-block;
   list-style: outside none none;
@@ -151,7 +159,7 @@ body {
   -webkit-transition: all ease 0.5s;
   transition: all ease 0.5s;
 }
-/* line 149, sass/_theme.scss */
+/* line 155, sass/_theme.scss */
 .menu_student li:hover::after, .menu_student li.active::after {
   border-bottom: 12px solid #B43B3B;
   border-left: 6px solid transparent;
@@ -165,85 +173,85 @@ body {
   position: absolute;
   width: 0;
 }
-/* line 162, sass/_theme.scss */
+/* line 168, sass/_theme.scss */
 .menu_student li:hover a, .menu_student li.active a {
   color: #fff;
 }
-/* line 166, sass/_theme.scss */
+/* line 172, sass/_theme.scss */
 .menu_student li a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: white;
   float: none;
   font-size: 18px;
 }
-/* line 171, sass/_theme.scss */
+/* line 177, sass/_theme.scss */
 .menu_student li a:hover {
   text-decoration: none;
   color: #fff;
 }
 
-/* line 179, sass/_theme.scss */
+/* line 185, sass/_theme.scss */
 table {
   border: 1px solid #ccc;
   width: 100%;
 }
-/* line 182, sass/_theme.scss */
+/* line 188, sass/_theme.scss */
 table tr.even, table tr.odd {
   background-color: transparent;
 }
-/* line 185, sass/_theme.scss */
+/* line 191, sass/_theme.scss */
 table th, table td {
   padding: 5px 8px;
   border-left: 1px solid #ccc;
 }
-/* line 189, sass/_theme.scss */
+/* line 195, sass/_theme.scss */
 table th {
   border-bottom-width: 1px;
 }
-/* line 194, sass/_theme.scss */
+/* line 200, sass/_theme.scss */
 table tr th:first-child, table tr td:first-child {
   border-left: none;
 }
 
-/* line 201, sass/_theme.scss */
+/* line 207, sass/_theme.scss */
 .sub_menu_student {
   margin: 0 0 20px;
   list-style: none;
   padding: 4px 20px 6px;
   border-bottom: 1px solid #ccc;
 }
-/* line 206, sass/_theme.scss */
+/* line 212, sass/_theme.scss */
 .sub_menu_student li {
   display: inline-block;
   margin-right: 15px;
   border-right: 1px solid #ccc;
   padding: 1px 15px 2px 0;
 }
-/* line 211, sass/_theme.scss */
+/* line 217, sass/_theme.scss */
 .sub_menu_student li:last-child {
   border-right: none;
 }
-/* line 214, sass/_theme.scss */
+/* line 220, sass/_theme.scss */
 .sub_menu_student li.active {
   font-weight: bold;
 }
 
-/* line 221, sass/_theme.scss */
+/* line 227, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo label {
   float: left;
   width: 60px;
 }
-/* line 226, sass/_theme.scss */
+/* line 232, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios label {
   float: none;
   width: auto;
 }
-/* line 230, sass/_theme.scss */
+/* line 236, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo {
   display: inline-block;
   width: 19%;
 }
-/* line 233, sass/_theme.scss */
+/* line 239, sass/_theme.scss */
 .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo input, .form-type-radios.form-item-loc-theo .form-radios .form-item-loc-theo label {
   margin-top: 0;
   vertical-align: middle;

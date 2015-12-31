@@ -67,7 +67,7 @@ textarea{
   height:80px;
 }
 
-input[type="submit"], .new_time{
+input[type="submit"], .new_time, #edit-actions a{
   color: #fff;
   font-size: 11px;
   font-weight: bold;
@@ -80,10 +80,16 @@ input[type="submit"], .new_time{
   cursor: pointer;
   border: none;
   @include transition();
+  display: inline-block;
+  text-align: center;
   &:hover{
     background: #59a538;
     color: #fff;
+    text-decoration: none;
   }
+}
+#edit-actions a{
+  padding: 6px 10px;
 }
 
 .clrb{

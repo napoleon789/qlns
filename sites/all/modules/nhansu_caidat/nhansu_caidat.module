@@ -246,6 +246,15 @@ function nhansu_caidat_taxonomy_term_insert ($term) {
         drupal_goto("caidat/nhom/admin/list");
     }
 }
+function nhansu_caidat_taxonomy_term_update($term) {
+    $vid = $term -> vid;
+    if($vid == 3) {
+        drupal_goto("caidat/phongban");
+    }
+    if($vid == 4) {
+        drupal_goto("caidat/nhom/admin/list");
+    }
+}
 function nhansu_caidat_taxonomy_term_delete($term){
     $vid = $term -> vid;
     if($vid == 3) {
@@ -254,6 +263,9 @@ function nhansu_caidat_taxonomy_term_delete($term){
     if($vid == 4) {
         drupal_goto("caidat/nhom/admin/list");
     }
+}
+function nhansu_caidat_user_update(&$edit, $account, $category) {
+    drupal_goto("caidat/user");
 }
 function nhansu_caidat_phongban_edit() {
     $id = arg(2);

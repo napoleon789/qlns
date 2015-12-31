@@ -28,6 +28,7 @@ function nhansu_user_user_insert(&$edit, $account, $category) {
     $node_giao_kpi->promote = 1;
     $node_giao_kpi->field_uid['und'][0]['value'] = $uid;
     node_save($node_giao_kpi);
+    drupal_goto("caidat/user");
 }
 
 function nhansu_user_check_time($uid) {
@@ -36,7 +37,7 @@ function nhansu_user_check_time($uid) {
     $tu = $node -> field_kpi_giao_tu['und'][0]['value'];
 
     if($tu == 1286643600) {
-        $output = '<a href ="../nhanvien/'.$uid.'/kpi"> Chưa giao</a>';
+        $output = '<a class="chua_giao" href ="../nhanvien/'.$uid.'/kpi"> Chưa giao</a>';
     }
     else {
         $output = '<a href ="../nhanvien/'.$uid.'/kpi"> Đã giao</a>';

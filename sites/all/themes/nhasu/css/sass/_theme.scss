@@ -67,13 +67,13 @@ textarea{
   height:80px;
 }
 
-input[type="submit"], .new_time, #edit-actions a{
+input[type="submit"], .new_time, #edit-actions a, .xoa_node div a{
   color: #fff;
   font-size: 11px;
   font-weight: bold;
   @include font();
   text-transform: uppercase;
-  padding: 5px 10px;
+  padding: 6px 10px;
   min-width: 104px;
   background: #47812c;
   @include border-radius(10px);
@@ -88,9 +88,7 @@ input[type="submit"], .new_time, #edit-actions a{
     text-decoration: none;
   }
 }
-#edit-actions a{
-  padding: 6px 10px;
-}
+
 
 .clrb{
   clear: left;
@@ -244,4 +242,21 @@ table{
   }
 
 
+}
+
+.xoa_node{
+  text-align: center;
+  div{
+    margin-top: 20px;
+    a{
+      min-width: 85px;
+      margin: 0 7px;
+    }
+  }
+}
+
+.page-caidat-kpi-admin-delete{
+  h1#page-title{
+    padding-top: 45px;
+  }
 }

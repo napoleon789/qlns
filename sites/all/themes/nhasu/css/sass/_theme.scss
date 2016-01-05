@@ -135,7 +135,7 @@ body{
   display: none;
 }
 
-.menu_student{
+.menu_student, .page-user ul.tabs.primary{
   margin: auto;
   list-style: none;
   width: 1004px;
@@ -182,7 +182,7 @@ body{
 
 table{
   border: 1px solid #ccc;
-  width: 100%;
+   width: 100%;
   tr.even, tr.odd{
     background-color: transparent;
   }

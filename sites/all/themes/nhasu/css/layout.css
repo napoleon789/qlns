@@ -136,7 +136,7 @@ body {
 }
 
 /* line 138, sass/_theme.scss */
-.menu_student {
+.menu_student, .page-user ul.tabs.primary {
   margin: auto;
   list-style: none;
   width: 1004px;
@@ -145,7 +145,7 @@ body {
   padding: 0 20px;
 }
 /* line 145, sass/_theme.scss */
-.menu_student li {
+.menu_student li, .page-user ul.tabs.primary li {
   display: inline-block;
   list-style: outside none none;
   margin: 0 26px 0 0;
@@ -155,7 +155,7 @@ body {
   transition: all ease 0.5s;
 }
 /* line 153, sass/_theme.scss */
-.menu_student li:hover::after, .menu_student li.active::after {
+.menu_student li:hover::after, .menu_student li.active::after, .page-user ul.tabs.primary li:hover::after, .page-user ul.tabs.primary li.active::after {
   border-bottom: 12px solid #B43B3B;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
@@ -169,18 +169,18 @@ body {
   width: 0;
 }
 /* line 166, sass/_theme.scss */
-.menu_student li:hover a, .menu_student li.active a {
+.menu_student li:hover a, .menu_student li.active a, .page-user ul.tabs.primary li:hover a, .page-user ul.tabs.primary li.active a {
   color: #fff;
 }
 /* line 170, sass/_theme.scss */
-.menu_student li a {
+.menu_student li a, .page-user ul.tabs.primary li a {
   background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
   color: white;
   float: none;
   font-size: 18px;
 }
 /* line 175, sass/_theme.scss */
-.menu_student li a:hover {
+.menu_student li a:hover, .page-user ul.tabs.primary li a:hover {
   text-decoration: none;
   color: #fff;
 }
@@ -1332,4 +1332,22 @@ table tr th:first-child, table tr td:first-child {
 /* line 181, sass/_setting.scss */
 .page-caidat-user form .description {
   display: none;
+}
+
+/* line 2, sass/_login.scss */
+.page-user h1#page-title {
+  display: none;
+}
+/* line 5, sass/_login.scss */
+.page-user .tabs {
+  margin: -20px 0 0 -20px;
+}
+/* line 9, sass/_login.scss */
+.page-user ul.tabs.primary a {
+  border: none;
+}
+/* line 14, sass/_login.scss */
+.page-user #block-system-main form {
+  max-width: 480px;
+  margin: 30px 0 0 18px;
 }

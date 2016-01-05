@@ -1,0 +1,25 @@
+.page-user{
+  h1#page-title{
+    display: none;
+  }
+  .tabs{
+    margin: -20px 0 0 -20px;
+  }
+  ul.tabs.primary{
+    a{
+      border: none;
+    }
+  }
+  #block-system-main{
+    form{
+      max-width: 480px;
+      margin: 30px 0 0 18px;
+    }
+  }
+  &.not-logged-in{
+    #messages{
+      display: none;
+    }
+  }
+
+}

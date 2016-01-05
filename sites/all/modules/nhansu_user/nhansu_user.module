@@ -34,13 +34,24 @@ function nhansu_user_user_insert(&$edit, $account, $category) {
 function nhansu_user_check_time($uid) {
     $id = nhansu_get_nid_from_uid($uid,"giao_kpi");
     $node = node_load($id);
-    $tu = $node -> field_kpi_giao_tu['und'][0]['value'];
-
-    if($tu == 1286643600) {
+    $chi = $node->field_giaokpi_chi;
+    if(empty($chi)) {
         $output = '<a class="chua_giao" href ="../nhanvien/'.$uid.'/kpi"> Chưa giao</a>';
     }
     else {
         $output = '<a href ="../nhanvien/'.$uid.'/kpi"> Đã giao</a>';
     }
     return $output;
+}
+
+function nhansu_user_node_presave($node) {
+    $quy = $node->field_giaokpi_quy['und'];
+    if(!empty($quy)) {
+        $quy_index = $node->field_giaokpi_quy['und'][0]['value'];
+        $arr_time = nhansu_kpi_get_time_from_quy($quy_index);
+        $from = $arr_time['from'];
+        $to = $arr_time['to'];
+        $node->field_kpi_giao_tu['und'][0]['value']= $from;
+        $node->field_giao_kpi_den['und'][0]['value'] = $to;
+    }
 }

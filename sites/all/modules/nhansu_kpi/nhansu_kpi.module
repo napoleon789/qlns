@@ -294,12 +294,12 @@ function nhansu_kpi_get_muctieu_text() {
 
 function nhansu_kpi_get_all_node_in_phong() {
     global $user;
-    $tid = nhansu_kpi_get_phongban($user->uid);
+    $user_load = user_load($user->uid);
+    $tid = $user_load->field_phongban['und'][0]['tid'];
     $uid = nhansu_kpi_uid_in_phong($tid);
     foreach($uid as $data) {
-        $nid = nhansu_uid_to_nid($data['uid']);
-        $node = node_load($nid);
-        $res[$nid] = $node -> title;
+        $title = nhansu_get_title_from_uid($data['uid']);
+        $res[$data['uid']] = $title;
     }
 return $res;
 }
@@ -361,6 +361,37 @@ function nhansu_kpi_create() {
     $title = nhansu_get_title_from_uid(arg(1));
     drupal_set_title("Giao KPI mới cho: ".$title);
     return drupal_render($form);
+}
 
+function nhansu_kpi_get_time_from_quy($quy,$nam = null) {
+    if(isset($nam)) {
+        $time_year = $nam;
+    }
+    else{
+        $time_year = date("Y",time());
+    }
+    switch($quy) {
+        case 1:
+            $time['from'] = strtotime($time_year.'-01-01');
+            $time['to'] = strtotime($time_year.'-03-30');
+            break;
+        case 2:
+            $time['from'] = strtotime($time_year.'-04-01');
+            $time['to'] = strtotime($time_year.'-06-30');
+            break;
+        case 3:
+            $time['from'] = strtotime($time_year.'-07-01');
+            $time['to'] = strtotime($time_year.'-09-30');
+            break;
+        case 4:
+            $from = $time_year.'-10-01';
+            $from = strtotime($from);
+            $to = $time_year.'-12-31';
+            $to = strtotime($to);
+            $time['from'] = $from;
+            $time['to'] = $to;
+            break;
+    }
 
+    return $time;
 }

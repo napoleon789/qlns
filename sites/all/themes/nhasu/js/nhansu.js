@@ -27,4 +27,10 @@ jQuery(document).ready(function($) {
         $("#block-system-main-menu ul li.last").addClass("active-trail active");
         $("#block-system-main-menu ul li.last a").addClass("active-trail active");
     }
+    $("#edit-field-giaokpi-giaotheo-und input").each(function() {
+        var m = $(this).attr("checked");
+        if(m == false){
+            $(this).parent().hide();
+        }
+    });
 });

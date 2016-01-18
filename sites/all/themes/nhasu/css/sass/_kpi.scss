@@ -178,6 +178,7 @@
     #fgm-node-giao-kpi-form-group-giaokpi-values{
       input, select{
         pointer-events:none;
+        background-color: transparent;
       }
       tr{
         td:nth-child(7), td:nth-child(8){
@@ -189,6 +190,7 @@
         td:nth-child(6){
           input{
             pointer-events:inherit;
+            background-color: #f2f2f2;
           }
         }
       }
@@ -201,6 +203,22 @@
     }
     .field-name-field-giaokpi-giaotheo, .field-name-field-kpi-giao-tu, .field-name-field-giao-kpi-den{
       pointer-events:none;
+    }
+    .field-name-field-giaokpi-giaotheo .form-radios{
+      input, label{
+//        display: none;
+      }
+      input[checked="checked"]{
+        display: inline-block;
+        &+label{
+          display: inline-block;
+        }
+      }
+    }
+    .field-name-field-kpi-giao-tu, .field-name-field-giao-kpi-den{
+      input{
+        background-color: transparent;
+      }
     }
   }
 }

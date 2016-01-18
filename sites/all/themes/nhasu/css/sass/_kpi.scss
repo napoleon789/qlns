@@ -187,7 +187,7 @@
         th:nth-child(7), th:nth-child(8){
           display: table-cell;
         }
-        td:nth-child(6){
+        td:nth-child(7){
           input{
             pointer-events:inherit;
             background-color: #f2f2f2;
@@ -198,7 +198,7 @@
     }
     #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper{
       .field-group-multiple-add-more-submit{
-        pointer-events:none;
+        display: none;
       }
     }
     .field-name-field-giaokpi-giaotheo, .field-name-field-kpi-giao-tu, .field-name-field-giao-kpi-den{

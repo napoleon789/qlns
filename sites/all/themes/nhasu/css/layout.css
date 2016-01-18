@@ -1125,6 +1125,38 @@ table tr th:first-child, table tr td:first-child {
 .page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:first-child, .page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:nth-child(2) {
   margin-left: 0;
 }
+/* line 169, sass/_kpi.scss */
+.page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(7), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8) {
+  display: none;
+}
+/* line 172, sass/_kpi.scss */
+.page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(7), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8) {
+  display: none;
+}
+/* line 179, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values input, .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values select {
+  pointer-events: none;
+}
+/* line 183, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(7), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8) {
+  display: table-cell;
+}
+/* line 186, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(7), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8) {
+  display: table-cell;
+}
+/* line 190, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(6) input {
+  pointer-events: inherit;
+}
+/* line 198, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper .field-group-multiple-add-more-submit {
+  pointer-events: none;
+}
+/* line 202, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me .field-name-field-giaokpi-giaotheo, .page-nhanvien-kpi.ex_me .field-name-field-kpi-giao-tu, .page-nhanvien-kpi.ex_me .field-name-field-giao-kpi-den {
+  pointer-events: none;
+}
 
 /* line 2, sass/_setting.scss */
 .page-caidat #edit-actions {

@@ -164,4 +164,43 @@
       }
     }
   }
+  #fgm-node-giao-kpi-form-group-giaokpi-values{
+    tr{
+      td:nth-child(7), td:nth-child(8){
+        display: none;
+      }
+      th:nth-child(7), th:nth-child(8){
+        display: none;
+      }
+    }
+  }
+  &.ex_me{
+    #fgm-node-giao-kpi-form-group-giaokpi-values{
+      input, select{
+        pointer-events:none;
+      }
+      tr{
+        td:nth-child(7), td:nth-child(8){
+          display: table-cell;
+        }
+        th:nth-child(7), th:nth-child(8){
+          display: table-cell;
+        }
+        td:nth-child(6){
+          input{
+            pointer-events:inherit;
+          }
+        }
+      }
+
+    }
+    #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper{
+      .field-group-multiple-add-more-submit{
+        pointer-events:none;
+      }
+    }
+    .field-name-field-giaokpi-giaotheo, .field-name-field-kpi-giao-tu, .field-name-field-giao-kpi-den{
+      pointer-events:none;
+    }
+  }
 }

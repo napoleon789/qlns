@@ -30,3 +30,16 @@
     content: "";
   }
 }
+
+@mixin remove-arrow(){
+  -o-appearance:none;
+  -ms-appearance:none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  appearance: none;
+  &::-ms-expand{
+    display:none;
+  }
+}

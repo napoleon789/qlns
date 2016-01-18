@@ -180,6 +180,9 @@
         pointer-events:none;
         background-color: transparent;
       }
+      select{
+        @include remove-arrow();
+      }
       tr{
         td:nth-child(7), td:nth-child(8){
           display: table-cell;

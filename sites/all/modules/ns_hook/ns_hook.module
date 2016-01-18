@@ -20,7 +20,6 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
             if($user -> uid == arg(1)) {
                 $form['fgm_node_giao_kpi_form_group_giaokpi']['#prefix'] = '<div id="fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper" class="ex_me">';
             }
-            $form['fgm_node_giao_kpi_form_group_giaokpi']['fields']['items'][0]['field_giaokpi_thuchien']['#access'] = FALSE;
             $add = arg(3);
             $form['title']['#access'] = FALSE;
             $form['field_giaokpi_nguoigiao']['#access'] = FALSE;

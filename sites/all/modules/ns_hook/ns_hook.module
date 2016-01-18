@@ -93,6 +93,10 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
     }
 }
 
+/**
+ * @param $vars
+ * Them class vao the body
+ */
 function ns_hook_preprocess_html(&$vars) {
     global $user;
     $uid = $user ->uid;

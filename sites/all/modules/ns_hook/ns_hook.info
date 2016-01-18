@@ -1,0 +1,7 @@
+name = "NS_hook"
+description = "Nhân Sự hook"
+core = "7.x"
+package = "DPLDEV"
+version = "7.x"
+
+

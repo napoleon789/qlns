@@ -6,7 +6,7 @@ function nhansu_kpi_init() {
 
 
 function nhansu_kpi_menu() {
-    $items['load/%/%'] = array(
+    $items['load/%'] = array(
         'title' => 'Thông tin',
         'page callback' => 'nhansu_chart_data_load',
         'access arguments' => array('access content'),
@@ -44,52 +44,51 @@ function nhansu_kpi_kiemsoat() {
 }
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
-    $form1 = drupal_get_form('nhansu_chart_filer_time');
-    $output = '<div class="filter_time">'.drupal_render($form1).'</div>';
-    $form = drupal_get_form('nhansu_chart_form_select');
-    $output .= '<div id ="danhgia_kpi">'.drupal_render($form).'</div>';
-    $header = array('KPI',"Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');
-    $data = nhansu_data_table();
-    $num = count($data);
-    $tong = 0;
-    foreach($data as $content) {
-       $giatri = $content['ht'];
-       $giatri = trim(str_replace("%","",$giatri));
-       $tong = $tong + $giatri;
+    $nid = nhansu_get_all_nid();
+    foreach($nid as $data) {
+        $node = node_load($data);
+        $count = $node-> field_giaokpi_chi;
+        if(!empty($count)) {
+            foreach($count['und'] as $k => $result) {
+                $node_dl = node_load($result['value']);
+                $title = $node_dl -> title;
+                if(!empty($node->field_giaokpi_hoanthanh)) {
+                    $ht_field = $node->field_giaokpi_hoanthanh['und'][$k]['value'];
+                }
+                else{
+                    $ht_field = 0;
+                }
+                if(!empty($node->field_giaokpi_thuchien)){
+                    $thuc_hien = $node->field_giaokpi_thuchien['und'][$k]['value'];
+                }
+                else {
+                    $thuc_hien = 0;
+                }
+                if(!empty($node -> field_giaokpi_trong)) {
+                    $trong_so = $node->field_giaokpi_trong['und'][$k]['value'];
+                }
+                else {
+                    $trong_so = 0;
+                }
+                $toi_thieu = $node->field_giaokpi_toi['und'][$k]['value'];
+                $muc_tieu = $node->field_giaokpi_muctieu['und'][$k]['value'];
+
+                $chitiet['title'] = $title;
+                $chitiet['trong_so'] = $trong_so;
+                $chitiet['toi_thieu'] = $toi_thieu;
+                $chitiet['muc_tieu'] = $muc_tieu;
+                $chitiet['thuc_hien'] = $thuc_hien;
+                $chitiet["ht"] = $ht_field;
+                $rows[] = $chitiet;
+            }
+        }
     }
-    $data = array(
-        0=> array(
-            "title" => "Thanh toán phí cung cấp thông tin đến hạn",
-            "muc_tieu" => 400,
-            "toi_thieu" => 200,
-            "thuc_hien" => 400,
-            "ht" => "10%"
-        ),
-        1=> array(
-            "title" => "Doanh thu thuần hoạt động nghiệp vụ kế toán",
-            "muc_tieu" => 500,
-            "toi_thieu" => 300,
-            "thuc_hien" => 400,
-            "ht" => "15%"
-        ),
-        2=> array(
-            "title" => "Doanh thu thuần hoạt động nghiệp vụ giáo dục",
-            "muc_tieu" => 600,
-            "toi_thieu" => 400,
-            "thuc_hien" => 400,
-            "ht" => "20%"
-        ),
-        3=> array(
-            "title" => "Doanh thu thuần hoạt động nghiệp vụ tư vấn",
-            "muc_tieu" => 500,
-            "toi_thieu" => 100,
-            "thuc_hien" => 300,
-            "ht" => "20%"
-        ),
-    );
-    $tong = $tong.'%';
-    $arr_pb =  $data + array($num => array("title" => "Tổng","muc_tieu" => 2000,"toi_thieu" => 1000,"thuc_hien" => 1500,"ht" =>"65%")) ;
-    $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $arr_pb )).'</div>';
+
+    $output = "";
+    $form = drupal_get_form('nhansu_chart_filer_time');
+    $output .= '<div class="filter_time">'.drupal_render($form).'</div>';
+    $header = array('KPI',"Trọng số","Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');
+    $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $rows )).'</div>';
     $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;
 }
@@ -116,110 +115,59 @@ function nhansu_chart_data_load_danhgia() {
 
 function nhansu_chart_data_load() {
     $tid = arg(1);
-    $nid = arg(2);
-    $dulieu = nhansu_data_table($tid,$nid);
-    $table = '<h2>Chỉ tiêu KPI</h2>'.theme('table', array('header' => array("KPI","Hoàn thành"),   'rows' => $dulieu));
-    $content = nhansu_chart_data($tid,$nid);
-    $list_node = nhansu_kpi_list_node_in_phong($tid);
-    print json_encode(array('status' => TRUE, 'data' => $content, 'right' =>$table,'nid' =>$list_node));
+    $uid = nhansu_kpi_uid_in_phong($tid);
+    print json_encode($uid);
     exit;
 }
 
-function nhansu_kpi_get_all($tid = null, $nid = null) {
+function nhansu_kpi_get_all() {
+   $nid = nhansu_get_all_nid();
+    foreach($nid as $content) {
+        $node = node_load($content['nid']);
+        $vid = $node -> vid;
+        $count = $node-> field_giaokpi_chi;
+        $ht = 0;
+        if(!empty($count))  {
+            foreach($count['und'] as $k => $result) {
 
-    if($tid == null) {
-        $role = nhansu_kpi_check_user();
-        if($role == 1) {
-            $query = db_query(" SELECT
-                       AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
-                       AVG(muctieu.field_muctieu_value) as muc_tieu,
-                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
-                       AVG(toithieu.field_toithieu_value) as toi_thieu,
-                       chitieu.field_chiteu_value as nid
-                       FROM field_data_field_hoan_thanh as dlieu
-                       INNER JOIN field_data_field_chiteu as chitieu
-                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
-                       INNER JOIN field_data_field_thuc_hien as thuchien
-                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
-                       INNER JOIN field_data_field_toithieu as toithieu
-                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
-                       INNER JOIN field_data_field_muctieu as muctieu
-                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta
-                       GROUP BY chitieu.field_chiteu_value
-                     ");
-        }
-        if($role == 2) {
-            global $user;
-            $all = nhansu_kpi_get_all_user($user->uid);
-            $all = implode(",", $all);
-            $query = db_query("SELECT
-                      AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
-                       AVG(muctieu.field_muctieu_value) as muc_tieu,
-                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
-                       AVG(toithieu.field_toithieu_value) as toi_thieu,
-                       chitieu.field_chiteu_value as nid
-                       FROM field_data_field_hoan_thanh as dlieu
-                       INNER JOIN field_data_field_chiteu as chitieu
-                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
-                       INNER JOIN field_data_field_thuc_hien as thuchien
-                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
-                       INNER JOIN field_data_field_toithieu as toithieu
-                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
-                       INNER JOIN field_data_field_muctieu as muctieu
-                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta AND dlieu.entity_id IN (".$all.")
-                       GROUP BY chitieu.field_chiteu_value
-                     ");
-        }
-        foreach($query as $result) {
-            $row['ht'] = $result -> ht;
-            $row['thuc_hien'] = $result ->thuc_hien;
-            $row['toi_thieu'] = $result ->toi_thieu;
-            $row['muc_tieu'] = $result ->muc_tieu;
-            $row['nid'] = $result -> nid;
-            $rows[] = $row;
-        }
-        return $rows;
+                $hoan_thanh = trim($node -> field_giaokpi_hoanthanh['und'][$k]['value']);
+                $hoan_thanh = substr($hoan_thanh,0,-1);
+                $ht = $ht + $hoan_thanh;
+                //table ben phai
+                $node_dl = node_load($result['value']);
+                $title = $node_dl -> title;
+                if(!empty($node->field_giaokpi_hoanthanh)) {
+                    $ht_field = $node->field_giaokpi_hoanthanh['und'][$k]['value'];
+                }
+                else{
+                    $ht_field = 0;
+                }
+                if(!empty($node->field_giaokpi_thuchien)){
+                    $thuc_hien = $node->field_giaokpi_thuchien['und'][$k]['value'];
+                }
+                else {
+                    $thuc_hien = 0;
+                }
+                if(!empty($node -> field_giaokpi_trong)) {
+                    $trong_so = $node->field_giaokpi_trong['und'][$k]['value'];
+                }
+                else {
+                    $trong_so = 0;
+                }
+                $toi_thieu = $node->field_giaokpi_toi['und'][$k]['value'];
+                $muc_tieu = $node->field_giaokpi_muctieu['und'][$k]['value'];
+                $row['title'] = '<a href="#chart_div2"><span toi_thieu="'.$toi_thieu.'" thuc_hien="'.$thuc_hien.'" muc_tieu ="'               .$muc_tieu.'" class= "ckpi_ad" rel ="'.$k.'" id = "kpi_'.$vid.'" alt = "'.$vid.'">' .$title.'</span></a>';
+                $row['ht'] = $ht_field;
+                $chitiet['title'] = $title;
+                $chitiet['trong_so'] = $trong_so;
+                $chitiet['toi_thieu'] = $toi_thieu;
+                $chitiet['muc_tieu'] = $muc_tieu;
+                $chitiet['thuc_hien'] = $thuc_hien;
+                $chitiet["ht"] = $ht_field;
+                $rows[] = $row;
+            }}
     }
-    else {
-        $all = nhansu_kpi_get_all_user_tid($tid);
-        if($all == 1 ) {
-           return '';
-            exit;
-        }
 
-        else{
-            $all = implode(",", $all);
-            $list_user = ' AND dlieu.entity_id IN ('.$all.') ';
-        }
-
-        $query = db_query("SELECT
-                       AVG(REPLACE(dlieu.field_hoan_thanh_value, '%', '')) as ht,
-                       AVG(muctieu.field_muctieu_value) as muc_tieu,
-                       AVG(thuchien.field_thuc_hien_value) as thuc_hien,
-                       AVG(toithieu.field_toithieu_value) as toi_thieu,
-                       chitieu.field_chiteu_value as nid
-                       FROM field_data_field_hoan_thanh as dlieu
-                       INNER JOIN field_data_field_chiteu as chitieu
-                       ON dlieu.entity_id = chitieu.entity_id AND dlieu.delta = chitieu .delta
-                       INNER JOIN field_data_field_thuc_hien as thuchien
-                       ON thuchien.entity_id = chitieu.entity_id AND thuchien.delta = chitieu.delta
-                       INNER JOIN field_data_field_toithieu as toithieu
-                       ON toithieu.entity_id = chitieu.entity_id AND toithieu.delta = chitieu.delta
-                       INNER JOIN field_data_field_muctieu as muctieu
-                       ON muctieu.entity_id = chitieu.entity_id AND muctieu.delta = chitieu.delta ".$list_user."
-                       GROUP BY chitieu.field_chiteu_value
-                     ");
-
-    foreach($query as $result) {
-        $row['ht'] = $result -> ht;
-        $row['thuc_hien'] = $result ->thuc_hien;
-        $row['toi_thieu'] = $result ->toi_thieu;
-        $row['muc_tieu'] = $result ->muc_tieu;
-        $row['nid'] = $result -> nid;
-        $rows[] = $row;
-    }
-    return $rows;
-    }
 
 }
 
@@ -394,4 +342,93 @@ function nhansu_kpi_get_time_from_quy($quy,$nam = null) {
     }
 
     return $time;
+}
+
+function doanhthu_for_giamdoc() {
+    $and = " AND nhom.field_giaokpi_nhom_value = 4 AND toithieu.delta = muctieu.delta AND thuchien.delta = muctieu.delta AND nhom.delta = muctieu.delta ";
+    if(isset($_GET['loc_theo'])) {
+        if($_GET['loc_theo'] == 0) {
+            if(isset($_GET['from_time']) && !empty($_GET['from_time'])) {
+                $from = strtotime($_GET['from_time']);
+                $to = strtotime($_GET['to_time']);
+                $and .= ' AND nv.timestamp >= '.$from.' AND nv.timestamp <= '.$to;
+            }
+        }
+        else {
+            if(isset($_GET['cac_quy']) && !empty($_GET['cac_quy'])) {
+                $time = nhansu_kpi_get_time_from_quy($_GET['cac_quy'],$_GET['nam_quy']);
+                $and .= ' AND nv.timestamp >= '.$time['from'].' AND nv.timestamp <= '.$time['to'];
+            }
+        }
+        if(isset($_GET['phong_ban'])&& !empty($_GET['phong_ban'])) {
+            $and .= ' AND phong.field_phongban_tid = '.$_GET['phong_ban'];
+        }
+        if(isset($_GET['nhan_vien']) && !empty($_GET['nhan_vien'])) {
+            $and .= ' AND nguoidung.field_uid_value = '.$_GET['nhan_vien'];
+        }
+    }
+    else {
+        $and .= " AND nv.timestamp <= den.field_giao_kpi_den_value
+                    AND nv.timestamp >= tu.field_kpi_giao_tu_value ";
+    }
+    $sql1 = " SELECT  MAX(nv.vid) as vid
+                    FROM {field_revision_field_giaokpi_muctieu} AS muctieu
+                    INNER JOIN {field_revision_field_giaokpi_nhom} AS nhom ON muctieu.revision_id = nhom.revision_id
+                    INNER JOIN {field_revision_field_giaokpi_toi} AS toithieu ON toithieu.revision_id = nhom.revision_id
+                    INNER JOIN {node_revision} as nv ON nv.vid = toithieu.revision_id
+                    INNER JOIN {field_revision_field_kpi_giao_tu} AS tu ON tu.revision_id = toithieu.revision_id
+                    INNER JOIN {field_revision_field_giao_kpi_den} AS den ON den.revision_id = tu.revision_id
+                    INNER JOIN {field_data_field_uid} AS nguoidung ON nguoidung.entity_id = nv.nid
+                    INNER JOIN {field_data_field_phongban} AS phong ON phong.entity_id = nguoidung.field_uid_value
+                    INNER JOIN {field_revision_field_giaokpi_thuchien} AS thuchien ON thuchien.revision_id = den.revision_id
+                    ".$and. " GROUP BY nv.nid";
+    $query1 = db_query($sql1);
+    foreach($query1 as $content) {
+        $vid[] = $content->vid;
+    }
+    if(empty($vid))
+        return 0;
+    $vid = implode(', ', $vid);
+
+    $sql = " SELECT SUM(muctieu.field_giaokpi_muctieu_value) as mtieu,SUM(toithieu.field_giaokpi_toi_value) as tthieu, SUM(thuchien.field_giaokpi_thuchien_value) as thien, MAX(nv.vid)
+                    FROM {field_revision_field_giaokpi_muctieu} AS muctieu
+                    INNER JOIN {field_revision_field_giaokpi_nhom} AS nhom ON muctieu.revision_id = nhom.revision_id
+                    INNER JOIN {field_revision_field_giaokpi_toi} AS toithieu ON toithieu.revision_id = nhom.revision_id
+                    INNER JOIN {node_revision} as nv ON nv.vid = toithieu.revision_id
+                    INNER JOIN {field_revision_field_kpi_giao_tu} AS tu ON tu.revision_id = toithieu.revision_id
+                    INNER JOIN {field_revision_field_giao_kpi_den} AS den ON den.revision_id = tu.revision_id
+                    INNER JOIN {field_data_field_uid} AS nguoidung ON nguoidung.entity_id = nv.nid
+                    INNER JOIN {field_data_field_phongban} AS phong ON phong.entity_id = nguoidung.field_uid_value
+                    INNER JOIN {field_revision_field_giaokpi_thuchien} AS thuchien ON thuchien.revision_id = den.revision_id
+                    WHERE nv.vid IN (".$vid.")". $and;
+    $query = db_query($sql);
+    foreach($query as $data) {
+
+        $row['toi_thieu'] = $data ->tthieu ;
+        $row['muc_tieu'] = $data-> mtieu ;
+        $row['thuc_hien'] = $data ->thien ;
+
+    }
+    return $row;
+
+}
+
+function nhansu_kpi_get_truong_phong($uid) {
+    $user = user_load($uid);
+    $phong_ban = $user->field_phongban['und'][0]['tid'];
+    $query = db_query("SELECT entity_id as uid FROM {field_data_field_phongban} as phongban WHERE phongban.field_phongban_tid =:phongb",array(":phongb" =>$phong_ban));
+    foreach($query as $data) {
+        $row[] = $data ->uid;
+    }
+    $sql = "SELECT uid FROM {users_roles} as role WHERE uid IN (".implode(', ', $row) .") AND rid = 6 ";
+    $query2 = db_query($sql);
+    foreach($query2 as $content) {
+        $uid = $content ->uid;
+    }
+    return $uid;
+}
+
+function nhansu_kpi_nguoigiao() {
+    $role = nhansu_kpi_check_user();
+
 }

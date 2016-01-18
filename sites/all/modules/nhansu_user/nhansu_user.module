@@ -32,7 +32,7 @@ function nhansu_user_user_insert(&$edit, $account, $category) {
 }
 
 function nhansu_user_check_time($uid) {
-    $id = nhansu_get_nid_from_uid($uid,"giao_kpi");
+    $id = nhansu_get_nid_from_uid_don($uid,"giao_kpi");
     $node = node_load($id);
     $chi = $node->field_giaokpi_chi;
     if(empty($chi)) {
@@ -45,13 +45,17 @@ function nhansu_user_check_time($uid) {
 }
 
 function nhansu_user_node_presave($node) {
-    $quy = $node->field_giaokpi_quy['und'];
-    if(!empty($quy)) {
-        $quy_index = $node->field_giaokpi_quy['und'][0]['value'];
-        $arr_time = nhansu_kpi_get_time_from_quy($quy_index);
-        $from = $arr_time['from'];
-        $to = $arr_time['to'];
-        $node->field_kpi_giao_tu['und'][0]['value']= $from;
-        $node->field_giao_kpi_den['und'][0]['value'] = $to;
+    if($node -> type == 'giao_kpi') {
+      if(isset($node->field_giaokpi_quy)) {
+          $quy = $node->field_giaokpi_quy['und'];
+          if(!empty($quy)) {
+              $quy_index = $node->field_giaokpi_quy['und'][0]['value'];
+              $arr_time = nhansu_kpi_get_time_from_quy($quy_index);
+              $from = $arr_time['from'];
+              $to = $arr_time['to'];
+              $node->field_kpi_giao_tu['und'][0]['value']= $from;
+              $node->field_giao_kpi_den['und'][0]['value'] = $to;
+          }
+      }
     }
 }

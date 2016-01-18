@@ -158,7 +158,7 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
-    $items['nhanvien/%/mota'] = array(
+    $items['nhanvien/%/hoso/mota'] = array(
         'title' => 'Mô tả công việc',
         'page callback' => 'nhansu_caidat_hoso',
         'page arguments' => array(1),
@@ -166,7 +166,7 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
-    $items['nhanvien/%/nangluc'] = array(
+    $items['nhanvien/%/hoso/nangluc'] = array(
         'title' => 'Năng lực nhân viên',
         'page callback' => 'nhansu_caidat_nangluc',
         'page arguments' => array(1),
@@ -174,7 +174,7 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
-    $items['nhanvien/%/daingo'] = array(
+    $items['nhanvien/%/hoso/daingo'] = array(
         'title' => 'Chế độ đãi ngộ',
         'page callback' => 'nhansu_caidat_daingo',
         'page arguments' => array(1),
@@ -182,7 +182,7 @@ function nhansu_caidat_menu() {
         'type' => MENU_NORMAL_ITEM,
         'weight' => 0,
     );
-    $items['nhanvien/%/condanh'] = array(
+    $items['nhanvien/%/hoso/congdanh'] = array(
         'title' => 'Con đường công danh',
         'page callback' => 'nhansu_caidat_congdanh',
         'page arguments' => array(1),
@@ -324,12 +324,25 @@ function nhansu_caidat_user_vaitro() {
     return $ouput;
 }
 function nhansu_caidat_nangluc() {
-    return "";
+    $uid = arg(1);
+    $id = nhansu_get_nid_from_uid($uid,"article");
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
+    drupal_set_title("Tiêu chuẩn năng lực");
+    return $form;
 }
 function nhansu_caidat_daingo() {
-    return "";
+    $uid = arg(1);
+    $id = nhansu_get_nid_from_uid($uid,"article");
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
+    drupal_set_title("Chế độ đãi ngộ");
+    return $form;
 }
 function nhansu_caidat_congdanh() {
+    drupal_set_title("Lộ trình công danh");
     return "";
 }
 function nhansu_caidat_user(){
@@ -344,8 +357,13 @@ function nhansu_caidat_phongban() {
 }
 
 function nhansu_caidat_hoso() {
+    $uid = arg(1);
+    $id = nhansu_get_nid_from_uid($uid,"article");
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
     drupal_set_title("Mô tả công việc");
-    return "";
+    return $form;
 }
 
 function nhansu_caidat_kpi() {
@@ -357,6 +375,7 @@ function nhansu_caidat_kpi() {
 function nhansu_caidat_form_alter(&$form, &$form_state, $form_id) {
     if($form_id =='user_register_form' ) {
       $form['account']['status']['#access'] = FALSE;
+      $form['account']['notify']['#access'] = FALSE;
     }
     if($form_id == 'user_profile_form') {
         global $base_url;

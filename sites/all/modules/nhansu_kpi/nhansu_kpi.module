@@ -116,6 +116,7 @@ function nhansu_chart_data_load_danhgia() {
 function nhansu_chart_data_load() {
     $tid = arg(1);
     $uid = nhansu_kpi_uid_in_phong($tid);
+   // print_r($uid);
     print json_encode($uid);
     exit;
 }
@@ -193,10 +194,9 @@ function nhansu_kpi_get_phongban($uid) {
 function nhansu_kpi_uid_in_phong($tid) {
     $query = db_query("SELECT entity_id FROM {field_data_field_phongban} WHERE field_phongban_tid =:tid", array(':tid' => $tid));
     foreach($query as $data) {
-        $uid['uid'] = $data ->entity_id;
-        $rows[] = $uid;
+        $uid[] = $data ->entity_id;
     }
-    return $rows;
+    return $uid;
 }
 
 function nhansu_kpi_list_node_in_phong($tid) {
@@ -291,12 +291,16 @@ function nhansu_kpi_giao_user() {
     $output = '';
     $tu_ngay = $node-> field_kpi_giao_tu['und'][0]['value'];
     $den_ngay = $node -> field_giao_kpi_den['und'][0]['value'];
-    $id_nguoigiao = $node -> field_giaokpi_nguoigiao['und'][0]['value'];
-    $user = user_load($id_nguoigiao);
-    $nguoi_giao = $user ->name;
-    $nguoi_nhan = $node ->title;
-    $hieu_suat = $node -> field_giaokpi_chi['und'];
-    $num = count($hieu_suat);
+    $id_nguoigiao = $node -> field_giaokpi_nguoigiao;
+    if(empty($id_nguoigiao)) {
+      $uid_tp = nhansu_kpi_get_truong_phong(arg(1));
+      $nguoi_giao = nhansu_get_title_from_uid($uid_tp);
+    }
+    else {
+      $uid_tp = $node -> field_giaokpi_nguoigiao['und'][0]['value'];
+      $nguoi_giao = nhansu_get_title_from_uid($uid_tp);
+    }
+    $nguoi_nhan = nhansu_get_title_from_uid(arg(1));
     $output .= '<div class="giao"><span>Người giao: </span>'.$nguoi_giao .'</div>';
     $output .= '<div class="giao"><span>Người nhận: </span>'.$nguoi_nhan .'</div>';
     $output .= '<div class="time"><span>Thời gian: </span><span>Từ ngày:</span>'.date("d/m/Y",$tu_ngay);

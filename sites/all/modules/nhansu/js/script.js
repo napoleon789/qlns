@@ -11,8 +11,8 @@
                 var trong_so = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-trong-und-value");
                 var toi_thieu = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-toi-und-value");
                 var muc_tieu = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-muctieu-und-value");
-                var thuc_hien =  $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-thuc-hien-und-value");
-                var hoan_thanh = $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-hoan-thanh-und-value");
+                var thuc_hien =  $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-thuchien-und-value");
+                var hoan_thanh = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-hoanthanh-und-value");
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
@@ -77,7 +77,7 @@
                             }
                         }
                         else{
-                            var gia_tri = (thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value;
+                            var gia_tri = Math.round((thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value);
                             var gia_tri = gia_tri+'%';
                             $(hoan_thanh).val(gia_tri);
                         }
@@ -96,13 +96,12 @@
                 var trong_so = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-trong-und-value");
                 var toi_thieu = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-toi-und-value");
                 var muc_tieu = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-muctieu-und-value");
-                var thuc_hien =  $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-thuc-hien-und-value");
-                var hoan_thanh = $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-hoan-thanh-und-value");
+                var thuc_hien =  $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-thuchien-und-value");
+                var hoan_thanh = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-hoanthanh-und-value");
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
                     var url = baseUrl+'/kpi/'+nid;
-                    console.log(url);
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -163,7 +162,8 @@
                             }
                         }
                         else{
-                            var gia_tri = (thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value;
+                            var gia_tri = Math.round((thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value);
+
                             var gia_tri = gia_tri+'%';
                             $(hoan_thanh).val(gia_tri);
                         }

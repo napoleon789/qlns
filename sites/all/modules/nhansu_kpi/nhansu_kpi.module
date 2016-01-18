@@ -286,26 +286,8 @@ function nhansu_kpi_export_page($data) {
 }
 
 function nhansu_kpi_giao_user() {
-    $nid = nhansu_get_nid_from_uid(arg(1),"giao_kpi");
-    $node = node_load($nid);
-    $output = '';
-    $tu_ngay = $node-> field_kpi_giao_tu['und'][0]['value'];
-    $den_ngay = $node -> field_giao_kpi_den['und'][0]['value'];
-    $id_nguoigiao = $node -> field_giaokpi_nguoigiao;
-    if(empty($id_nguoigiao)) {
-      $uid_tp = nhansu_kpi_get_truong_phong(arg(1));
-      $nguoi_giao = nhansu_get_title_from_uid($uid_tp);
-    }
-    else {
-      $uid_tp = $node -> field_giaokpi_nguoigiao['und'][0]['value'];
-      $nguoi_giao = nhansu_get_title_from_uid($uid_tp);
-    }
-    $nguoi_nhan = nhansu_get_title_from_uid(arg(1));
-    $output .= '<div class="giao"><span>Người giao: </span>'.$nguoi_giao .'</div>';
-    $output .= '<div class="giao"><span>Người nhận: </span>'.$nguoi_nhan .'</div>';
-    $output .= '<div class="time"><span>Thời gian: </span><span>Từ ngày:</span>'.date("d/m/Y",$tu_ngay);
-    $output .= '<span>   Đến ngày: </span>'.date("d/m/Y",$den_ngay);
-    return $output;
+
+    return "";
 }
 function nhansu_kpi_create() {
     module_load_include('inc', 'node', 'node.pages');

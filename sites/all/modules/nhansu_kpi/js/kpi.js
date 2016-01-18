@@ -8,14 +8,11 @@ Drupal.behaviors.nhansu_kpi = {
                 dataType: "json",
                 url: 'http://localhost/nhansu/load/'+tid,
                 success: function(output) {
-                    console.log(output);
                     $("#edit-selected option").show();
                     $("#edit-selected option").each(function() {
                         $("#edit-selected").val('');
                         var giatri = $(this).attr("value");
-                        console.log(giatri);
                         var num = output.indexOf(giatri);
-                        console.log(num);
                         if(num < 0) {
                             if(giatri == '')
                                 $(this).show();
@@ -83,7 +80,6 @@ Drupal.behaviors.nhansu_kpi = {
                 url: 'http://localhost/nhansu/danhgia_kpi/'+tid+'/'+nid,
                 success: function(output) {
                     var right = output.right;
-                    console.log(right);
                     jQuery('.noidung').html(right);
                     var nid = output.nid;
                     if(nid == null){
@@ -118,7 +114,6 @@ Drupal.behaviors.nhansu_kpi = {
                 url: 'http://localhost/nhansu/danhgia_kpi/'+tid+'/'+nid,
                 success: function(output) {
                     var right = output.right;
-                    console.log(right);
                     jQuery('.noidung').html(right);
 
                 }

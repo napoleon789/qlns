@@ -44,46 +44,7 @@ function nhansu_kpi_kiemsoat() {
 }
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
-    $nid = nhansu_get_all_nid();
-    foreach($nid as $data) {
-        $node = node_load($data);
-        $count = $node-> field_giaokpi_chi;
-        if(!empty($count)) {
-            foreach($count['und'] as $k => $result) {
-                $node_dl = node_load($result['value']);
-                $title = $node_dl -> title;
-                if(!empty($node->field_giaokpi_hoanthanh)) {
-                    $ht_field = $node->field_giaokpi_hoanthanh['und'][$k]['value'];
-                }
-                else{
-                    $ht_field = 0;
-                }
-                if(!empty($node->field_giaokpi_thuchien)){
-                    $thuc_hien = $node->field_giaokpi_thuchien['und'][$k]['value'];
-                }
-                else {
-                    $thuc_hien = 0;
-                }
-                if(!empty($node -> field_giaokpi_trong)) {
-                    $trong_so = $node->field_giaokpi_trong['und'][$k]['value'];
-                }
-                else {
-                    $trong_so = 0;
-                }
-                $toi_thieu = $node->field_giaokpi_toi['und'][$k]['value'];
-                $muc_tieu = $node->field_giaokpi_muctieu['und'][$k]['value'];
-
-                $chitiet['title'] = $title;
-                $chitiet['trong_so'] = $trong_so;
-                $chitiet['toi_thieu'] = $toi_thieu;
-                $chitiet['muc_tieu'] = $muc_tieu;
-                $chitiet['thuc_hien'] = $thuc_hien;
-                $chitiet["ht"] = $ht_field;
-                $rows[] = $chitiet;
-            }
-        }
-    }
-
+    $rows = nhansu_chart_data_table();
     $output = "";
     $form = drupal_get_form('nhansu_chart_filer_time');
     $output .= '<div class="filter_time">'.drupal_render($form).'</div>';
@@ -244,10 +205,12 @@ function nhansu_kpi_get_all_node_in_phong() {
     global $user;
     $user_load = user_load($user->uid);
     $tid = $user_load->field_phongban['und'][0]['tid'];
+
     $uid = nhansu_kpi_uid_in_phong($tid);
+
     foreach($uid as $data) {
-        $title = nhansu_get_title_from_uid($data['uid']);
-        $res[$data['uid']] = $title;
+        $title = nhansu_get_title_from_uid($data);
+        $res[$data] = $title;
     }
 return $res;
 }
@@ -263,7 +226,6 @@ function nhansu_kpi_get_all_nid_from_login() {
     elseif($check == 2) {
         global $user;
         $nid =nhansu_kpi_get_all_user($user->uid);
-
     }
     else {
         global $user;
@@ -326,12 +288,18 @@ function nhansu_kpi_get_time_from_quy($quy,$nam = null) {
             $time['to'] = $to;
             break;
     }
-
     return $time;
 }
 
-function doanhthu_for_giamdoc() {
+function doanhthu_for_giamdoc($tham_so = null,$tid = null, $nhan_vien = null) {
+    $role = nhansu_kpi_check_user();
     $and = " AND nhom.field_giaokpi_nhom_value = 4 AND toithieu.delta = muctieu.delta AND thuchien.delta = muctieu.delta AND nhom.delta = muctieu.delta ";
+    if(isset($_GET['nhan_vien'])) {
+        $and = "  AND toithieu.delta = muctieu.delta AND thuchien.delta = muctieu.delta AND nhom.delta = muctieu.delta ";
+    }
+    if(isset($nhan_vien)) {
+        $and = ' AND nguoidung.field_uid_value = '.$nhan_vien.' AND toithieu.delta = muctieu.delta AND thuchien.delta = muctieu.delta AND nhom.delta = muctieu.delta ';
+    }
     if(isset($_GET['loc_theo'])) {
         if($_GET['loc_theo'] == 0) {
             if(isset($_GET['from_time']) && !empty($_GET['from_time'])) {
@@ -354,6 +322,11 @@ function doanhthu_for_giamdoc() {
         }
     }
     else {
+        if($role == 2) {
+            global $user;
+            $tid = nhansu_kpi_get_phongban($user ->uid);
+            $and .= ' AND phong.field_phongban_tid = '. $tid;
+        }
         $and .= " AND nv.timestamp <= den.field_giao_kpi_den_value
                     AND nv.timestamp >= tu.field_kpi_giao_tu_value ";
     }
@@ -372,11 +345,16 @@ function doanhthu_for_giamdoc() {
     foreach($query1 as $content) {
         $vid[] = $content->vid;
     }
+
     if(empty($vid))
         return 0;
     $vid = implode(', ', $vid);
 
-    $sql = " SELECT SUM(muctieu.field_giaokpi_muctieu_value) as mtieu,SUM(toithieu.field_giaokpi_toi_value) as tthieu, SUM(thuchien.field_giaokpi_thuchien_value) as thien, MAX(nv.vid)
+    if(isset($tham_so)) {
+        return $vid;
+    }
+
+    $sql = " SELECT SUM(muctieu.field_giaokpi_muctieu_value) as mtieu,SUM(toithieu.field_giaokpi_toi_value) as tthieu, SUM(thuchien.field_giaokpi_thuchien_value) as thien, MAX(nv.nid)
                     FROM {field_revision_field_giaokpi_muctieu} AS muctieu
                     INNER JOIN {field_revision_field_giaokpi_nhom} AS nhom ON muctieu.revision_id = nhom.revision_id
                     INNER JOIN {field_revision_field_giaokpi_toi} AS toithieu ON toithieu.revision_id = nhom.revision_id
@@ -389,11 +367,9 @@ function doanhthu_for_giamdoc() {
                     WHERE nv.vid IN (".$vid.")". $and;
     $query = db_query($sql);
     foreach($query as $data) {
-
         $row['toi_thieu'] = $data ->tthieu ;
         $row['muc_tieu'] = $data-> mtieu ;
         $row['thuc_hien'] = $data ->thien ;
-
     }
     return $row;
 
@@ -414,7 +390,10 @@ function nhansu_kpi_get_truong_phong($uid) {
     return $uid;
 }
 
-function nhansu_kpi_nguoigiao() {
-    $role = nhansu_kpi_check_user();
-
+function nhansu_kpi_get_nid_from_vid($vid) {
+    $query = db_query("SELECT nid FROM {node_revision} WHERE vid = :vid",array(":vid" => $vid));
+    foreach($query as $data) {
+        $nid = $data-> nid;
+    }
+    return $nid;
 }

@@ -3,7 +3,7 @@
     Drupal.behaviors.nhansu_chart = {
         attach: function (context, settings) {
 
-                jQuery("#edit-submit").submit(function(){return false;});
+            jQuery("#edit-submit").submit(function(){return false;});
 
             jQuery(".ckpi").click(function() {
                 var thuc_hien = $(this).attr("thuc_hien");
@@ -23,7 +23,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
+                                url: 'http://qlns.drupalvietnam.com/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);
@@ -76,7 +76,7 @@
                             jQuery.ajax({
                                 type: "POST",
                                 dataType: "json",
-                                url: 'http://localhost/nhansu/nv/'+nid+'/'+item,
+                                url: 'http://qlns.drupalvietnam.com/nv/'+nid+'/'+item,
                                 success: function(output) {
                                     $("#chart_colum").css("height","400px");
                                     $("#chart_colum1 h2").text(title);

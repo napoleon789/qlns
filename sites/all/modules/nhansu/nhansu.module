@@ -503,5 +503,11 @@ function nhansu_get_nid_from_uid_don($uid,$type) {
         $nid = $data-> nid;
     }
     return $nid;
-
+}
+function nhansu_get_title_from_nid($nid) {
+    $query = db_query("SELECT title FROM {node} WHERE nid =:nid",array(":nid" => $nid));
+    foreach($query as $data) {
+        $title = $data -> title;
+    }
+    return $title;
 }

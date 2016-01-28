@@ -78,6 +78,8 @@
                         }
                         else{
                             var gia_tri = Math.round((thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value);
+                            if(gia_tri <0)
+                                gia_tri = 0;
                             var gia_tri = gia_tri+'%';
                             $(hoan_thanh).val(gia_tri);
                         }
@@ -163,7 +165,8 @@
                         }
                         else{
                             var gia_tri = Math.round((thuc_hien_value - toi_thieu_value)/(muc_tieu_value - toi_thieu_value)*trong_so_value);
-
+                            if(gia_tri < 0)
+                                gia_tri = 0
                             var gia_tri = gia_tri+'%';
                             $(hoan_thanh).val(gia_tri);
                         }

@@ -3,25 +3,32 @@ Drupal.behaviors.nhansu_kpi = {
     attach: function (context, settings) {
         jQuery("#edit-selected-phong").change(function() {
             var tid = $(this).val();
+            if(tid != '') {
             jQuery.ajax({
                 type: "POST",
                 dataType: "json",
                 url: 'http://localhost/nhansu/load/'+tid,
                 success: function(output) {
-                    $("#edit-selected option").show();
-                    $("#edit-selected option").each(function() {
-                        $("#edit-selected").val('');
-                        var giatri = $(this).attr("value");
-                        var num = output.indexOf(giatri);
-                        if(num < 0) {
-                            if(giatri == '')
-                                $(this).show();
-                            else
-                                $(this).hide();
-                        }
-                    })
-                }
+                        $("#edit-selected option").show();
+                        $("#edit-selected option").each(function() {
+                            $("#edit-selected").val('');
+                            var giatri = $(this).attr("value");
+                            var num = output.indexOf(giatri);
+                            if(num < 0) {
+                                if(giatri == '')
+                                    $(this).show();
+                                else
+                                    $(this).hide();
+                            }
+                        })
+                    }
+
             });
+            }
+            else {
+                $("#edit-selected option").show();
+                $("#edit-selected").val('');
+            }
         });
 
 

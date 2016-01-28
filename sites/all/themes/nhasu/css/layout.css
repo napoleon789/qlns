@@ -677,6 +677,38 @@ table tr th:first-child, table tr td:first-child {
   background: url("../images/print-export-btn.png") no-repeat right 0;
 }
 
+/* line 316, sass/_nhanvien.scss */
+.page-nhanvien-hoso .block-system .field-name-field-phong-ban {
+  margin-bottom: 0;
+}
+/* line 319, sass/_nhanvien.scss */
+.page-nhanvien-hoso .block-system .form-actions.form-wrapper {
+  clear: both;
+  border: none !important;
+}
+/* line 27, sass/_mixin.scss */
+.page-nhanvien-hoso .block-system .form-actions.form-wrapper::after, .page-nhanvien-hoso .block-system .form-actions.form-wrapper::before {
+  display: table;
+  clear: both;
+  content: "";
+}
+/* line 323, sass/_nhanvien.scss */
+.page-nhanvien-hoso .block-system h3 {
+  display: none;
+}
+/* line 326, sass/_nhanvien.scss */
+.page-nhanvien-hoso .block-system .required-fields {
+  padding-top: 20px;
+}
+/* line 331, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-mota .group-nang-luc {
+  display: none;
+}
+/* line 336, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc .field-type-number-integer, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc .group-nang-luc + .required-fields {
+  display: none;
+}
+
 /* line 5, sass/_home.scss */
 .content_revenue table thead tr {
   background: #f8f7f7;

@@ -310,3 +310,31 @@
     background: url("../images/print-export-btn.png") no-repeat right 0;
   }
 }
+
+.page-nhanvien-hoso{
+  .block-system{
+    .field-name-field-phong-ban{
+      margin-bottom: 0;
+    }
+    .form-actions.form-wrapper{
+      @include clearfix();
+      border:none !important;
+    }
+    h3{
+      display: none;
+    }
+    .required-fields{
+      padding-top: 20px;
+    }
+  }
+  &.page-nhanvien-hoso-mota{
+    .group-nang-luc{
+      display: none;
+    }
+  }
+  &.page-nhanvien-hoso-nangluc{
+    .field-type-number-integer, .group-nang-luc+.required-fields{
+      display: none;
+    }
+  }
+}

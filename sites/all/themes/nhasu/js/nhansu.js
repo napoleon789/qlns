@@ -34,6 +34,12 @@ jQuery(document).ready(function($) {
     });
 
     $(".view-only #block-system-main input").each(function(){
-
+        $(this).attr("readonly","readonly");
+    });
+    $(".view-only #block-system-main select").each(function(){
+        $(this).attr("readonly","readonly");
+    });
+    $(".view-only #block-system-main input").each(function(){
+        $(this).attr("readonly","readonly");
     });
 });

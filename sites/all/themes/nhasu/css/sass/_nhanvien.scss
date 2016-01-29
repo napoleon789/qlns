@@ -368,3 +368,14 @@
     }
   }
 }
+
+.view-only{
+  &.page-nhanvien{
+    #block-system-main{
+      input, select, textarea{
+        pointer-events:none;
+      }
+    }
+  }
+
+}

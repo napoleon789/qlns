@@ -32,9 +32,40 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
         }
     }
     if($form_id == 'article_node_form') {
-        if(arg(3) =='mota' || arg(3) == null) {
-            $form['field_uid']['#access'] = false;
-            $form['fgm_node_article_form_group_nang_luc']['#access'] = false;
+        if(arg(2) == 'hoso'){
+            if(!isset($form_state['build_info']['files'])){
+                $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+            }
+            $form['field_phong_ban']['#access'] = false;
+            if(arg(3) =='mota' || arg(3) == null) {
+                $form['field_uid']['#access'] = false;
+                $form['fgm_node_article_form_group_nang_luc']['#access'] = false;
+                $form['fgm_node_article_form_group_lotrinh']['#access'] = false;
+                $form['fgm_node_article_form_group_daingo']['#access'] = false;
+                $form['fgm_node_article_form_group_chuyen_mon']['#access'] = false;
+
+            }
+            if(arg(3) =='nangluc') {
+                $form['fgm_node_article_form_group_nang_luc']['#prefix'] = '<div id="fgm_node_article_form_group_nang_luc-add-more-wrapper"><h3>Trình độ cơ bản</h3>';
+                $form['fgm_node_article_form_group_chuyen_mon']['#prefix'] = '<div id="fgm_node_article_form_group_chuyen_mon-add-more-wrapper"><h3>Trình độ chuyên môn</h3>';
+                $form['field_uid']['#access'] = false;
+                $form['fgm_node_article_form_group_daingo']['#access'] = false;
+                $form['fgm_node_article_form_group_lotrinh']['#access'] = false;
+            }
+            if(arg(3) =='daingo') {
+                $form['field_uid']['#access'] = false;
+                $form['fgm_node_article_form_group_nang_luc']['#access'] = false;
+                $form['fgm_node_article_form_group_lotrinh']['#access'] = false;
+                $form['fgm_node_article_form_group_chuyen_mon']['#access'] = false;
+            }
+            if(arg(3) =='congdanh') {
+                $form['field_uid']['#access'] = false;
+                $form['fgm_node_article_form_group_nang_luc']['#access'] = false;
+                $form['fgm_node_article_form_group_chuyen_mon']['#access'] = false;
+                if(!isset($form_state['build_info']['files'])){
+                    $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
+                }
+            }
         }
         $check = nhansu_kpi_check_user();
         if($check == 3) {
@@ -65,30 +96,11 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
             $form['field_uid']['#access'] = false;
             $form['fgm_node_article_form_group_chiteu']['#access'] = false;
             $form['field_phong_ban']['und']['#default_value'][0] = nhansu_list_phong_ban_default();
-        }
-        if(arg(2) == 'kpi') {
-            $form['field_ngaydang']['#access'] = FALSE;
-            if(!isset($form_state['build_info']['files'])){
-                $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
-            }
-            $form['field_is_poster']['#access'] = FALSE;
-            $form['fgm_node_article_form_group_chiteu']['#access'] = true;
-            $chi_tieu = $form['field_chiteu']['und']['#default_value'];
-            $node_text = nhansu_kpi_get_muctieu_text();
-            foreach($chi_tieu as $k => $data) {
-                $form['field_muctieu']['und'][$k]['#access'] = false;
-                if(in_array($data,$node_text)) {
-                    $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_muctieu']['und']['value']['#default_value'] = 'Hoàn thành';
-                    $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_toithieu']['und']['value']['#default_value'] = 'Hoàn thành';
-                    $giatri_tt = $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'];
-                    if($giatri_tt == 1 || $giatri_tt == 'Yes') {
-                        $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'] = 'Yes';
-                    }
-                    else {
-                        $form['fgm_node_article_form_group_chiteu']['fields']['items'][$k]['field_thuc_hien']['und']['value']['#default_value'] = 'No';
-                    }
-                }
-            }
+
+            $form['fgm_node_article_form_group_nang_luc']['#access'] = false;
+            $form['fgm_node_article_form_group_lotrinh']['#access'] = false;
+            $form['fgm_node_article_form_group_daingo']['#access'] = false;
+            $form['fgm_node_article_form_group_chuyen_mon']['#access'] = false;
         }
     }
 }
@@ -102,5 +114,26 @@ function ns_hook_preprocess_html(&$vars) {
     $uid = $user ->uid;
     if($uid == arg(1)) {
         $vars['classes_array'][] = "ex_me";
+    }
+}
+
+
+function ns_hook_form_node_form_alter(&$form, &$form_state) {
+    if(arg(2) == 'hoso') {
+        if(arg(3) == null || arg(3) == 'mota') {
+            field_group_hide_field_groups($form, array('group_soyeu','group_daingo'));
+        }
+        if(arg(3) == 'nangluc') {
+            field_group_hide_field_groups($form, array('group_soyeu','group_mota_cv','group_daingo'));
+        }
+        if(arg(3) == 'daingo') {
+            field_group_hide_field_groups($form, array('group_soyeu','group_mota_cv'));
+        }
+        if(arg(3) == 'congdanh') {
+            field_group_hide_field_groups($form, array('group_soyeu','group_mota_cv','group_daingo'));
+        }
+    }
+    if(arg(2) == 'info') {
+        field_group_hide_field_groups($form, array('group_mota_cv','group_daingo'));
     }
 }

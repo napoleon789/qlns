@@ -1,0 +1,14 @@
+name = Role Weights
+description = "Provides a simple API and Token support to Drupal's role weights."
+package = Administration
+core = 7.x
+
+files[] = role_weights.module
+files[] = role_weights.install
+
+; Information added by Drupal.org packaging script on 2015-11-18
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "role_weights"
+datestamp = "1447865969"
+

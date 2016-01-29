@@ -181,18 +181,9 @@ function nhansu_info() {
     if(arg(2) =='info'){
         drupal_set_title(t('Sơ yếu lý lịch'));
     }
-    if(arg(2) == 'kpi') {
-        drupal_set_title(t('Chỉ tiêu KPI'));
-    }
     return $form;
 }
 
-
-function nhansu_form_node_form_alter(&$form, &$form_state) {
-    if(arg(2) == 'hoso') {
-        field_group_hide_field_groups($form, array('group_soyeu'));
-    }
-}
 
 function nhansu_list_node_term() {
     $tid = arg(2);

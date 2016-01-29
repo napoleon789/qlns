@@ -342,8 +342,13 @@ function nhansu_caidat_daingo() {
     return $form;
 }
 function nhansu_caidat_congdanh() {
+    $uid = arg(1);
+    $id = nhansu_get_nid_from_uid($uid,"article");
+    module_load_include('inc', 'node', 'node.pages');
+    $node = node_load($id);
+    $form = node_page_edit($node);
     drupal_set_title("Lộ trình công danh");
-    return "";
+    return $form;
 }
 function nhansu_caidat_user(){
    drupal_set_title("Danh sách user");

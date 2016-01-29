@@ -163,7 +163,7 @@
                             <li class="item menu1 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/mota">Bảng mô tả công việc</a> </li>
                             <li class="item menu2"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/nangluc">Tiêu chuẩn năng lực</a> </li>
                             <li class="item menu3"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/daingo">Chế độ đãi ngộ</a> </li>
-                            <li class="item menu4"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/condanh">Lộ trình công danh</a> </li>
+                            <li class="item menu4"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/congdanh">Lộ trình công danh</a> </li>
                         </ul>
                         <?php endif; ?>
                         <?php if(arg(3) =='nangluc') :?>
@@ -171,7 +171,7 @@
                                 <li class="item menu1"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/mota">Bảng mô tả công việc</a> </li>
                                 <li class="item menu2 active"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/nangluc">Tiêu chuẩn năng lực</a> </li>
                                 <li class="item menu3"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/daingo">Chế độ đãi ngộ</a> </li>
-                                <li class="item menu4"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/condanh">Lộ trình công danh</a> </li>
+                                <li class="item menu4"><a href="<?php echo $base_url;?>/nhanvien/<?php echo arg(1);?>/hoso/congdanh">Lộ trình công danh</a> </li>
                             </ul>
                         <?php endif; ?>
                     <?php if(arg(3) =='daingo') :?>

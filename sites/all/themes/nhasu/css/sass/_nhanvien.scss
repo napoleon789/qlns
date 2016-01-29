@@ -367,6 +367,23 @@
       border-top:1px solid #ccc !important;
     }
   }
+  &.page-nhanvien-hoso-daingo{
+    #block-system-main{
+      width: 60%;
+      margin: auto;
+    }
+    .block-system .field-type-text, .block-system .field-type-datestamp, .block-system .field-type-text-with-summary{
+      width: 100%;
+      label{
+        display: inline-block;
+        width: 25%;
+      }
+      input{
+        display: inline-block;
+        width: 70%;
+      }
+    }
+  }
 }
 
 .view-only{
@@ -374,6 +391,9 @@
     #block-system-main{
       input, select, textarea{
         pointer-events:none;
+      }
+      .field-group-multiple-add-more-submit{
+        display: none;
       }
     }
   }

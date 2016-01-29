@@ -32,6 +32,10 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
         }
     }
     if($form_id == 'article_node_form') {
+        $role = nhansu_kpi_check_user();
+        if($role == 3) {
+            $form['actions']['#access'] = false;
+        }
         if(arg(2) == 'hoso'){
             if(!isset($form_state['build_info']['files'])){
                 $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");

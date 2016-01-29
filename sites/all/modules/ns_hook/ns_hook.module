@@ -121,7 +121,7 @@ function ns_hook_preprocess_html(&$vars) {
         $vars['classes_array'][] = "ex_me";
     }
     if($role == 3) {
-        $vars['classes_array'][] = "nhanvien";
+        $vars['classes_array'][] = "view-only";
     }
 }
 

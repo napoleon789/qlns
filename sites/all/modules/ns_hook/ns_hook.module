@@ -32,6 +32,10 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
         }
     }
     if($form_id == 'article_node_form') {
+        $role = nhansu_kpi_check_user();
+        if($role == 3) {
+            $form['actions']['#access'] = false;
+        }
         if(arg(2) == 'hoso'){
             if(!isset($form_state['build_info']['files'])){
                 $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
@@ -112,8 +116,12 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
 function ns_hook_preprocess_html(&$vars) {
     global $user;
     $uid = $user ->uid;
+    $role = nhansu_kpi_check_user();
     if($uid == arg(1)) {
         $vars['classes_array'][] = "ex_me";
+    }
+    if($role == 3) {
+        $vars['classes_array'][] = "view-only";
     }
 }
 

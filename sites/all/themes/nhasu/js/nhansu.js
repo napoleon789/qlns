@@ -33,4 +33,8 @@ jQuery(document).ready(function($) {
             $(this).parent().hide();
         }
     });
+
+    $(".view-only #block-system-main input").each(function(){
+
+    });
 });

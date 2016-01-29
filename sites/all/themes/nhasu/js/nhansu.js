@@ -23,7 +23,6 @@ jQuery(document).ready(function($) {
     });
     pathArray = location.href.split( '/' );
     if((pathArray[4]) && pathArray[3] == 'caidat'){
-        console.log(123);
         $("#block-system-main-menu ul li.last").addClass("active-trail active");
         $("#block-system-main-menu ul li.last a").addClass("active-trail active");
     }

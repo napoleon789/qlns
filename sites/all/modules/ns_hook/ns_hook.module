@@ -112,8 +112,12 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
 function ns_hook_preprocess_html(&$vars) {
     global $user;
     $uid = $user ->uid;
+    $role = nhansu_kpi_check_user();
     if($uid == arg(1)) {
         $vars['classes_array'][] = "ex_me";
+    }
+    if($role == 3) {
+        $vars['classes_array'][] = "nhanvien";
     }
 }
 

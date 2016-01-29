@@ -743,7 +743,7 @@ table tr th:first-child, table tr td:first-child {
 }
 
 /* line 375, sass/_nhanvien.scss */
-.view-only.page-nhanvien #block-system-main input, .view-only.page-nhanvien #block-system-main select, .view-only.page-nhanvien #block-system-main textarea {
+.view-only.page-nhanvien-hoso #block-system-main input, .view-only.page-nhanvien-hoso #block-system-main select, .view-only.page-nhanvien-hoso #block-system-main textarea {
   pointer-events: none;
 }
 

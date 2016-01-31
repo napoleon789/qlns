@@ -80,29 +80,32 @@ function nhansu_chart_home_nhanvien() {
 
 function nhansu_char_xanhdovang() {
     $role = nhansu_kpi_check_user();
-    $toi_thieu = 1000;
-    $muc_tieu = 2000;
-    $thuc_hien = 1500;
     if($role !=3) {
         $du_lieu = doanhthu_for_giamdoc();
         $toi_thieu = $du_lieu['toi_thieu'];
         $thuc_hien = $du_lieu['thuc_hien'];
         $muc_tieu = $du_lieu['muc_tieu'];
     }
-
+    if($role ==3) {
+        global $user;
+        $du_lieu = doanhthu_for_giamdoc(null,null,$user->uid);
+        $toi_thieu = $du_lieu['toi_thieu'];
+        $thuc_hien = $du_lieu['thuc_hien'];
+        $muc_tieu = $du_lieu['muc_tieu'];
+    }
     $ouput = '<h2>Cảnh báo mức độ hoàn thành</h2>';
     if($thuc_hien < $toi_thieu) {
       $ouput .= ' <div class="canhbao_left">
                 <ul>
-                    <li class="do den_giaothong dat_chuan" style="background: red;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong" style="background: yellow;width: 300px;height: 40px"></li>
+                    <li class="do den_giaothong dat_chuan" style="background: red;width: 300px;height: 40px"></li>
                     <li class="xanh den_giaothong" style="background: #008000;width: 300px;height: 40px"></li>
                 </ul>
                 </div>
                 <div class="canhbao_right">Doanh thu chưa đạt mức tối thiểu.</div>
       ';
     }
-    elseif($thuc_hien < $muc_tieu && $thuc_hien > $toi_thieu ) {
+    elseif($thuc_hien <= $muc_tieu && $thuc_hien >= $toi_thieu ) {
         $ouput .= '
  <div class="canhbao_left">
                 <ul>
@@ -119,8 +122,9 @@ function nhansu_char_xanhdovang() {
                 <div class="canhbao_left">
                 <ul>
                     <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
+                      <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong " style="background: yellow;width: 300px;height: 40px"></li>
-                    <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
+
                 </ul>
                  </div>
                 <div class="canhbao_right">Doanh thu đã đạt mục tiêu. Thật tuyệt vời</div>
@@ -131,6 +135,23 @@ function nhansu_char_xanhdovang() {
 
 function nhansu_chart_colum_giamdoc() {
     $table = nhansu_chart_data_table();
+    $sum_toi_thieu = 0;
+    $sum_muctieu = 0;
+    $sum_thuc_hien = 0;
+    $sum_hoan_thanh = 0;
+    $count = count($table);
+    foreach($table as $dlieu) {
+        $sum_toi_thieu += $dlieu['toi_thieu'];
+        $sum_muctieu += $dlieu['muc_tieu'];
+        $sum_thuc_hien += $dlieu['thuc_hien'];
+        $sum_hoan_thanh += substr($dlieu['hoanthanh'],0,-1);
+    }
+    $tong['title'] = "Tổng";
+    $tong['toi_thieu'] = $sum_toi_thieu;
+    $tong['muc_tieu'] = $sum_muctieu;
+    $tong['thuc_hien'] = $sum_thuc_hien;
+    $tong['hoanthanh'] = ($sum_hoan_thanh/$count).'%';
+    array_push($table,$tong);
     $table_lef = nhansu_chart_data_table(1);
     $doanh_thu = doanhthu_for_giamdoc();
 
@@ -175,7 +196,7 @@ function nhansu_chart_colum_giamdoc() {
     $output .= '<div id="clear" style="clear: both"></div>';
     if(!empty($table_lef))
     $output .= '<h2>Thống kê chi tiết</h2>';
-    $header_chitiet = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện");
+    $header_chitiet = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện","Hoàn thành");
     if(!empty($table))
     $output .= '<div class="noidung">'.theme('table', array('header' => $header_chitiet,   'rows' => $table )).'</div>';
     if(empty($table_lef)) {
@@ -187,6 +208,7 @@ function nhansu_chart_colum_giamdoc() {
 function nhansu_chart_colum_nhanvien() {
     global $user;
     $table = nhansu_chart_data_table(null,$user->uid);
+
     $table_lef = nhansu_chart_data_table(1,$user->uid);
     $doanh_thu = doanhthu_for_giamdoc(null,null,$user->uid);
     $da_lam = $doanh_thu['thuc_hien'];
@@ -230,7 +252,7 @@ function nhansu_chart_colum_nhanvien() {
     $output .= '<div id="clear" style="clear: both"></div>';
     if(!empty($table_lef))
         $output .= '<h2>Thống kê chi tiết</h2>';
-    $header_chitiet = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện");
+    $header_chitiet = array('KPI','Tối thiểu',"Mục tiêu", "Thực hiện","Hoàn thành");
     if(!empty($table))
         $output .= '<div class="noidung">'.theme('table', array('header' => $header_chitiet,   'rows' => $table )).'</div>';
     if(empty($table_lef)) {
@@ -671,14 +693,15 @@ function nhansu_chart_data_table($left = null,$nhan_vien = null) {
         $row['muc_tieu'] = $data->mtieu;
         $row['thuc_hien'] = $data->thien;
 
-        $rows[] = $row;
+
         $row_left['title'] = nhansu_get_title_from_nid($data->nid);
         $hoan_thanh = ($data->thien - $data->tthieu)/($data->mtieu - $data->tthieu)*100;
         if($hoan_thanh < 0)
             $hoan_thanh = 0;
         else
             $hoan_thanh = round($hoan_thanh);
-
+        $row['hoanthanh'] = $hoan_thanh.'%';
+        $rows[] = $row;
         $row_left['hoanthanh'] = $hoan_thanh.'%';
         $row_lefts[] = $row_left;
     }

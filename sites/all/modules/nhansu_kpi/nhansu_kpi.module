@@ -45,10 +45,27 @@ function nhansu_kpi_kiemsoat() {
 function nhansu_kpi_danhgia() {
     drupal_set_title("Đánh giá KPI");
     $rows = nhansu_chart_data_table();
+    $sum_toi_thieu = 0;
+    $sum_muctieu = 0;
+    $sum_thuc_hien = 0;
+    $sum_hoan_thanh = 0;
+    $count = count($rows);
+    foreach($rows as $dlieu) {
+        $sum_toi_thieu += $dlieu['toi_thieu'];
+        $sum_muctieu += $dlieu['muc_tieu'];
+        $sum_thuc_hien += $dlieu['thuc_hien'];
+        $sum_hoan_thanh += substr($dlieu['hoanthanh'],0,-1);
+    }
+    $tong['title'] = "Tổng";
+    $tong['toi_thieu'] = $sum_toi_thieu;
+    $tong['muc_tieu'] = $sum_muctieu;
+    $tong['thuc_hien'] = $sum_thuc_hien;
+    $tong['hoanthanh'] = ($sum_hoan_thanh/$count).'%';
+    array_push($rows,$tong);
     $output = "";
     $form = drupal_get_form('nhansu_chart_filer_time');
     $output .= '<div class="filter_time">'.drupal_render($form).'</div>';
-    $header = array('KPI',"Trọng số","Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');
+    $header = array('KPI',"Mục tiêu","Tối thiểu","Thực hiện",'Hoàn thành');
     $output .= '<div class="noidung">'.theme('table', array('header' => $header,   'rows' => $rows )).'</div>';
     $output .= '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
     return $output;

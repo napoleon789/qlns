@@ -139,7 +139,7 @@
     </div></div> <!-- /.section, /#featured -->
   <?php endif; ?>
 <?php global $base_url;?>
-
+<?php $role = nhansu_kpi_check_user();?>
   <div id="main-wrapper" class="clearfix"><div id="page-wrapper"><div id="main" class="clearfix">
               <?php $tham = arg(1)?>
               <?php if ($tham == 'kpi' || !isset($tham)):?>

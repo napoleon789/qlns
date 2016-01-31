@@ -5,6 +5,16 @@
  */
 
 function nhansu_user_user_insert(&$edit, $account, $category) {
+    $role = $account ->roles;
+    if(isset($role[6])) {
+        db_query("UPDATE {users} SET created = 1286643600 WHERE uid = :uid", array(":uid" => $account ->uid));
+    }
+    if(isset($role[5])) {
+        db_query("UPDATE {users} SET created = 1286643599 WHERE uid = :uid", array(":uid" => $account ->uid));
+    }
+    if(isset($role[4])) {
+        db_query("UPDATE {users} SET created = 1286643598 WHERE uid = :uid", array(":uid" => $account ->uid));
+    }
     $uid = $account -> uid;
     $node_hoso = new stdClass();
     $node_hoso->type = 'article';
@@ -25,6 +35,7 @@ function nhansu_user_user_insert(&$edit, $account, $category) {
     $node_giao_kpi->title = $account->name;
     $node_giao_kpi->comment = 2;
     $node_giao_kpi ->field_kpi_giao_tu['und'][0]['value'] = 1286643600;
+    $node_giao_kpi ->field_giaokpi_giaotheo['und'][0]['value'] = 2;
     $node_giao_kpi->promote = 1;
     $node_giao_kpi->field_uid['und'][0]['value'] = $uid;
     node_save($node_giao_kpi);
@@ -59,4 +70,8 @@ function nhansu_user_node_presave($node) {
           }
       }
     }
+}
+
+function nhansu_user_user_presave(&$edit, $account, $category) {
+
 }

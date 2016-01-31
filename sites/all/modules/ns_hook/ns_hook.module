@@ -47,7 +47,6 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
                 $form['fgm_node_article_form_group_lotrinh']['#access'] = false;
                 $form['fgm_node_article_form_group_daingo']['#access'] = false;
                 $form['fgm_node_article_form_group_chuyen_mon']['#access'] = false;
-
             }
             if(arg(3) =='nangluc') {
                 $form['fgm_node_article_form_group_nang_luc']['#prefix'] = '<div id="fgm_node_article_form_group_nang_luc-add-more-wrapper"><h3>Trình độ cơ bản</h3>';
@@ -125,7 +124,6 @@ function ns_hook_preprocess_html(&$vars) {
     }
 }
 
-
 function ns_hook_form_node_form_alter(&$form, &$form_state) {
     if(arg(2) == 'hoso') {
         if(arg(3) == null || arg(3) == 'mota') {
@@ -144,4 +142,8 @@ function ns_hook_form_node_form_alter(&$form, &$form_state) {
     if(arg(2) == 'info') {
         field_group_hide_field_groups($form, array('group_mota_cv','group_daingo'));
     }
+}
+
+function ns_hook_views_query_alter(&$view, &$query) {
+   // dpm($query);
 }

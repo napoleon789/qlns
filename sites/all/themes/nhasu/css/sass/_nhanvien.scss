@@ -336,5 +336,66 @@
     .field-type-number-integer, .group-nang-luc+.required-fields{
       display: none;
     }
+    h3{
+      display: block;
+      font-size: 16px;
+      border-bottom: 2px solid #47812c;
+      text-transform: uppercase;
+      padding-bottom: 2px;
+    }
+    table{
+      border:none;
+      th{
+        font-weight: normal;
+      }
+      th,td, tr, thead, tbody{
+        border:none;
+        vertical-align: top;
+      }
+    }
+    #fgm_node_article_form_group_chuyen_mon-add-more-wrapper{
+      table{
+        width: 66.66%;
+      }
+    }
+    .form-actions.form-wrapper{
+      border-top:1px solid #ccc !important;
+    }
   }
+  &.page-nhanvien-hoso-congdanh{
+    .form-actions.form-wrapper{
+      border-top:1px solid #ccc !important;
+    }
+  }
+  &.page-nhanvien-hoso-daingo{
+    #block-system-main{
+      width: 60%;
+      margin: auto;
+    }
+    .block-system .field-type-text, .block-system .field-type-datestamp, .block-system .field-type-text-with-summary{
+      width: 100%;
+      label{
+        display: inline-block;
+        width: 25%;
+      }
+      input{
+        display: inline-block;
+        width: 70%;
+      }
+    }
+  }
+}
+
+.view-only{
+  &.page-nhanvien-hoso{
+    #block-system-main{
+      input, select, textarea{
+        pointer-events:none;
+      }
+      .field-group-multiple-add-more-submit{
+        display: none;
+      }
+    }
+  }
+
 }

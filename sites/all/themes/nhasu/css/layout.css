@@ -708,6 +708,67 @@ table tr th:first-child, table tr td:first-child {
 .page-nhanvien-hoso.page-nhanvien-hoso-nangluc .field-type-number-integer, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc .group-nang-luc + .required-fields {
   display: none;
 }
+/* line 339, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc h3 {
+  display: block;
+  font-size: 16px;
+  border-bottom: 2px solid #47812c;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+}
+/* line 346, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc table {
+  border: none;
+}
+/* line 348, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc table th {
+  font-weight: normal;
+}
+/* line 351, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc table th, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc table td, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc table tr, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc table thead, .page-nhanvien-hoso.page-nhanvien-hoso-nangluc table tbody {
+  border: none;
+  vertical-align: top;
+}
+/* line 357, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc #fgm_node_article_form_group_chuyen_mon-add-more-wrapper table {
+  width: 66.66%;
+}
+/* line 361, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-nangluc .form-actions.form-wrapper {
+  border-top: 1px solid #ccc !important;
+}
+/* line 366, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-congdanh .form-actions.form-wrapper {
+  border-top: 1px solid #ccc !important;
+}
+/* line 371, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-daingo #block-system-main {
+  width: 60%;
+  margin: auto;
+}
+/* line 375, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary {
+  width: 100%;
+}
+/* line 377, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text label, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp label, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary label {
+  display: inline-block;
+  width: 25%;
+}
+/* line 381, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text input, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp input, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary input {
+  display: inline-block;
+  width: 70%;
+}
+
+/* line 392, sass/_nhanvien.scss */
+.view-only.page-nhanvien-hoso #block-system-main input, .view-only.page-nhanvien-hoso #block-system-main select, .view-only.page-nhanvien-hoso #block-system-main textarea {
+  pointer-events: none;
+}
+/* line 395, sass/_nhanvien.scss */
+.view-only.page-nhanvien-hoso #block-system-main .field-group-multiple-add-more-submit {
+  display: none;
+}
 
 /* line 5, sass/_home.scss */
 .content_revenue table thead tr {

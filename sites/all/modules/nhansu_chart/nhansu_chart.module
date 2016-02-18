@@ -182,8 +182,9 @@ function nhansu_chart_colum_giamdoc() {
 
     drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
     $form = drupal_get_form('nhansu_chart_filer_time');
-    $output = '<div class="filter_time">'.drupal_render($form).'</div>';
-    $output .= nhansu_chart_improve_kpi();
+    $output = nhansu_chart_improve_kpi();
+    $output .= '<div class="filter_time">'.drupal_render($form).'</div>';
+
     if(!empty($table_lef))
     $output .= '<div class="content_home1"> <div class="right_1"> <h2>Tỷ lệ hoàn thành chỉ tiêu</h2><div id="chart_div2" style="width:450px;height:300px;float:left"></div></div>';
     if(!empty($table_lef))
@@ -255,8 +256,9 @@ function nhansu_chart_colum_nhanvien() {
 
     drupal_add_js($js, array('scope' => 'footer', 'type' => 'inline'));
     $form = drupal_get_form('nhansu_chart_filer_time');
-    $output = '<div class="filter_time">'.drupal_render($form).'</div>';
-    $output .= nhansu_chart_improve_kpi();
+    $output = nhansu_chart_improve_kpi();
+    $output .= '<div class="filter_time">'.drupal_render($form).'</div>';
+
     if(!empty($table_lef))
         $output .= '<div class="content_home1"> <div class="right_1"> <h2>Tỷ lệ hoàn thành chỉ tiêu</h2><div id="chart_div2" style="width:450px;height:300px;float:left"></div></div>';
     if(!empty($table_lef))

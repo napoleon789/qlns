@@ -53,7 +53,7 @@ textarea {
 }
 
 /* line 70, sass/_theme.scss */
-input[type="submit"], .new_time, #edit-actions a, .xoa_node div a {
+input[type="submit"], .new_time, #edit-actions a, .xoa_node div a, .improve a {
   color: #fff;
   font-size: 11px;
   font-weight: bold;
@@ -72,7 +72,7 @@ input[type="submit"], .new_time, #edit-actions a, .xoa_node div a {
   text-align: center;
 }
 /* line 85, sass/_theme.scss */
-input[type="submit"]:hover, .new_time:hover, #edit-actions a:hover, .xoa_node div a:hover {
+input[type="submit"]:hover, .new_time:hover, #edit-actions a:hover, .xoa_node div a:hover, .improve a:hover {
   background: #59a538;
   color: #fff;
   text-decoration: none;
@@ -1049,6 +1049,26 @@ table tr th:first-child, table tr td:first-child {
 /* line 226, sass/_home.scss */
 .vertical-tabs.clearfix {
   display: none;
+}
+
+/* line 231, sass/_home.scss */
+.page-home .block-nhansu-chart {
+  position: relative;
+}
+/* line 234, sass/_home.scss */
+.page-home .improve {
+  position: absolute;
+  top: 20px;
+  right: 50px;
+}
+/* line 238, sass/_home.scss */
+.page-home .improve a {
+  background-color: #bd3027;
+  min-width: 120px;
+}
+/* line 241, sass/_home.scss */
+.page-home .improve a:hover {
+  background-color: #D74940;
 }
 
 /* line 5, sass/_kpi.scss */

@@ -226,3 +226,21 @@
 .vertical-tabs.clearfix{
   display: none;
 }
+
+.page-home{
+  .block-nhansu-chart{
+    position: relative;
+  }
+  .improve{
+    position: absolute;
+    top:20px;
+    right:50px;
+    a{
+      background-color: #bd3027;
+      min-width: 120px;
+      &:hover{
+        background-color: #D74940;
+      }
+    }
+  }
+}

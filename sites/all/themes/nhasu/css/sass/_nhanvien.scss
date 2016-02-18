@@ -204,6 +204,7 @@
       border-top: 1px solid #ccc;
       padding-top: 15px;
       margin-top: 25px;
+      @include clearfix();
     }
     #fgm_node_article_form_group_chiteu-add-more-wrapper{
       position: relative;

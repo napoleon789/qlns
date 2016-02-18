@@ -138,14 +138,22 @@
       tr{
         td{
           &:first-child{
-            width: 210px;
+            width: 60px;
+          }
+          &:nth-child(3){
+            width: 320px;
           }
           &:nth-child(2){
-            width: 320px;
+            width: 120px;
           }
         }
       }
     }
+  }
+  .sum_ts{
+    float: right;
+    margin-right: 305px;
+    margin-bottom: 20px;
   }
   #block-nhansu-kpi-kpi-user{
     span{
@@ -195,6 +203,10 @@
             pointer-events:inherit;
             background-color: #f2f2f2;
           }
+        }
+
+        td:last-child, th:last-child{
+          display: none;
         }
       }
 

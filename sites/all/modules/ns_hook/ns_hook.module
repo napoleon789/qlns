@@ -8,6 +8,7 @@
 
 function ns_hook_form_alter(&$form, &$form_state, $form_id) {
 
+
     if($form_id == 'kpi_node_form' && arg(1) == 'kpi') {
         global $base_url;
         $form['actions']['delete']['#access'] = FALSE;
@@ -15,6 +16,7 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
         $form['actions']['submit']["#suffix"] = $delete;
     }
     if($form_id == "giao_kpi_node_form") {
+        $form['fgm_node_giao_kpi_form_group_giaokpi']['add-more']["#suffix"] = "<div class='sum_ts'>xinchao</div>";
         if(arg(2) == 'kpi') {
             global $user;
             if($user -> uid == arg(1)) {

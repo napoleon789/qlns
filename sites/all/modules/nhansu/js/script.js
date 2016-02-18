@@ -1,12 +1,13 @@
 (function ($) {
     Drupal.behaviors.myModule = {
         attach: function (context, settings) {
+            var sum_trongso = 0;
             $("#fgm-node-giao-kpi-form-group-giaokpi-values tbody tr").each(function() {
                 var getUrl = window.location;
                 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
                 var id = $(this).attr("class");
                 var i = id.charAt(10);
-
+                var chi_tieucoban = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").find("option:selected");
                 var don_vi = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-donvi-und-value");
                 var trong_so = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-trong-und-value");
                 var toi_thieu = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-toi-und-value");
@@ -14,9 +15,48 @@
                 var thuc_hien =  $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-thuchien-und-value");
                 var hoan_thanh = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-hoanthanh-und-value");
 
+
+                //dien text vao the div
+                console.log(chi_tieucoban);
+                var text = chi_tieucoban.text();
+                $(".ex_me .form-item-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").html("<textarea cols='60' rows ='3'>"+text+"</textarea>")
+
+                //dien số thứ tự tự động
+                $(this).find(".form-item-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-thutu-und-value input").val(parseInt(i)+1);
+
+                //tinh tong trong so
+                var sum_tt = trong_so.val();
+                if(sum_tt == undefined || sum_tt == '') {
+
+                }
+                else {
+                    sum_tt = sum_tt.substr(0,2);
+                    sum_trongso = sum_trongso + parseInt(sum_tt);
+                }
+                $(trong_so).focus(function(){
+
+                }).focusout(function() {
+                        sum_trongso = 0;
+                        $("#fgm-node-giao-kpi-form-group-giaokpi-values tbody tr").each(function() {
+                            var id = $(this).attr("class");
+                            var i = id.charAt(10);
+                            var trong_so = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-trong-und-value");
+                            var sum_tt = trong_so.val();
+                            if(sum_tt == undefined || sum_tt == '') {
+
+                            }
+                            else {
+                                sum_tt = sum_tt.substr(0,2);
+                                sum_trongso = sum_trongso + parseInt(sum_tt);
+                            }
+                        });
+                        $(".sum_ts").html(sum_trongso + "%");
+                    });
+
+
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
-                    var url = baseUrl+'/kpi/'+nid;
+                    var url = 'http://localhost/nhansu'+'/kpi/'+nid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -33,7 +73,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-nhom-und").change(function() {
                     var tid = $(this).val();
-                    var url = baseUrl+'/api/term/'+tid;
+                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -85,9 +125,10 @@
                         }
                     });
             });
-
+        $(".sum_ts").html(sum_trongso + "%");
         },
         detach: function (context, settings) {
+            var sum_trongso = 0;
             $("#fgm-node-giao-kpi-form-group-giaokpi-values tr").each(function() {
                 var getUrl = window.location;
                 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
@@ -101,9 +142,22 @@
                 var thuc_hien =  $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-thuchien-und-value");
                 var hoan_thanh = $("#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-hoanthanh-und-value");
 
+                //tinh tong trong so
+                var sum_tt = trong_so.val();
+
+                if(sum_tt == undefined || sum_tt == '') {
+
+                }
+                else {
+                    sum_tt = sum_tt.substr(0,2);
+                    sum_trongso = sum_trongso + parseInt(sum_tt);
+
+                }
+
+
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
-                    var url = baseUrl+'/kpi/'+nid;
+                    var url = 'http://localhost/nhansu'+'/kpi/'+nid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -119,7 +173,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-nhom-und").change(function() {
                     var tid = $(this).val();
-                    var url = baseUrl+'/api/term/'+tid;
+                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -172,6 +226,8 @@
                         }
                     });
             });
+            console.log(sum_trongso);
+            $(".sum_ts").text(sum_trongso);
         }
     };
 })(jQuery);

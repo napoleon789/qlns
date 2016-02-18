@@ -1,6 +1,7 @@
 (function ($) {
 Drupal.behaviors.myModule = {
     attach: function (context, settings) {
+        console.log(1234);
         $("#fgm-node-article-form-group-chiteu-values tbody tr").each(function() {
             var getUrl = window.location;
             var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
@@ -13,6 +14,10 @@ Drupal.behaviors.myModule = {
             var muc_tieu = $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-muctieu-und-value");
             var thuc_hien =  $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-thuc-hien-und-value");
             var hoan_thanh = $("#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-hoan-thanh-und-value");
+
+            //dien số thứ tự tự động
+
+            $(this).find(".form-item-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-thutu-und-value input").val(i);
 
             $(this).find("td select#edit-fgm-node-article-form-group-chiteu-fields-items-"+i+"-field-chiteu-und").change(function() {
                 var nid = $(this).val();

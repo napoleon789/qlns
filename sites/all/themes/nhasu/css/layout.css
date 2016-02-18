@@ -1508,3 +1508,8 @@ table tr th:first-child, table tr td:first-child {
 .page-user.not-logged-in #messages {
   display: none;
 }
+@media print{
+    #header {display: none;}
+    .menu_student {display: none;}
+    .filter_time {border: none;}
+}

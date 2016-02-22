@@ -260,3 +260,9 @@ table{
     padding-top: 45px;
   }
 }
+
+@media print {
+  #header, .menu_student, .sub_menu_student, .page-nhanvien-hoso #edit-actions, .page-nhanvien-hoso .grippie, .filter_time input[type="submit"]{
+    display: none;
+  }
+}

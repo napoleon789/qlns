@@ -271,6 +271,12 @@ table tr th:first-child, table tr td:first-child {
   padding-top: 45px;
 }
 
+@media print {
+  /* line 265, sass/_theme.scss */
+  #header, .menu_student, .sub_menu_student, .page-nhanvien-hoso #edit-actions, .page-nhanvien-hoso .grippie, .filter_time input[type="submit"] {
+    display: none;
+  }
+}
 /* line 1, sass/_header.scss */
 #header {
   background: #fff;
@@ -753,26 +759,30 @@ table tr th:first-child, table tr td:first-child {
   width: 60%;
   margin: auto;
 }
-/* line 376, sass/_nhanvien.scss */
+/* line 375, sass/_nhanvien.scss */
+.page-nhanvien-hoso.page-nhanvien-hoso-daingo #block-system-main #edit-actions {
+  text-align: center;
+}
+/* line 380, sass/_nhanvien.scss */
 .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary {
   width: 100%;
 }
-/* line 378, sass/_nhanvien.scss */
+/* line 382, sass/_nhanvien.scss */
 .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text label, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp label, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary label {
   display: inline-block;
   width: 25%;
 }
-/* line 382, sass/_nhanvien.scss */
+/* line 386, sass/_nhanvien.scss */
 .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text input, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-datestamp input, .page-nhanvien-hoso.page-nhanvien-hoso-daingo .block-system .field-type-text-with-summary input {
   display: inline-block;
   width: 70%;
 }
 
-/* line 393, sass/_nhanvien.scss */
+/* line 397, sass/_nhanvien.scss */
 .view-only.page-nhanvien-hoso #block-system-main input, .view-only.page-nhanvien-hoso #block-system-main select, .view-only.page-nhanvien-hoso #block-system-main textarea {
   pointer-events: none;
 }
-/* line 396, sass/_nhanvien.scss */
+/* line 400, sass/_nhanvien.scss */
 .view-only.page-nhanvien-hoso #block-system-main .field-group-multiple-add-more-submit {
   display: none;
 }

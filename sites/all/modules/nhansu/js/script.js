@@ -56,7 +56,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
-                    var url = 'http://localhost/nhansu'+'/kpi/'+nid;
+                    var url = 'http://qlns.drupalvietnam.com'+'/kpi/'+nid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -73,7 +73,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-nhom-und").change(function() {
                     var tid = $(this).val();
-                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                    var url = 'http://qlns.drupalvietnam.com'+'/api/term/'+tid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -125,7 +125,7 @@
                         }
                     });
             });
-        $(".sum_ts").html(sum_trongso + "%");
+            $(".sum_ts").html(sum_trongso + "%");
         },
         detach: function (context, settings) {
             var sum_trongso = 0;
@@ -157,7 +157,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-chi-und").change(function() {
                     var nid = $(this).val();
-                    var url = 'http://localhost/nhansu'+'/kpi/'+nid;
+                    var url = 'http://qlns.drupalvietnam.com'+'/kpi/'+nid;
                     $.ajax({
                         url : url,
                         type: "GET",
@@ -173,7 +173,7 @@
 
                 $(this).find("td select#edit-fgm-node-giao-kpi-form-group-giaokpi-fields-items-"+i+"-field-giaokpi-nhom-und").change(function() {
                     var tid = $(this).val();
-                    var url = 'http://localhost/nhansu'+'/api/term/'+tid;
+                    var url = 'http://qlns.drupalvietnam.com'+'/api/term/'+tid;
                     $.ajax({
                         url : url,
                         type: "GET",

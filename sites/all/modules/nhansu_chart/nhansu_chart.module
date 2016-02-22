@@ -122,7 +122,7 @@ function nhansu_char_xanhdovang() {
                 <div class="canhbao_left">
                 <ul>
                     <li class="do den_giaothong" style="background: red;width: 300px;height: 40px"></li>
-                      <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
+                    <li class="xanh den_giaothong dat_chuan" style="background: #008000;width: 300px;height: 40px"></li>
                     <li class="vang den_giaothong " style="background: yellow;width: 300px;height: 40px"></li>
 
                 </ul>

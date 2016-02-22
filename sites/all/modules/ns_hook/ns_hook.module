@@ -71,6 +71,7 @@ function ns_hook_form_alter(&$form, &$form_state, $form_id) {
                     $form_state['build_info']['files'] = array("menu" => "modules/node/node.pages.inc");
                 }
             }
+          $form['actions']["#suffix"] = '<div class="print_ex"><a onclick="chart_kpi_print(123)" href="#">Print</a> </div>';
         }
         $check = nhansu_kpi_check_user();
         if($check == 3) {

@@ -174,11 +174,10 @@
   }
   #fgm-node-giao-kpi-form-group-giaokpi-values{
     tr{
-      td:nth-child(7), td:nth-child(8){
-        display: none;
-      }
-      th:nth-child(7), th:nth-child(8){
-        display: none;
+      td, th{
+        &:nth-child(8),&:last-child{
+          display: none;
+        }
       }
     }
   }
@@ -192,6 +191,11 @@
         @include remove-arrow();
       }
       tr{
+        td,th{
+          &:nth-child(8), &:last-child{
+            display: table-cell;
+          }
+        }
         td:nth-child(7), td:nth-child(8){
           display: table-cell;
         }
@@ -206,7 +210,7 @@
         }
 
         td:last-child, th:last-child{
-          display: none;
+//          display: none;
         }
       }
 

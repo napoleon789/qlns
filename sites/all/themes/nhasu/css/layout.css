@@ -1255,20 +1255,16 @@ table tr th:first-child, table tr td:first-child {
 .page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:first-child, .page-nhanvien-kpi #block-nhansu-kpi-kpi-user .time span:nth-child(2) {
   margin-left: 0;
 }
-/* line 177, sass/_kpi.scss */
-.page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(7), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8) {
+/* line 178, sass/_kpi.scss */
+.page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr td:last-child, .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:last-child {
   display: none;
 }
-/* line 180, sass/_kpi.scss */
-.page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(7), .page-nhanvien-kpi #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8) {
-  display: none;
-}
-/* line 187, sass/_kpi.scss */
+/* line 186, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values input, .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values select {
   pointer-events: none;
   background-color: transparent;
 }
-/* line 191, sass/_kpi.scss */
+/* line 190, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values select {
   -o-appearance: none;
   -ms-appearance: none;
@@ -1283,39 +1279,39 @@ table tr th:first-child, table tr td:first-child {
   display: none;
 }
 /* line 195, sass/_kpi.scss */
+.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:last-child, .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:last-child {
+  display: table-cell;
+}
+/* line 199, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(7), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(8) {
   display: table-cell;
 }
-/* line 198, sass/_kpi.scss */
+/* line 202, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(7), .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:nth-child(8) {
   display: table-cell;
 }
-/* line 202, sass/_kpi.scss */
+/* line 206, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:nth-child(7) input {
   pointer-events: inherit;
   background-color: #f2f2f2;
 }
-/* line 208, sass/_kpi.scss */
-.page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr td:last-child, .page-nhanvien-kpi.ex_me #fgm-node-giao-kpi-form-group-giaokpi-values tr th:last-child {
-  display: none;
-}
-/* line 215, sass/_kpi.scss */
+/* line 219, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me #fgm_node_giao_kpi_form_group_giaokpi-add-more-wrapper .field-group-multiple-add-more-submit {
   display: none;
 }
-/* line 219, sass/_kpi.scss */
+/* line 223, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me .field-name-field-giaokpi-giaotheo, .page-nhanvien-kpi.ex_me .field-name-field-kpi-giao-tu, .page-nhanvien-kpi.ex_me .field-name-field-giao-kpi-den {
   pointer-events: none;
 }
-/* line 226, sass/_kpi.scss */
+/* line 230, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me .field-name-field-giaokpi-giaotheo .form-radios input[checked="checked"] {
   display: inline-block;
 }
-/* line 228, sass/_kpi.scss */
+/* line 232, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me .field-name-field-giaokpi-giaotheo .form-radios input[checked="checked"] + label {
   display: inline-block;
 }
-/* line 234, sass/_kpi.scss */
+/* line 238, sass/_kpi.scss */
 .page-nhanvien-kpi.ex_me .field-name-field-kpi-giao-tu input, .page-nhanvien-kpi.ex_me .field-name-field-giao-kpi-den input {
   background-color: transparent;
 }

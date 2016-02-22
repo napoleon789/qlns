@@ -152,8 +152,14 @@
   }
   .sum_ts{
     float: right;
-    margin-right: 305px;
+    margin-right: 315px;
     margin-bottom: 20px;
+    font-weight: bold;
+  }
+  &.ex_me{
+    .sum_ts{
+      margin-right: 360px;
+    }
   }
   #block-nhansu-kpi-kpi-user{
     span{

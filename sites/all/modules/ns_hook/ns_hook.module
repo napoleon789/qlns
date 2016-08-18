@@ -7,8 +7,6 @@
  */
 
 function ns_hook_form_alter(&$form, &$form_state, $form_id) {
-
-
     if($form_id == 'kpi_node_form' && arg(1) == 'kpi') {
         global $base_url;
         $form['actions']['delete']['#access'] = FALSE;
